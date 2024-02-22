@@ -29,8 +29,11 @@ public class MemberController {
 
     @PostMapping("/member/join")
     public String memberPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes){
+
+        memberService.join(memberJoinDTO);
+
         redirectAttributes.addFlashAttribute("result", "success");
 
-        return "redirect:/member/login";
+        return "redirect:/";
     }
 }
