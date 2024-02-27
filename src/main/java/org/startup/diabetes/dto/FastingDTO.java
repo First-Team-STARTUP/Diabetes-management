@@ -4,6 +4,7 @@ import lombok.*;
 
 // DTO(Data Transfer Object), VO, Bean
 // Entity
+@Builder
 @Getter
 @Setter
 @ToString //필드값
@@ -15,5 +16,4 @@ public class FastingDTO {
     // setter 메서드로 DTO에 담아줌
     private Long emptyId;
     private int emptyData;
-    private String datetime;
 }
