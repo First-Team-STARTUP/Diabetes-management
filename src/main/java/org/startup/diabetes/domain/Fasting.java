@@ -18,10 +18,10 @@ public class Fasting extends BaseEntity {
 
     @Id //pk지정 필수
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
-    private Long emptyId;
+    private Long bno;
 
     @Column(length = 20, nullable = false) //크기 20, not null
-    private int emptyData;
+    private Integer emptyData;
 
     public void change(int emptyData){
         this.emptyData = emptyData;

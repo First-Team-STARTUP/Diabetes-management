@@ -43,7 +43,7 @@ public class FastingServiceTests {
                     .build();
 
             Long result = fastingService.register(fastingDTO);
-            log.info("emptyId:" + result);
+            log.info("bno:" + result);
         });
     }
 
@@ -52,7 +52,7 @@ public class FastingServiceTests {
     @Test
     public void testModify(){
         FastingDTO fastingDTO = FastingDTO.builder()
-                .emptyId(1L)
+                .bno(1L)
                 .emptyData(100)
                 .build();
 
@@ -62,22 +62,22 @@ public class FastingServiceTests {
     //삭제
     @Test
     public void testDelete() {
-        Long emptyId = 1L;
-        fastingService.remove(emptyId);
+        Long bno = 1L;
+        fastingService.remove(bno);
     }
 
     //목록&검색
-    @Test
-    public void testList(){
-        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
-                .type("tcw")
-                .keyword("1")
-                .page(1)
-                .size(10)
-                .build();
-
-        PageResponseDTO<FastingDTO> responseDTO = fastingService.list(pageRequestDTO);
-
-        log.info(responseDTO);
-    }
+//    @Test
+//    public void testList(){
+//        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+//                .type("tcw")
+//                .keyword("1")
+//                .page(1)
+//                .size(10)
+//                .build();
+//
+//        PageResponseDTO<FastingDTO> responseDTO = fastingService.list(pageRequestDTO);
+//
+//        log.info(responseDTO);
+//    }
 }

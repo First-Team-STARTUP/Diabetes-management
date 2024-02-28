@@ -1,6 +1,11 @@
 package org.startup.diabetes.dto;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 // DTO(Data Transfer Object), VO, Bean
 // Entity
@@ -14,6 +19,12 @@ public class FastingDTO {
 
     // html name, 필드값 동일하다면
     // setter 메서드로 DTO에 담아줌
-    private Long emptyId;
-    private int emptyData;
+    private Long bno;
+
+    @NotNull
+    //@Size(min =3, max =100)
+    private Integer emptyData;
+
+    //private LocalDateTime regDate;
+    //private LocalDateTime modDate;
 }

@@ -27,6 +27,7 @@ public class PageRequestDTO {
 
     private String keyword;
 
+    // 검색조건들 type 문자열 배열 반환
     public String[] getTypes(){
         if(type == null || type.isEmpty()){
             return null;
@@ -34,6 +35,7 @@ public class PageRequestDTO {
         return type.split("");
     }
 
+    //페이징 처리
     public Pageable getPageable(String...props){
         return PageRequest.of(this.page -1, this.size, Sort.by(props). descending());
     }

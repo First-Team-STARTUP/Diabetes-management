@@ -1,18 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{layout/basic.html}">
 
 <div layout:fragment="content">
     <h1>공복 혈당</h1>
     <div>
-    <tbody>
-        <tr th:each="dto:${responseDTO.dtoList}" >
-            <th scope="row">[[${dto.emptyId}]]</th>
-            <td>[[${dto.emptyData}]]</td>
-            <td>[[${dto.regDate}]]</td>
-        </tr>
-    </tbody>
+
     </div>
 </div>
 
