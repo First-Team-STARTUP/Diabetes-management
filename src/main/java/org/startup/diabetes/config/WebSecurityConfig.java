@@ -9,15 +9,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-
-
-
 
     @Bean
     public WebSecurityCustomizer configure(){
@@ -30,13 +26,15 @@ public class WebSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeRequests(authorize ->
                 authorize
-                        .requestMatchers("/", "/member/join").permitAll()
+                        .requestMatchers("/", "member/login", "/member/join").permitAll()
                         .anyRequest().authenticated()
         );
         http.formLogin(formLogin ->
                 formLogin
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/")
+                        .loginPage("/member/login")
+                        .usernameParameter("userid")
+                        .passwordParameter("pw")
+                        .permitAll()
         );
         http.logout(logout ->
                 logout
@@ -51,14 +49,10 @@ public class WebSecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
 
         return  authenticationConfiguration.getAuthenticationManager();
-
-
-
-
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

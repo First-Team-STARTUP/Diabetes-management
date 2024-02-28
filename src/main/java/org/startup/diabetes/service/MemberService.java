@@ -8,6 +8,6 @@ public interface MemberService {
 
     static class MidExistException extends Exception {}
 
-    public void join(MemberJoinDTO dto) throws MidExistException;
+    public String join(MemberJoinDTO dto) throws MidExistException;
 
 }
