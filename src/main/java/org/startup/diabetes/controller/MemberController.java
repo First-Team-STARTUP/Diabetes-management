@@ -22,15 +22,36 @@ public class MemberController {
         return "main";
     }
 
+
+    @GetMapping("/member/login")
+    public void loginGet(String errorCode, String logout){
+
+        log.info("login get.....");
+        log.info("logout: " + logout);
+
+        if(logout != null){
+            log.info("user logout........");
+        }
+    }
+
     @GetMapping("/member/join")
     public void memberGET(){
-        log.info("joinget");
+        log.info("join get---------------");
     }
 
     @PostMapping("/member/join")
     public String memberPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes){
 
-        memberService.join(memberJoinDTO);
+        log.info("join Post~~~~");
+        log.info("login member : " + memberJoinDTO);
+
+        try{
+            memberService.join(memberJoinDTO);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "id");
+            return "redirect:/member/join";
+        }
+
 
         redirectAttributes.addFlashAttribute("result", "success");
 

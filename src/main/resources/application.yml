@@ -17,9 +17,13 @@ spring:
   # Mysql ??? ?? ???
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ohgiraffers_db?serverTimezone=Asia/Seoul
-    username: ohgiraffers
-    password: ohgiraffers
+    url: jdbc:mysql://localhost:3306/startup_db?serverTimezone=Asia/Seoul
+    username: starter
+    password: starter
+  security:
+    user:
+      name: user01
+      password: 1111
 
   # JPA/Hibernate Configuration
   # ????????
@@ -36,3 +40,9 @@ spring:
         dialect: org.hibernate.dialect.MySQL57Dialect
         # ??????? ????? SQL?? ??? ???? ??
         show_sql: true
+
+logging:
+  level:
+    root: info
+    org.springframework.web: debug
+    org.hibernate: trace
