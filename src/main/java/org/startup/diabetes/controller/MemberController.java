@@ -2,7 +2,6 @@ package org.startup.diabetes.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,28 +9,21 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.startup.diabetes.dto.MemberJoinDTO;
 import org.startup.diabetes.service.MemberService;
 
-import java.security.Security;
-
 @Controller
 @RequiredArgsConstructor
 @Log4j2
+@RequestMapping("/member")
 public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("/")
-    public String main(){
 
-        return "main";
-    }
-
-
-
-    @GetMapping("/member/login")
+    @GetMapping("/login")
     public void loginGet(String errorCode, String logout){
 
         log.info("login get.....");
@@ -43,19 +35,19 @@ public class MemberController {
 
     }
 
-    @GetMapping("/member/logout")
+    @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request,response, SecurityContextHolder.getContext().getAuthentication());
-        return "redirect:/member/login";
+        return "redirect:/login";
     }
 
 
-    @GetMapping("/member/join")
+    @GetMapping("/join")
     public void memberGET(){
         log.info("join get---------------");
     }
 
-    @PostMapping("/member/join")
+    @PostMapping("/join")
     public String memberPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes){
 
         log.info("join Post~~~~");
@@ -65,12 +57,12 @@ public class MemberController {
             memberService.join(memberJoinDTO);
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "id");
-            return "redirect:/member/join";
+            return "redirect:/join";
         }
 
 
         redirectAttributes.addFlashAttribute("result", "success");
 
-        return "redirect:/member/login";
+        return "redirect:/login";
     }
 }
