@@ -27,7 +27,11 @@ public class MemberController {
     public void loginGet(String errorCode, String logout){
 
         log.info("login get.....");
-        log.info("logout: " + logout);
+//        log.info("logout: " + logout);
+
+        if (errorCode != null && !errorCode.isEmpty()){
+            log.info("login error : " + errorCode);
+        }
 
         if(logout != null){
             log.info("user logout........");
@@ -38,7 +42,7 @@ public class MemberController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request,response, SecurityContextHolder.getContext().getAuthentication());
-        return "redirect:/login";
+        return "redirect:/";
     }
 
 

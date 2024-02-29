@@ -10,7 +10,7 @@ import org.startup.diabetes.repository.MemberRepository;
 @RequiredArgsConstructor
 public class UserDetailService implements UserDetailsService {
 
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {

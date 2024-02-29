@@ -54,21 +54,21 @@ public class WebSecurityConfig {
                 .build();
     }
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-
-        return  authenticationConfiguration.getAuthenticationManager();
-    }
-
 //    @Bean
-//    public DaoAuthenticationProvider daoAuthenticationProvider() throws Exception{
+//    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
 //
-//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-//        daoAuthenticationProvider.setUserDetailsService(userDetailService);
-//        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-//
-//        return daoAuthenticationProvider;
+//        return  authenticationConfiguration.getAuthenticationManager();
 //    }
+
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider() throws Exception{
+
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(userDetailService);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+
+        return daoAuthenticationProvider;
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
