@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberJoinDTO {
-    private String nickname;
+    private String userid;
 
     private String pw;
 
