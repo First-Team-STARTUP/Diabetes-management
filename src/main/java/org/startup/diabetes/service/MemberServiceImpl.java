@@ -7,15 +7,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.startup.diabetes.domain.Member;
 import org.startup.diabetes.dto.MemberJoinDTO;
 import org.startup.diabetes.repository.MemberRepository;
 
-import javax.swing.text.html.Option;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @Log4j2
