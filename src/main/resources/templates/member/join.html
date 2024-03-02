@@ -38,10 +38,23 @@
             <input type="text" id="weight" name="weight" placeholder="몸무게를 입력하세요.">kg<br>
         </div>
         <div class="form_group">
-            <button type="submit">회원가입</button>
+            <button type="submit" class="joinButton">회원가입</button>
         </div>
     </form>
 </div>
+<script>
+   function blank(a){
+      return  document.getElementById(a).value;
+   }
+    document.querySelector('.joinButton').addEventListener('click',function(e){
+        if(blank('userid') == '' || blank('pw') == '' ||blank('name') == '' ||
+            blank('age') == '' ||blank('gender') == '' ||blank('tall') == '' ||
+            blank('weight') == '' ){
+            alert('빈칸을 입력해주세요');
+            e.preventDefault();
+        }
+    })
 
+</script>
 </body>
 </html>
