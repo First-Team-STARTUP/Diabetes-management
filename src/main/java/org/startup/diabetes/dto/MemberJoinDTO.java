@@ -19,13 +19,18 @@ public class MemberJoinDTO {
     @Size(min = 4, max = 10, message = "비밀번호는 4자 이상 10자 이하로 입력해주세요.")
     private String pw;
 
+    @NotBlank(message = "이름을 입력해주세요.")
     private String name;
 
+    @NotBlank(message = "나이를 입력해주세요.")
     private int age;
 
+    @NotBlank(message = "성별을 입력해주세요.")
     private String gender;
 
+    @NotBlank(message = "키를 입력해주세요.")
     private int tall;
 
+    @NotBlank(message = "몸무게를 입력해주세요.")
     private int weight;
 }

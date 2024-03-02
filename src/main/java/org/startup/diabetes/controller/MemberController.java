@@ -2,12 +2,16 @@ package org.startup.diabetes.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.startup.diabetes.dto.MemberJoinDTO;
 import org.startup.diabetes.service.MemberService;
+
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -54,16 +60,18 @@ public class MemberController {
     }
 
     @PostMapping("/join")
-    public String memberPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes) {
+    public String memberPOST( MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes) {
 
         log.info("join Post~~~~");
         log.info("login member : " + memberJoinDTO);
+
+        memberService.checkUseridDuplicate(memberJoinDTO.getUserid());
 
         try {
             memberService.join(memberJoinDTO);
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "id");
-            return "redirect:/join";
+            return "redirect:/member/join";
         }
 
 
@@ -73,9 +81,9 @@ public class MemberController {
     }
 
 
-    @GetMapping("/user-id/{userid}/exist")
-    public ResponseEntity<Boolean> checkUseridDuplicate(@PathVariable String userid) {
-
-        return ResponseEntity.ok(memberService.checkUseridDuplicate(userid));
-    }
+//    @GetMapping("/user-id/{userid}/exist")
+//    public ResponseEntity<Boolean> checkUseridDuplicate(@PathVariable String userid) {
+//
+//        return ResponseEntity.ok(memberService.checkUseridDuplicate());
+//    }
 }

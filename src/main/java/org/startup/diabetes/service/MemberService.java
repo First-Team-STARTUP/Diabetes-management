@@ -1,9 +1,11 @@
 package org.startup.diabetes.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
 import org.startup.diabetes.dto.MemberJoinDTO;
 
-@Service
+import java.util.Map;
+
 public interface MemberService {
 
 
@@ -11,6 +13,10 @@ public interface MemberService {
 
     public String join(MemberJoinDTO dto) throws MidExistException;
 
-    public Boolean checkUseridDuplicate(String userid);
+    public boolean checkUseridDuplicate(String userid);
+
+
+
+//    public Map<String, String> validateHandling(Errors errors);
 
 }

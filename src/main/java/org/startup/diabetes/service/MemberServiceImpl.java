@@ -7,9 +7,16 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.startup.diabetes.domain.Member;
 import org.startup.diabetes.dto.MemberJoinDTO;
 import org.startup.diabetes.repository.MemberRepository;
+
+import javax.swing.text.html.Option;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -18,6 +25,8 @@ import org.startup.diabetes.repository.MemberRepository;
 @Transactional
 public class MemberServiceImpl implements MemberService {
 
+
+
     private final MemberRepository memberRepository;
 
     private final ModelMapper modelMapper;
@@ -25,12 +34,18 @@ public class MemberServiceImpl implements MemberService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public String join(MemberJoinDTO memberJoinDTO) throws MidExistException {
+    public String join(MemberJoinDTO dto) throws MidExistException {
 
-        Member member = modelMapper.map(memberJoinDTO, Member.class);
+        String userid = dto.getUserid();
+
+        if(checkUseridDuplicate(userid)){
+            throw new MidExistException();
+        }
+
+        Member member = modelMapper.map(dto, Member.class);
 
         // 비밀번호 암호화
-        member.setPw(passwordEncoder.encode(memberJoinDTO.getPw()));
+        member.setPw(passwordEncoder.encode(dto.getPw()));
         // Member 엔티티 저장
         return memberRepository.save(member).getUserid();
 
@@ -46,7 +61,15 @@ public class MemberServiceImpl implements MemberService {
 //        memberRepository.save(member);
     }
 
-    public Boolean checkUseridDuplicate(String userid){
-        return memberRepository.existsById(userid);
+
+    @Override
+    public boolean checkUseridDuplicate(String userid) {
+        Optional<Member> existMember = memberRepository.findByUserid(userid);
+
+        return existMember.isPresent();
     }
+
+
+
+
 }
