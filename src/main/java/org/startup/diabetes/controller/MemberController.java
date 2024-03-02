@@ -24,16 +24,16 @@ public class MemberController {
 
 
     @GetMapping("/login")
-    public void loginGet(String errorCode, String logout){
+    public void loginGet(String errorCode, String logout) {
 
         log.info("login get.....");
 //        log.info("logout: " + logout);
 
-        if (errorCode != null && !errorCode.isEmpty()){
+        if (errorCode != null && !errorCode.isEmpty()) {
             log.info("login error : " + errorCode);
         }
 
-        if(logout != null){
+        if (logout != null) {
             log.info("user logout........");
         }
 
@@ -41,32 +41,44 @@ public class MemberController {
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
-        new SecurityContextLogoutHandler().logout(request,response, SecurityContextHolder.getContext().getAuthentication());
+        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/";
     }
 
 
     @GetMapping("/join")
-    public void memberGET(){
+    public void memberGET() {
         log.info("join get---------------");
     }
 
     @PostMapping("/join")
-    public String memberPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes){
+    public String memberPOST( MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes) {
 
         log.info("join Post~~~~");
         log.info("login member : " + memberJoinDTO);
 
-        try{
+        memberService.checkUseridDuplicate(memberJoinDTO.getUserid());
+
+        try {
             memberService.join(memberJoinDTO);
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "id");
-            return "redirect:/join";
+
+            
+            //"<script>alert('아이디 중복입니다')</script>"
+            return "redirect:/member/join";
         }
 
 
         redirectAttributes.addFlashAttribute("result", "success");
 
-        return "redirect:/login";
+        return "redirect:/";
     }
+
+
+//    @GetMapping("/user-id/{userid}/exist")
+//    public ResponseEntity<Boolean> checkUseridDuplicate(@PathVariable String userid) {
+//
+//        return ResponseEntity.ok(memberService.checkUseridDuplicate());
+//    }
 }

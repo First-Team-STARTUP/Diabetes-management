@@ -11,12 +11,16 @@ import org.startup.diabetes.domain.Member;
 import org.startup.diabetes.dto.MemberJoinDTO;
 import org.startup.diabetes.repository.MemberRepository;
 
+import java.util.Optional;
+
 @Log4j2
 @Service
 @RequiredArgsConstructor
 @Builder
 @Transactional
 public class MemberServiceImpl implements MemberService {
+
+
 
     private final MemberRepository memberRepository;
 
@@ -25,16 +29,20 @@ public class MemberServiceImpl implements MemberService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public String join(MemberJoinDTO memberJoinDTO) throws MidExistException {
+    public String join(MemberJoinDTO dto) throws MidExistException {
 
-        Member member = modelMapper.map(memberJoinDTO, Member.class);
+        String userid = dto.getUserid();
+
+        if(checkUseridDuplicate(userid)){
+            throw new MidExistException();
+        }
+
+        Member member = modelMapper.map(dto, Member.class);
 
         // 비밀번호 암호화
-        member.setPw(passwordEncoder.encode(memberJoinDTO.getPw()));
+        member.setPw(passwordEncoder.encode(dto.getPw()));
         // Member 엔티티 저장
         return memberRepository.save(member).getUserid();
-
-
 
 
 //
@@ -47,4 +55,16 @@ public class MemberServiceImpl implements MemberService {
 //
 //        memberRepository.save(member);
     }
+
+
+    @Override
+    public boolean checkUseridDuplicate(String userid) {
+        Optional<Member> existMember = memberRepository.findByUserid(userid);
+
+        return existMember.isPresent();
+    }
+
+
+
+
 }
