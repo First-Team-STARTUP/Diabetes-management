@@ -35,8 +35,6 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.save(member).getUserid();
 
 
-
-
 //
 //        Member member = modelMapper.map(memberJoinDTO, Member.class);
 ////        member.changePassword(passwordEncoder.encode(memberJoinDTO.getPw());
@@ -46,5 +44,9 @@ public class MemberServiceImpl implements MemberService {
 //        log.info(member);
 //
 //        memberRepository.save(member);
+    }
+
+    public Boolean checkUseridDuplicate(String userid){
+        return memberRepository.existsById(userid);
     }
 }

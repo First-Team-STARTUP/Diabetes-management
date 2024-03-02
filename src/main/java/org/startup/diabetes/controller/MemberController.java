@@ -4,10 +4,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,16 +26,16 @@ public class MemberController {
 
 
     @GetMapping("/login")
-    public void loginGet(String errorCode, String logout){
+    public void loginGet(String errorCode, String logout) {
 
         log.info("login get.....");
 //        log.info("logout: " + logout);
 
-        if (errorCode != null && !errorCode.isEmpty()){
+        if (errorCode != null && !errorCode.isEmpty()) {
             log.info("login error : " + errorCode);
         }
 
-        if(logout != null){
+        if (logout != null) {
             log.info("user logout........");
         }
 
@@ -41,23 +43,23 @@ public class MemberController {
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
-        new SecurityContextLogoutHandler().logout(request,response, SecurityContextHolder.getContext().getAuthentication());
+        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/";
     }
 
 
     @GetMapping("/join")
-    public void memberGET(){
+    public void memberGET() {
         log.info("join get---------------");
     }
 
     @PostMapping("/join")
-    public String memberPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes){
+    public String memberPOST(MemberJoinDTO memberJoinDTO, RedirectAttributes redirectAttributes) {
 
         log.info("join Post~~~~");
         log.info("login member : " + memberJoinDTO);
 
-        try{
+        try {
             memberService.join(memberJoinDTO);
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "id");
@@ -67,6 +69,13 @@ public class MemberController {
 
         redirectAttributes.addFlashAttribute("result", "success");
 
-        return "redirect:/login";
+        return "redirect:/";
+    }
+
+
+    @GetMapping("/user-id/{userid}/exist")
+    public ResponseEntity<Boolean> checkUseridDuplicate(@PathVariable String userid) {
+
+        return ResponseEntity.ok(memberService.checkUseridDuplicate(userid));
     }
 }
