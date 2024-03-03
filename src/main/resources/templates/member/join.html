@@ -47,9 +47,9 @@
       return  document.getElementById(a).value;
    }
     document.querySelector('.joinButton').addEventListener('click',function(e){
-        if(blank('userid') == '' || blank('pw') == '' ||blank('name') == '' ||
-            blank('age') == '' ||blank('gender') == '' ||blank('tall') == '' ||
-            blank('weight') == '' ){
+        if( /\S/.test(blank('userid')) == false ||  /\S/.test(blank('pw')) == false ||  /\S/.test(blank('name')) == false ||
+            /\S/.test(blank('age')) == false ||  /\S/.test(blank('gender')) == false ||  /\S/.test(blank('tall')) == false ||
+            /\S/.test(blank('weight')) == false){
             alert('빈칸을 입력해주세요');
             e.preventDefault();
         }

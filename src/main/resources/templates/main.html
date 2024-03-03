@@ -8,9 +8,11 @@
 <div class="container">
     <p>회원 기능</p>
     <div>
-        <a href="/member/join">SIGN UP</a>
-        <a href="/member"> MY PAGE </a>
-        <button type="button"  onclick="location.href='/logout'">LOGOUT</button>
+        <a th:href="@{/member/mypage/{id}(id=${userid})}"> MY PAGE </a>
+<!--        <div th:with="user=${#authentication.principal}">-->
+<!--            <a th:if="${user != null && user.username == dto.userid}"-->
+<!--               th:href="@{/member/mypage}"> MY PAGE </a>-->
+        <button type="button" onclick="location.href='/logout'">LOGOUT</button>
     </div>
 </div>
 </body>
