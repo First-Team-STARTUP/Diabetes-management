@@ -90,6 +90,7 @@ public class MemberController {
     public String  mypage(@PathVariable String userid, Model model) {
         log.info("Get My Page");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        authentication.isAuthenticated();
         // 사용자의 아이디를 기반으로 정보 조회
         MemberDTO dto = memberService.readMyPage(userid);
 
