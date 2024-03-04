@@ -8,12 +8,13 @@
 <div class="container">
     <p>회원 기능</p>
     <div>
-        <a href="/member/join">회원가입</a>
-        <a href="/member">마이페이지</a>
-        <br>
+        <a th:href="@{/member/mypage/{id}(id=${userid})}"> MY PAGE </a>
+<!--        <div th:with="user=${#authentication.principal}">-->
+<!--            <a th:if="${user != null && user.username == dto.userid}"-->
+<!--               th:href="@{/member/mypage}"> MY PAGE </a>-->
         <a href="/fasting/register">공복혈당</a>
+        <button type="button" onclick="location.href='/logout'">LOGOUT</button>
 
-        <button type="button"  onclick="location.href='/logout'">LOGOUT</button>
     </div>
 </div>
 </body>

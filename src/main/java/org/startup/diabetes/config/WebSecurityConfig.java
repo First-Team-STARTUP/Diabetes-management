@@ -1,6 +1,7 @@
 package org.startup.diabetes.config;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -11,20 +12,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.startup.diabetes.security.UserDetailService;
 
+@Log4j2
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
+//    private final DataSource dataSource;
 
     private final UserDetailService userDetailService;
 
-
-//    @Bean
-//    public WebSecurityCustomizer configure(){
-//        return (web) -> web.ignoring()
-//                .requestMatchers("/static/**");
-//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -32,6 +29,7 @@ public class WebSecurityConfig {
         http.authorizeRequests(authorize ->
                 authorize
                         .requestMatchers( "member/login", "/member/join").permitAll()
+//                        .requestMatchers("/member/mypage/{userid}").authenticated()
                         .anyRequest().authenticated()
         );
         http.formLogin(formLogin ->
@@ -42,6 +40,10 @@ public class WebSecurityConfig {
                         .defaultSuccessUrl("/")
                         .permitAll()
         );
+//        http.exceptionHandling(handler ->
+//                handler.
+//                        accessDeniedHandler(accessDeniedHandler())
+//        );
         http.logout(logout ->
                 logout
                         .logoutSuccessUrl("/member/login")
@@ -52,6 +54,16 @@ public class WebSecurityConfig {
     }
 
 
+//    @Bean
+//    public AccessDeniedHandler accessDeniedHandler(){
+//        return new Custom403Handler();
+//    }
+//
+//    @Bean
+//    public AuthenticationSuccessHandler authenticationSuccessHandler () {
+//        return new CustomLoginSuccessHandler(passwordEncoder());
+//    }
+
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() throws Exception{
 
@@ -61,6 +73,16 @@ public class WebSecurityConfig {
 
         return daoAuthenticationProvider;
     }
+
+
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer(){
+//
+//        log.info("------------------web configure-------------------");
+//
+//        return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+//
+//    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
