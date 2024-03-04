@@ -29,6 +29,9 @@ spring:
 
 logging:
   level:
+    org:
+      springframework:
+        security: Debug
     root: info
     org.springframework.web: debug
     org.hibernate: info

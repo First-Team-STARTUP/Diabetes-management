@@ -80,7 +80,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = result.orElseThrow(() -> new NoSuchElementException("해당하는 회원을 찾을 수 없습니다."));
 
         member.change(
-                passwordEncoder.encode(memberDTO.getPw()),
+                memberDTO.getPw(),
                 memberDTO.getName(),
                 memberDTO.getAge(),
                 memberDTO.getGender(),
