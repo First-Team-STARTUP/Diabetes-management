@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
-      layout:decorate="~{layout/basic.html}">
+      layout:decorate="~{layouts/basic.html}">
 
 <head>
     <meta charset="UTF-8">
@@ -23,17 +23,14 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text">공복혈당</span>
                             <input type="text" name="emptyData" class="form-control" placeholder="공복혈당">
+                            <!--{{#valid_emptyData}} <span id="valid">{{valid_emptyData}}</span> {{/valid_emptyData}}-->
                         </div>
 
-<!--                        <div class="input-group mb-3">-->
-<!--                            <span class="input-group-text">등록 시간</span>-->
-<!--                            <input type="text" name="regDate" class="form-control" placeholder="등록 시간">-->
-<!--                        </div>-->
-
-<!--                        <div class="input-group mb-3">-->
-<!--                            <span class="input-group-text">수정 시간</span>-->
-<!--                            <input type="text" name="modDate" class="form-control" placeholder="수정 시간">-->
-<!--                        </div>-->
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">날짜</span>
+                            <input type="date" name="registDate" class="form-control" placeholder="날짜">
+                            <!-- {{#valid_registDate}} <span id="valid">{{valid_registDate}}</span> {{/valid_registDate}}-->
+                        </div>
 
                         <div class="my-4">
                             <div class="float-end">
@@ -43,7 +40,6 @@
                         </div>
                     </form>
                 </div><!--end card body-->
-
             </div><!--end card-->
         </div><!-- end col-->
     </div><!-- end row-->

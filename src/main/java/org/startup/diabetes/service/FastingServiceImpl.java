@@ -3,19 +3,18 @@ package org.startup.diabetes.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.startup.diabetes.domain.Fasting;
 import org.startup.diabetes.dto.FastingDTO;
-import org.startup.diabetes.dto.PageRequestDTO;
-import org.startup.diabetes.dto.PageResponseDTO;
 import org.startup.diabetes.repository.FastingRepository;
 
-import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
 @Log4j2
@@ -111,4 +110,17 @@ public class FastingServiceImpl implements FastingService {
 //                .total((int)result.getTotalElements())
 //                .build();
 //    }
+
+
+    //유효성검사하기
+//    public Map<String, String> validateHandling(Errors errors){
+//        Map<String, String> validatorResult = new HashMap<>();
+//        for (FieldError error : errors.getFieldErrors()) {
+//            String validKeyName = String.format("valid_%s",
+//                    error.getField());
+//            validatorResult.put(validKeyName, error.getDefaultMessage());
+//        }
+//        return validatorResult;
+//    }
+
 }

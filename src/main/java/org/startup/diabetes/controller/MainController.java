@@ -7,7 +7,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.startup.diabetes.dto.MemberDTO;
 import org.startup.diabetes.service.MemberService;
 
 @Controller
@@ -28,4 +27,5 @@ public class MainController {
 
         return "main";
     }
+
 }

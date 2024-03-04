@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.startup.diabetes.domain.Fasting;
@@ -18,6 +19,7 @@ import org.startup.diabetes.service.FastingService;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -36,6 +38,30 @@ public class FastingController {
 
     }
 
+    //@Valid로 유효성 검사하기
+//    @PostMapping("/register")
+//    public String registerPost(@Valid FastingDTO fastingDTO, Errors errors, Model model,
+//                               RedirectAttributes redirectAttributes) {
+//        if (errors.hasErrors()) {
+//            /* 공복혈당 입력 실패시 입력 데이터 값을 유지 */
+//            model.addAttribute("fastingDTO", fastingDTO);
+//            /* 유효성 통과 못한 필드와 메시지를 핸들링 */
+//            Map<String, String> validatorResult = fastingService.validateHandling(errors);
+//            for (String key : validatorResult.keySet()) {
+//                model.addAttribute(key, validatorResult.get(key));
+//            }
+//
+//            log.info(fastingDTO);
+//            return "redirect:/fasting/register"; // 실패 시 리다이렉트
+//        }
+//
+//        /* 공복혈당 성공시 처리 */
+//        Long bno = fastingService.register(fastingDTO);
+//        redirectAttributes.addFlashAttribute("result", bno);
+//        return "redirect:/fasting/register"; // 성공 시 리다이렉트
+//    }
+
+    //post register 정상작동
     @PostMapping("/register")
     public String registerPost(@Valid FastingDTO fastingDTO, BindingResult bindingResult,
                                RedirectAttributes redirectAttributes){
@@ -74,5 +100,10 @@ public class FastingController {
 //        //List<String> list = Arrays.asList("AAA", "BBB", "CCCC");
 //        //model.addAttribute("list", list);
 //    }
+
+    @GetMapping("/chart")
+    public void highlightGET(){
+    }
+
 
 }

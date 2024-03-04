@@ -3,6 +3,7 @@ package org.startup.diabetes.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -21,7 +22,10 @@ public class Fasting extends BaseEntity {
     private Long bno;
 
     @Column(length = 20, nullable = false) //크기 20, not null
-    private Integer emptyData;
+    private int emptyData;
+
+    @Column(updatable = false)
+    private LocalDate registDate;
 
     public void change(int emptyData){
         this.emptyData = emptyData;
