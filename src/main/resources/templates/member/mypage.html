@@ -1,20 +1,55 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
 </head>
 <body>
-<h1>User Profile</h1>
+    <h1>User Profile</h1>
+    <div layout:fragment="content">
+        <form id="profileForm" action="/member/mypage" method="post">
+            ID: <input type="text" name="userid" th:value="${dto.userid}" readonly> <br/>
+            비밀번호 : <input type="password" name="pw" th:value="${dto.pw}"> <br/>
+            이름 : <input type="text" name="name" th:value="${dto.name}"> <br/>
+            나이 : <input type="text" name="age" th:value="${dto.age}"><br/>
+            성별 : <input type="text" name="gender" th:value="${dto.gender}"><br/>
+            키 : <input type="text" name="tall" th:value="${dto.tall}"><br/>
+            몸무게 : <input type="text" name="weight" th:value="${dto.weight}"><br/>
 
-<div >
-    <p>User ID: <span th:text="${dto.userid}"></span></p>
-    <p>Name: <span th:text="${dto.name}"></span></p>
-    <p>Gender: <span th:text="${dto.gender}"></span></p>
-    <p>Height: <span th:text="${dto.tall}"></span></p>
-    <p>Weight: <span th:text="${dto.weight}"></span></p>
-    <p>Age: <span th:text="${dto.age}"></span></p>
-</div>
+            <input type="submit" value="수정" id="modBtn"><br/>
+            <input type="button" value="회원탈퇴" id="removeBtn"><br/>
+            <input type="button" value="뒤로가기" onclick="location.href='/'"><br/>
+        </form>
+    </div>
 </body>
+<script layout:fragment="script" th:inline="javascript">
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const formObj = document.getElementById("profileForm");
+
+
+
+    document.querySelector(".modBtn").addEventListener("click", function (e){
+
+        e.preventDefault()
+
+        formObj.action = `/member/mypage`
+        formObj.method = 'post'
+        formObj.submit()
+
+    },false);
+
+    document.querySelector(".removeBtn").addEventListener("click", function(e){
+
+        e.preventDefault()
+
+        formObj.action =`/member/remove`
+        formObj.method = 'post'
+        formObj.submit()
+
+    },false);
+    });
+</script>
 </html>

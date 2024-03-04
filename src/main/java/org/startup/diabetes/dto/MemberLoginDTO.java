@@ -15,12 +15,12 @@ public class MemberLoginDTO {
 
     private String name;
 
-    private int age;
+    private Integer age;
 
     private String gender;
 
-    private int tall;
+    private Integer tall;
 
-    private int weight;
+    private Integer weight;
 
 }

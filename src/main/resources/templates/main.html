@@ -6,13 +6,10 @@
 </head>
 <body>
 <div class="container">
-    <p>회원 기능</p>
+    <h1>회원 기능</h1>
     <div>
-        <a th:href="@{/member/mypage/{id}(id=${userid})}"> MY PAGE </a>
-<!--        <div th:with="user=${#authentication.principal}">-->
-<!--            <a th:if="${user != null && user.username == dto.userid}"-->
-<!--               th:href="@{/member/mypage}"> MY PAGE </a>-->
-        <a href="/fasting/register">공복혈당</a>
+        <a th:href="@{/member/mypage/{id}(id=${userid})}"> MY PAGE </a><br>
+        <a href="/fasting/register">공복혈당</a><br>
         <button type="button" onclick="location.href='/logout'">LOGOUT</button>
 
     </div>

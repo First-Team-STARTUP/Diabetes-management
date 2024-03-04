@@ -14,10 +14,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
 
+
+
     @Bean
     public GroupedOpenApi firstOpenApi() {
         String[] path = {
-                ""
+                "org.startup.diabetes.controller"
         };
 
         return GroupedOpenApi.builder()
