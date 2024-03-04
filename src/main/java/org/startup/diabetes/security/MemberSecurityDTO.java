@@ -22,13 +22,13 @@ public class MemberSecurityDTO  extends User {
 
     private String name;
 
-    private int age;
+    private Integer age;
 
     private String gender;
 
-    private int tall;
+    private Integer tall;
 
-    private int weight;
+    private Integer weight;
 
     public MemberSecurityDTO(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
@@ -40,4 +40,5 @@ public class MemberSecurityDTO  extends User {
     public String getUsername() {
         return this.userid;
     }
+
 }

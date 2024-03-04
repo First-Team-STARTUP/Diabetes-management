@@ -23,6 +23,7 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userid = authentication.getName();
 
+
         // 사용자 아이디를 모델에 추가하여 뷰로 전달
         model.addAttribute("userid", userid);
 

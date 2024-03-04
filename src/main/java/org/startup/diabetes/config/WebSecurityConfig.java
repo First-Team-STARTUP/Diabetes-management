@@ -18,7 +18,6 @@ import org.startup.diabetes.security.UserDetailService;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-//    private final DataSource dataSource;
 
     private final UserDetailService userDetailService;
 
@@ -29,7 +28,8 @@ public class WebSecurityConfig {
         http.authorizeRequests(authorize ->
                 authorize
                         .requestMatchers( "member/login", "/member/join").permitAll()
-//                        .requestMatchers("/member/mypage/{userid}").authenticated()
+//                        .requestMatchers("/member/**").hasRole("USER")
+                        .requestMatchers("/member/mypage/{userid}").authenticated()
                         .anyRequest().authenticated()
         );
         http.formLogin(formLogin ->
@@ -40,10 +40,6 @@ public class WebSecurityConfig {
                         .defaultSuccessUrl("/")
                         .permitAll()
         );
-//        http.exceptionHandling(handler ->
-//                handler.
-//                        accessDeniedHandler(accessDeniedHandler())
-//        );
         http.logout(logout ->
                 logout
                         .logoutSuccessUrl("/member/login")
@@ -53,16 +49,6 @@ public class WebSecurityConfig {
                 .build();
     }
 
-
-//    @Bean
-//    public AccessDeniedHandler accessDeniedHandler(){
-//        return new Custom403Handler();
-//    }
-//
-//    @Bean
-//    public AuthenticationSuccessHandler authenticationSuccessHandler () {
-//        return new CustomLoginSuccessHandler(passwordEncoder());
-//    }
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() throws Exception{
@@ -75,14 +61,7 @@ public class WebSecurityConfig {
     }
 
 
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer(){
-//
-//        log.info("------------------web configure-------------------");
-//
-//        return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-//
-//    }
+
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

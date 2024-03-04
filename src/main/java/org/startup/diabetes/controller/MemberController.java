@@ -13,13 +13,11 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.startup.diabetes.domain.Member;
 import org.startup.diabetes.dto.MemberDTO;
+import org.startup.diabetes.dto.MemberLoginDTO;
 import org.startup.diabetes.service.MemberService;
 
 import java.util.Optional;
@@ -34,13 +32,13 @@ public class MemberController {
 
 
     @GetMapping("/login")
-    public void loginGet(String errorCode, String logout) {
+    public void loginGet(String errorCode, String logout, MemberLoginDTO memberLoginDTO){
 
-        log.info("login get.....");
+        log.info("login get....."+ memberLoginDTO);
 //        log.info("logout: " + logout);
 
         if (errorCode != null && !errorCode.isEmpty()) {
-            log.info("login error : " + errorCode);
+            log.info("login error : " + errorCode );
         }
 
         if (logout != null) {
@@ -74,7 +72,7 @@ public class MemberController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "id");
 
-            
+
             //"<script>alert('아이디 중복입니다')</script>"
             return "redirect:/member/join";
         }
@@ -85,12 +83,12 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @PreAuthorize("#memberDTO.userid == principal.username")
     @GetMapping("/mypage/{userid}")
-    @PreAuthorize("#userid == authentication.name")
     public String  mypage(@PathVariable String userid, Model model) {
         log.info("Get My Page");
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        authentication.isAuthenticated();
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String userid1 = authentication.getName();
         // 사용자의 아이디를 기반으로 정보 조회
         MemberDTO dto = memberService.readMyPage(userid);
 
@@ -100,6 +98,56 @@ public class MemberController {
         return "/member/mypage";
 
     }
+    @PreAuthorize("#memberDTO.userid == principal.username")
+    @PostMapping("/mypage")
+    public String modifyMyPage(@Valid MemberDTO memberDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
+        log.info("회원 정보 변경 post" + memberDTO);
+
+
+        if (bindingResult.hasErrors()) {
+            log.info(" 에러가 있습니다. ");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addAttribute("userid", memberDTO.getUserid());
+
+            return "redirect:/member/mypage";
+        }else {
+            log.info("회원정보가 수정되었습니다.");
+
+            memberService.modifyUser(memberDTO);
+            redirectAttributes.addFlashAttribute("result", "modified");
+            redirectAttributes.addAttribute("userid", memberDTO.getUserid());
+        }
+
+        return "redirect:/";
+
+//        String userId = authentication.getName();
+//        if ("Modify".equals(action)) {
+//            // 수정을 처리하는 로직 호출
+//            memberService.modifyUser();
+//        } else if ("Withdraw".equals(action)) {
+//            // 탈퇴를 처리하는 로직 호출
+//            memberService.removeUser(userId);
+//            return "redirect:/logout";
+//        }
+//        return "redirect:/member/mypage";
+//    }
+
+    }
+
+
+    @PreAuthorize("#memberDTO.userid == principal.username")
+    @PostMapping("/remove")
+    public String removeUser(MemberDTO memberDTO, RedirectAttributes redirectAttributes){
+
+        String userid = memberDTO.getUserid();
+        log.info("remove 유저"+ userid);
+
+        memberService.removeUser(userid);
+
+        redirectAttributes.addFlashAttribute("result", "removed");
+
+        return "redirect:/member/login";
+    }
 
 }

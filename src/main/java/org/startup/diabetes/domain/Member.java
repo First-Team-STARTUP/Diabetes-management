@@ -32,16 +32,27 @@ public class Member implements UserDetails {
     private String name;
 
     @Column(nullable = false)
-    private int age;
+    private Integer age;
 
     @Column(nullable = false)
     private String gender;
 
     @Column(nullable = false)
-    private int tall;
+    private Integer tall;
 
     @Column(nullable = false)
-    private int weight;
+    private Integer weight;
+
+
+    public void change(String pw, String name, Integer age, String gender, Integer tall, Integer weight){
+
+        this.pw = pw;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.tall = tall;
+        this.weight = weight;
+    }
 
 
     @Override //권한 반환

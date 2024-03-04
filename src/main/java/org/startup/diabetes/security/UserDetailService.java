@@ -27,5 +27,15 @@ public class UserDetailService implements UserDetailsService {
 
         return memberRepository.findByUserid(userid)
                 .orElseThrow(() -> new IllegalArgumentException((userid)));
+
+
+
+//        Member member1 = member.get();
+//
+//        return new User(
+//                member1.getUserid(),
+//                member1.getPw(),
+//                AuthorityUtils.createAuthorityList("ROLE_USER")
+//        );
     }
 }

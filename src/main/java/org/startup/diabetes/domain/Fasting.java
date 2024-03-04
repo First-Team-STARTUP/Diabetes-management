@@ -21,7 +21,7 @@ public class Fasting extends BaseEntity {
     private Long bno;
 
     @Column(length = 20, nullable = false) //크기 20, not null
-    private Integer emptyData;
+    private int emptyData;
 
     public void change(int emptyData){
         this.emptyData = emptyData;

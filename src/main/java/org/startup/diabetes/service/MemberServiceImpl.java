@@ -11,6 +11,8 @@ import org.startup.diabetes.domain.Member;
 import org.startup.diabetes.dto.MemberDTO;
 import org.startup.diabetes.repository.MemberRepository;
 
+import javax.swing.text.html.Option;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Log4j2
@@ -37,24 +39,11 @@ public class MemberServiceImpl implements MemberService {
             throw new MidExistException();
 
         }
-
         Member member = modelMapper.map(dto, Member.class);
-
         // 비밀번호 암호화
         member.setPw(passwordEncoder.encode(dto.getPw()));
         // Member 엔티티 저장
         return memberRepository.save(member).getUserid();
-
-
-//
-//        Member member = modelMapper.map(memberJoinDTO, Member.class);
-////        member.changePassword(passwordEncoder.encode(memberJoinDTO.getPw());
-////        member.addRole(MemberRole.USER);
-//
-//        log.info("===================");
-//        log.info(member);
-//
-//        memberRepository.save(member);
     }
 
 
@@ -78,9 +67,34 @@ public class MemberServiceImpl implements MemberService {
         Member member = result.orElseThrow(() -> new IllegalArgumentException("User not found with UserID: " + userid));
 
         MemberDTO dto = entityToDTO(member);
-
         // 나머지 필드도 동일하게 설정
 
         return dto;
+    }
+
+
+    @Override
+    public void modifyUser(MemberDTO memberDTO) {
+        Optional<Member> result = memberRepository.findByUserid(memberDTO.getUserid());
+
+        Member member = result.orElseThrow(() -> new NoSuchElementException("해당하는 회원을 찾을 수 없습니다."));
+
+        member.change(
+                passwordEncoder.encode(memberDTO.getPw()),
+                memberDTO.getName(),
+                memberDTO.getAge(),
+                memberDTO.getGender(),
+                memberDTO.getTall(),
+                memberDTO.getWeight());
+
+
+        memberRepository.save(member);
+    }
+
+    @Override
+    public void removeUser(String userid) {
+
+        memberRepository.deleteById(userid);
+
     }
 }
