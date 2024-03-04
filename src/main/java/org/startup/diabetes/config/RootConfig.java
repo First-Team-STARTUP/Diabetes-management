@@ -5,6 +5,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+// DTO와 엔티티간의 변환 처리를 간단히 처리하기 위해 ModelMapper이용
 @Configuration
 public class RootConfig {
 
