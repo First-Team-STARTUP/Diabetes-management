@@ -2,6 +2,8 @@ package org.startup.diabetes.service;
 
 
 import org.startup.diabetes.dto.FastingDTO;
+
+import java.time.LocalDate;
 import java.util.List;
 
 // DTO -> Entity (Entity Class)
@@ -25,8 +27,11 @@ public interface FastingService {
 
     List<FastingDTO> findAll();
 
-    // 중복날짜 조회
-    //boolean AlreadyRegistered(LocalDate date);
+    //중복날짜 조회
+    boolean registDateDuplicated(LocalDate date);
+
+    //공복혈당 50~900입력
+    boolean emptyDataRange(int emptyData);
 
 
 }

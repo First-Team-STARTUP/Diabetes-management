@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.startup.diabetes.domain.Fasting;
 import org.startup.diabetes.dto.FastingDTO;
 import org.startup.diabetes.repository.FastingRepository;
+
+import java.time.LocalDate;
 import java.util.*;
 
 
@@ -103,9 +105,16 @@ public class FastingServiceImpl implements FastingService {
         return fastingDTOList;
     }
 
-//    public boolean AlreadyRegistered(LocalDate date) {
-//        // 해당 날짜로 이미 등록된 데이터가 있는지 확인
-//        return fastingRepository.existsByRegistDate(date);
-//    }
+    //중복날짜 조회
+    public boolean registDateDuplicated(LocalDate registDate) {
+        // 날짜가 중복되면 true, 아니면 false 반환
+        return fastingRepository.existsByRegistDate(registDate);
+    }
+
+
+    //공복 50~900입력
+    public boolean emptyDataRange(int emptyData) {
+        return emptyData >= 50 && emptyData <= 900;
+    }
 
 }

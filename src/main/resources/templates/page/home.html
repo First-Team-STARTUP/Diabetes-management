@@ -1,35 +1,19 @@
 <!--content파일-->
-
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/defaultLayout}">
+      layout:decorate="~{layouts/defaultLayout.html}">
 
-<!--/* css */-->
-<link th:href="@{/css/common.css}" rel="stylesheet" />
 
-<!-- index.html 고유 CSS 추가 -->
-<!--<th:block layout:fragment="css">-->
+<th:block layout:fragment="head">
+    <title>Spring Boot</title>
+</th:block>
 
-<!-- index.html 고유 스크립트 추가 -->
-<!--<th:block layout:fragment="script"></th:block>-->
 
-<!-- Content -->
+<!--    <th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>-->
 <div layout:fragment="content" class="content">
-    <h1>Content</h1>
-    <script layout:fragment="script" th:inline="javascript">
-        const errors = [[${errors}]]
-        console.log(errors)
-
-        let errorMsg = ''
-
-        if(errors){
-            for (let i = 0; i < errors.length; i++) {
-                errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`
-            }
-            alert(errorMsg)
-        }
-    </script>
+        <h2>This is Contentttttttttt</h2>
 </div>
+
+<!--    <th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>-->
 </html>
