@@ -16,10 +16,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.startup.diabetes.config.WebSecurityConfig;
 import org.startup.diabetes.dto.MemberDTO;
@@ -90,26 +87,22 @@ public class MemberController {
         return "redirect:/";
     }
 
-    @PreAuthorize(" #memberDTO.userid == principal.username")
-    @GetMapping("/mypage/{userid}")
-    public String mypage(@PathVariable String userid, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/mypage")
+    public String mypage(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+
+        // @AuthenticationPrincipal을 통해 현재 사용자의 UserDetails를 가져옴
         String currentUserid = userDetails.getUsername();
 
         // 사용자의 아이디를 기반으로 정보 조회
-        MemberDTO dto = memberService.readMyPage(userid);
-
-        // 현재 로그인한 사용자가 요청된 사용자의 정보를 볼 수 있는 권한을 가지고 있는지 확인
-        if (!currentUserid.equals(userid)) {
-            // 현재 사용자가 요청된 사용자의 정보를 볼 수 있는 권한이 없는 경우
-            throw new AccessDeniedException("You are not allowed to access this page");
-        }
+        MemberDTO dto = memberService.readMyPage(currentUserid);
 
         // 조회된 정보를 모델에 추가하여 뷰로 전달
         model.addAttribute("dto", dto);
 
         return "/member/mypage";
     }
-    @PreAuthorize("#memberDTO.userid == principal.username")
+//    @PreAuthorize("#memberDTO.userid == principal.username")
     @PostMapping("/mypage")
     public String modifyMyPage(@Valid MemberDTO memberDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
@@ -135,17 +128,22 @@ public class MemberController {
     }
 
 
-    @PreAuthorize("#memberDTO.userid == principal.username")
+//    @PreAuthorize("#memberDTO.userid == principal.username")
     @PostMapping("/remove")
-    public String removeUser(MemberDTO memberDTO, RedirectAttributes redirectAttributes){
-
+    public String removeUser(MemberDTO memberDTO, RedirectAttributes redirectAttributes) {
+        // 회원 정보를 DTO로부터 가져옵니다.
         String userid = memberDTO.getUserid();
         log.info("remove 유저"+ userid);
 
-        memberService.removeUser(userid);
+        // 서비스 레이어에서 회원을 삭제하는 메서드를 호출합니다.
+        try {
+            memberService.removeUser(userid);
+            redirectAttributes.addFlashAttribute("message", "회원 탈퇴가 완료되었습니다.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "회원 탈퇴 중 오류가 발생했습니다.");
+        }
 
-        redirectAttributes.addFlashAttribute("result", "removed");
-
+        // 회원 삭제 후 리다이렉트할 URL을 반환합니다.
         return "redirect:/member/login";
     }
 

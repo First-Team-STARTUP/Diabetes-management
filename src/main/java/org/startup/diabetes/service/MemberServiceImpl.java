@@ -94,7 +94,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void removeUser(String userid) {
 
-        memberRepository.deleteById(userid);
-
+        Optional<Member> member = memberRepository.findByUserid(userid);
+        member.ifPresent(memberid -> {
+            // 관련 데이터 삭제 또는 적절히 처리하는 로직 추가
+            memberRepository.delete(memberid);
+        });
     }
 }

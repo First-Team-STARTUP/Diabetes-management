@@ -45,9 +45,9 @@
     </form>
 </div>
 <script>
-   function blank(a){
-      return  document.getElementById(a).value;
-   }
+    function blank(a){
+        return  document.getElementById(a).value;
+    }
     document.querySelector('.joinButton').addEventListener('click',function(e){
         if( /\S/.test(blank('userid')) == false ||  /\S/.test(blank('pw')) == false ||  /\S/.test(blank('name')) == false ||
             /\S/.test(blank('age')) == false ||  /\S/.test(blank('gender')) == false ||  /\S/.test(blank('tall')) == false ||
