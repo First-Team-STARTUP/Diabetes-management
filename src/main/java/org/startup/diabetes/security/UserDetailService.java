@@ -1,6 +1,8 @@
 package org.startup.diabetes.security;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,16 +18,24 @@ public class UserDetailService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
+
     @Override
     public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
 
-        Optional<Member> member = memberRepository.findByUserid(userid);
+        Optional<Member> result = memberRepository.findByUserid(userid);
 
-        if(member.isEmpty()){
-            throw new UsernameNotFoundException("Userid Not Found");
+        if(result.isEmpty()){
+            throw new UsernameNotFoundException("Userid Not Found"+userid);
         }
 
-        return memberRepository.findByUserid(userid)
-                .orElseThrow(() -> new IllegalArgumentException((userid)));
+        Member member = result.get();
+
+        return User.builder()
+                .username(member.getUserid())
+                .password(member.getPw())
+                .roles("USER")
+                .build();
+
+
     }
 }

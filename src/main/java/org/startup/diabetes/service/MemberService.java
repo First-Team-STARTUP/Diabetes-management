@@ -23,6 +23,10 @@ public interface MemberService {
 
 //    public Map<String, String> validateHandling(Errors errors);
 
+    public void modifyUser(MemberDTO memberDTO);
+
+    public void removeUser(String userid);
+
     default MemberDTO entityToDTO(Member member) {
 
         MemberDTO dto = MemberDTO.builder()

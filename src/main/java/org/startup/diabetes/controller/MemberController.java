@@ -5,8 +5,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -18,11 +21,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.startup.diabetes.domain.Member;
+import org.startup.diabetes.config.WebSecurityConfig;
 import org.startup.diabetes.dto.MemberDTO;
+import org.startup.diabetes.dto.MemberLoginDTO;
 import org.startup.diabetes.service.MemberService;
-
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,19 +36,22 @@ public class MemberController {
 
 
     @GetMapping("/login")
-    public void loginGet(String errorCode, String logout) {
+    public void loginGet(String errorCode, String logout){
 
-        log.info("login get.....");
-//        log.info("logout: " + logout);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        log.info("Logged in user: " + username);
 
+        // 로그아웃 여부 확인
+        log.info("logout: " + logout);
         if (errorCode != null && !errorCode.isEmpty()) {
-            log.info("login error : " + errorCode);
+            log.info("login error : " + errorCode );
         }
 
+        // 에러 코드 확인
         if (logout != null) {
             log.info("user logout........");
         }
-
     }
 
     @GetMapping("/logout")
@@ -74,7 +79,7 @@ public class MemberController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "id");
 
-            
+
             //"<script>alert('아이디 중복입니다')</script>"
             return "redirect:/member/join";
         }
@@ -85,21 +90,63 @@ public class MemberController {
         return "redirect:/";
     }
 
+    @PreAuthorize(" #memberDTO.userid == principal.username")
     @GetMapping("/mypage/{userid}")
-    @PreAuthorize("#userid == authentication.name")
-    public String  mypage(@PathVariable String userid, Model model) {
-        log.info("Get My Page");
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        authentication.isAuthenticated();
+    public String mypage(@PathVariable String userid, Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        String currentUserid = userDetails.getUsername();
+
         // 사용자의 아이디를 기반으로 정보 조회
         MemberDTO dto = memberService.readMyPage(userid);
+
+        // 현재 로그인한 사용자가 요청된 사용자의 정보를 볼 수 있는 권한을 가지고 있는지 확인
+        if (!currentUserid.equals(userid)) {
+            // 현재 사용자가 요청된 사용자의 정보를 볼 수 있는 권한이 없는 경우
+            throw new AccessDeniedException("You are not allowed to access this page");
+        }
 
         // 조회된 정보를 모델에 추가하여 뷰로 전달
         model.addAttribute("dto", dto);
 
         return "/member/mypage";
+    }
+    @PreAuthorize("#memberDTO.userid == principal.username")
+    @PostMapping("/mypage")
+    public String modifyMyPage(@Valid MemberDTO memberDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        log.info("회원 정보 변경 post" + memberDTO);
+
+
+        if (bindingResult.hasErrors()) {
+            log.info(" 에러가 있습니다. ");
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            redirectAttributes.addAttribute("userid", memberDTO.getUserid());
+
+            return "redirect:/member/mypage";
+        }else {
+            log.info("회원정보가 수정되었습니다.");
+
+            memberService.modifyUser(memberDTO);
+            redirectAttributes.addFlashAttribute("result", "modified");
+            redirectAttributes.addAttribute("userid", memberDTO.getUserid());
+        }
+
+        return "redirect:/";
 
     }
 
+
+    @PreAuthorize("#memberDTO.userid == principal.username")
+    @PostMapping("/remove")
+    public String removeUser(MemberDTO memberDTO, RedirectAttributes redirectAttributes){
+
+        String userid = memberDTO.getUserid();
+        log.info("remove 유저"+ userid);
+
+        memberService.removeUser(userid);
+
+        redirectAttributes.addFlashAttribute("result", "removed");
+
+        return "redirect:/member/login";
+    }
 
 }
