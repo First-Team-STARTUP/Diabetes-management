@@ -3,24 +3,34 @@
 <!--<html lang="en" style="height: 100%" xmlns:layout="http://www.w3.org/1999/xhtml">-->
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/defaultLayout.html}">
+      layout:decorate="~{layouts/basic.html}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>공복혈당 하이라이트</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- 차트 링크 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 
 <div layout:fragment="content">
     <div style="width: 900px; height: 900px;">
         <!--차트가 그려질 부분-->
         <canvas id="myChart"></canvas>
+
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <!-- EmptyData 메시지 출력 -->
+            <p th:text="${emptyDataMessage}"></p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script th:inline="javascript">
@@ -35,9 +45,11 @@
         var labels = /*[[${registDateList}]]*/ [];
         var data = /*[[${emptyDataList}]]*/ [];
 
+        var average = [];
+        var averageData = Array(fastingDataList.length).fill(average); // 평균 데이터를 배열
 
         var myChart = new Chart(context, {
-            type: 'line', // 차트의 형태
+            type: 'bar', // 차트의 형태
             data: { // 차트에 들어갈 데이터
                 labels: labels,
                 datasets: [
@@ -47,33 +59,33 @@
                         data: data,
                         backgroundColor: [
                             //색상
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
                             'rgba(255, 206, 86, 0.2)',
+                            'rgba(252, 169, 133, 0.2)',
+                            'rgba(145, 210, 144, 0.2)',
                             'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
+                            'rgba(193, 179, 215, 0.2)',
+                            'rgba(111, 183, 214, 0.2)'
                         ],
                         borderColor: [
                             //경계선 색상
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
                             'rgba(255, 206, 86, 1)',
+                            'rgba(252, 169, 133, 1)',
+                            'rgba(145, 210, 144, 1)',
                             'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
+                            'rgba(193, 179, 215, 1)',
+                            'rgba(111, 183, 214, 1)'
                         ],
                         borderWidth: 1 //경계선 굵기
-                    }/* ,
+                    },
                             {
-                                label: 'test2',
-                                fill: false,
-                                data: [
-                                    8, 34, 12, 24
-                                ],
-                                backgroundColor: 'rgb(157, 109, 12)',
-                                borderColor: 'rgb(157, 109, 12)'
-                            } */
+                                label: '평균 공복혈당',
+                                data: /*[[${averageData}]]*/,
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 2,
+                                type: 'line', // line 그래프로 변경
+                                fill: false // 선 안쪽을 채우지 않음
+                            }
                 ]
             },
             options: {
