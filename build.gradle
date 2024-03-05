@@ -77,6 +77,7 @@ dependencies {
 
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELEASE'
 
     // Thymeleaf Template
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -88,16 +89,20 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     //jwt
-//    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-//    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
-//    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+    //implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    //implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    //implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
 
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
     //modelMapper
     implementation 'org.modelmapper:modelmapper:3.1.0'
-
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+
+    //JUnit RunWith
+    testImplementation 'junit:junit:4.12'
+
+    //mybatis
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
 
     annotationProcessor(
 
