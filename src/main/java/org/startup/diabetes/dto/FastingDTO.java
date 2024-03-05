@@ -1,18 +1,21 @@
 package org.startup.diabetes.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.startup.diabetes.domain.Fasting;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 // DTO(Data Transfer Object), VO, Bean
 // Entity
 @Builder
 @Data
+//@Getter
+//@Setter
 @ToString //필드값
 @NoArgsConstructor //기본생성
 @AllArgsConstructor //모든 필드를 매개변수로 하는 생성자
@@ -22,12 +25,29 @@ public class FastingDTO {
     // setter 메서드로 DTO에 담아줌
     private Long bno;
 
-    @NotBlank(message = "입력값은 50~900입니다.")
-    @Size(min=50, max=900)
+    @NotNull(message = "공복혈당은 필수값입니다.")
+    @Range(min = 50, max = 899, message = "공복혈당은 50 이상, 899 미만이어야 합니다.")
     //@Size(min =3, max =100)
     private Integer emptyData;
 
-    @NotBlank(message = "날짜는 중복해서 입력할 수 없습니다.")
+//    @Column(name = "Date")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+//    private YearMonth yearMonth;
+
+    @NotNull(message = "날짜입력은 필수값입니다.")
+    @Column(name = "registDate")
+    @DateTimeFormat(pattern = "MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd", timezone = "Asia/Seoul")
     private LocalDate registDate;
+
+    // 엔티티 -> DTO
+    public static FastingDTO tofastingDTO(Fasting fasting){
+        FastingDTO fastingDTO = new FastingDTO();
+        fastingDTO.setBno(fasting.getBno());
+        fastingDTO.setEmptyData(fasting.getEmptyData());
+        fastingDTO.setRegistDate(fasting.getRegistDate());
+        return fastingDTO;
+    }
 
 }

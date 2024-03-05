@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
-      layout:decorate="~{layouts/basic.html}">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/defaultLayout}">
 
-<head>
-    <meta charset="UTF-8">
-    <title>공복혈당 입력</title>
-</head>
+<!--/* css */-->
+<link th:href="@{/css/common.css}" rel="stylesheet" />
 
+<!-- Content -->
 <div layout:fragment="content">
+
+    <h3>공복혈당 입력</h3>
 
     <div class="row mt-3">
         <div class="col">
@@ -43,17 +44,18 @@
             </div><!--end card-->
         </div><!-- end col-->
     </div><!-- end row-->
-</div>
-<script layout:fragment="script" th:inline="javascript">
-    const errors = [[${errors}]]
-    console.log(errors)
 
-    let errorMsg = ''
+    <script layout:fragment="script" th:inline="javascript">
+        const errors = [[${errors}]]
+        console.log(errors)
 
-    if(errors){
-        for (let i = 0; i < errors.length; i++) {
-            errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`
+        let errorMsg = ''
+
+        if(errors){
+            for (let i = 0; i < errors.length; i++) {
+                errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`
+            }
+            alert(errorMsg)
         }
-        alert(errorMsg)
-    }
-</script>
+    </script>
+</div>

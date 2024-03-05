@@ -82,7 +82,7 @@ dependencies {
     // Thymeleaf Template
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     // Thymeleaf Layout
-    implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect'
+    implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.4.1'
     //implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
     //validation
@@ -93,13 +93,12 @@ dependencies {
     //implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
     //implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
-
     //modelMapper
     implementation 'org.modelmapper:modelmapper:3.1.0'
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 
     //JUnit RunWith
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.2'
 
     //mybatis
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'

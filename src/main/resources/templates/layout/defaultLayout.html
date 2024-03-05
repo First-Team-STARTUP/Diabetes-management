@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lagn="ko"
+<html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
@@ -11,7 +11,8 @@
     <link th:href="@{/css/common.css}" rel="stylesheet" />
 </head>
 
-<body>
+<th:block layout:fragment="head"></th:block>
+<div>
     <!-- 공통 컨텐츠 처리  th:insert, th:replace, th:include -->
     <!-- header, footer 사용 -->
     <th:block th:replace="fragments/header :: HeaderFragment"></th:block>
@@ -19,5 +20,5 @@
     <!-- content fragment 사용 -->
     <th:block layout:fragment="content"></th:block>
     <th:block th:replace="fragments/footer :: FooterFragment"></th:block>
-</body>
+</div>
 </html>
