@@ -7,7 +7,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.startup.diabetes.dto.MemberDTO;
 import org.startup.diabetes.service.MemberService;
 
 @Controller
@@ -23,10 +22,9 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userid = authentication.getName();
 
-
         // 사용자 아이디를 모델에 추가하여 뷰로 전달
         model.addAttribute("userid", userid);
-
         return "main";
     }
+
 }

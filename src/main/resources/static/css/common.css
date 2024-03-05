@@ -1,0 +1,19 @@
+body, html {
+    height: 100%;
+}
+
+.header {
+    background-color: Gray;
+    height: 20%;
+    border: solid 1px yellow;
+}
+
+.content {
+    height:75%;
+}
+
+.footer {
+    background-color: yellow;
+    height: 15%;
+    border: solid 1px blue;
+}

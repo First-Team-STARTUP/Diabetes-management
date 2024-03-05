@@ -17,9 +17,9 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class) //Auditing(자동으로 값 매핑)기능 추가
 abstract class BaseEntity {
 
-    @CreationTimestamp
-    @Column(updatable = false)
-    private LocalDateTime regDate;
+//    @CreationTimestamp
+//    @Column(updatable = false)
+//    private LocalDateTime regDate;
 
     @UpdateTimestamp
     @Column(insertable = false)

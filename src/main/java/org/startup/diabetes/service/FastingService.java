@@ -1,8 +1,8 @@
 package org.startup.diabetes.service;
 
+
 import org.startup.diabetes.dto.FastingDTO;
-import org.startup.diabetes.dto.PageRequestDTO;
-import org.startup.diabetes.dto.PageResponseDTO;
+import java.util.List;
 
 // DTO -> Entity (Entity Class)
 // Entity -> DTO (DTO Class)
@@ -22,5 +22,12 @@ public interface FastingService {
     // 목록&검색 기능
     // 페이징 처리된 데이터를 전달
     //PageResponseDTO<FastingDTO> list(PageRequestDTO pageRequestDTO);
+
+    List<FastingDTO> findAll();
+
+    // 중복날짜 조회
+    //boolean AlreadyRegistered(LocalDate date);
+
+
 }
 

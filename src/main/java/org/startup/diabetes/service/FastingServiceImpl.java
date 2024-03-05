@@ -1,21 +1,16 @@
 package org.startup.diabetes.service;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.startup.diabetes.domain.Fasting;
 import org.startup.diabetes.dto.FastingDTO;
-import org.startup.diabetes.dto.PageRequestDTO;
-import org.startup.diabetes.dto.PageResponseDTO;
 import org.startup.diabetes.repository.FastingRepository;
+import java.util.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -32,7 +27,7 @@ public class FastingServiceImpl implements FastingService {
     // save 메서드는 결과를 반환하며, 해당 결과에서 getBno() 메서드를 호출
 
     @Override
-    public Long register(FastingDTO fastingDTO) {
+    public Long register(@Valid FastingDTO fastingDTO) {
 
         // FastingDTO에서 Fasting 엔터티로 변환
         Fasting fasting = modelMapper.map(fastingDTO, Fasting.class); // A->B , fasting
@@ -91,24 +86,26 @@ public class FastingServiceImpl implements FastingService {
         fastingRepository.deleteById(bno);
     }
 
-//    @Override
-//    public PageResponseDTO<FastingDTO> list(PageRequestDTO pageRequestDTO) {
-//
-//        String[] types = pageRequestDTO.getTypes();
-//        String keyword = pageRequestDTO.getKeyword();
-//        Pageable pageable = pageRequestDTO.getPageable("emptyId");
-//
-//        //Page<Fasting> -> List<FastingDTO> 반환
-//        Page<Fasting> result = fastingRepository.findAll(types, keyword, pageable);
-//
-//        List<FastingDTO> dtoList = result.getContent().stream()
-//                .map(fasting -> modelMapper.map(fasting, FastingDTO.class)).
-//                collect(Collectors.toList());
-//
-//        return PageResponseDTO.<FastingDTO>withAll()
-//                .pageRequestDTO(pageRequestDTO)
-//                .dtoList(dtoList)
-//                .total((int)result.getTotalElements())
-//                .build();
+
+    //조회
+    public List<FastingDTO> findAll(){
+        //List 형태의 엔티티가 넘어오게 됨
+        List<Fasting> fastingList = fastingRepository.findAll();
+        // 엔티티 객체를 DTO로 저장 -> controller -> service
+        List<FastingDTO> fastingDTOList = new ArrayList<>();
+
+        // fastingList 엔티티 -> FastingDTO 변환하고
+        for(Fasting fasting: fastingList){
+            // FastingDTO 변환된 객체를 fastingDTOList에 담는다
+            fastingDTOList.add(FastingDTO.tofastingDTO(fasting));
+        }
+
+        return fastingDTOList;
+    }
+
+//    public boolean AlreadyRegistered(LocalDate date) {
+//        // 해당 날짜로 이미 등록된 데이터가 있는지 확인
+//        return fastingRepository.existsByRegistDate(date);
 //    }
+
 }

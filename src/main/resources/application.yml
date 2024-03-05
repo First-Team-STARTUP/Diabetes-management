@@ -35,3 +35,14 @@ logging:
     root: info
     org.springframework.web: debug
     org.hibernate: info
+
+#------------------------------------------------
+# controller.view-name : /html/* -> thymeleaf
+#------------------------------------------------
+  thymeleaf:
+    cache: false
+    check-template-location: false
+    enabled: true
+    prefix: classpath:/static/templates
+    suffix: .html
+    view-names: /html/*

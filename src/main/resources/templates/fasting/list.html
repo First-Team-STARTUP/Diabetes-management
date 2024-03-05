@@ -4,9 +4,34 @@
       layout:decorate="~{layout/basic.html}">
 
 <div layout:fragment="content">
-    <h1>공복 혈당</h1>
-    <div>
+    <table>
+        <tr>
+            <th>no</th>
+            <th>공복혈당</th>
+            <th>date</th>
+            <!-- 식후혈당, 식단 -->
+            <!-- <th>공복혈당(||쓰지 않은 경우)</th> -->
+            <!-- <th>writer</th>-->
+            <!--<th>hits</th>-->
+        </tr>
+        <!-- fasting 변수-->
+        <tr th:each="fasting: ${fastingList}">
+            <td th:text="${fasting.bno}"></td>
+            <td>
+                <a th:href="@{|/fasting/${fasting.bno}|}" th:text="${fasting.emptyData}"></a>
+            </td>
+            <td th:text="${fasting.registDate}"></td>
+            <!--<td><a th:href="@{/board/${fasting.bno}}" th:text="${fasting.boardTitle}"></a></td>-->
+            <!-- <td th:text="*{#temporals.format(fasting.boardCreatedTime, 'yyyy-MM-dd HH:mm:ss')}"></td> -->
+            <!--<td th:text="${board.boardHits}"></td>-->
+        </tr>
+    </table>
 
+    <div class="my-4">
+        <div class="float-end">
+            <button class="btn btn-primary" onclick="location.href='/fasting/register'">공복혈당 입력하기</button>
+            <button class="btn btn-secondary" onclick="location.href='/fasting/highlight'">혈당 하이라이트</button>
+        </div>
     </div>
 </div>
 
