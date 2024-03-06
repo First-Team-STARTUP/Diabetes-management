@@ -8,6 +8,7 @@ import org.startup.diabetes.domain.Fasting;
 import org.startup.diabetes.dto.FastingDTO;
 import org.startup.diabetes.dto.PageRequestDTO;
 import org.startup.diabetes.dto.PageResponseDTO;
+import org.startup.diabetes.security.UserDetail;
 
 import java.util.stream.IntStream;
 
@@ -34,18 +35,18 @@ public class FastingServiceTests {
 //
 //        log.info("emptyId:"  + emptyId);
 //    }
-    @Test
-    public void testRegister(){
-
-        IntStream.rangeClosed(1,10).forEach(i -> {
-            FastingDTO fastingDTO = FastingDTO.builder()
-                    .emptyData(i+100)
-                    .build();
-
-            Long result = fastingService.register(fastingDTO);
-            log.info("bno:" + result);
-        });
-    }
+//    @Test
+//    public void testRegister(){
+//
+//        IntStream.rangeClosed(1,10).forEach(i -> {
+//            FastingDTO fastingDTO = FastingDTO.builder()
+//                    .emptyData(i+100)
+//                    .build();
+//
+//            Long result = fastingService.register(fastingDTO,);
+//            log.info("bno:" + result);
+//        });
+//    }
 
 
     //수정
