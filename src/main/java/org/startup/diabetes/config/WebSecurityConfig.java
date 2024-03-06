@@ -38,7 +38,7 @@ public class WebSecurityConfig {
                         .loginPage("/member/login")
                         .usernameParameter("userid")
                         .passwordParameter("pw")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/",true)
                         .permitAll()
         );
         http.logout(logout ->

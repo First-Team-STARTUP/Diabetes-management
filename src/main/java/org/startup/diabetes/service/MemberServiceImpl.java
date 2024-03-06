@@ -8,12 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.startup.diabetes.domain.Fasting;
 import org.startup.diabetes.domain.Member;
 import org.startup.diabetes.dto.MemberDTO;
 import org.startup.diabetes.dto.MemberPwUpdateDTO;
+import org.startup.diabetes.repository.FastingRepository;
 import org.startup.diabetes.repository.MemberRepository;
 
 import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -25,6 +28,7 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService {
 
 
+    private final FastingRepository fastingRepository;
 
     private final MemberRepository memberRepository;
 
@@ -96,8 +100,15 @@ public class MemberServiceImpl implements MemberService {
     public void removeUser(String userid) {
 
         Optional<Member> member = memberRepository.findByUserid(userid);
-        // 관련 데이터 삭제 또는 적절히 처리하는 로직 추가
-        member.ifPresent(memberRepository::delete);
+        member.ifPresent(memberData -> {
+            // 해당 유저의 정보를 삭제하기 전에 fasting 테이블에서 관련된 데이터를 삭제
+            List<Fasting> fastingList = fastingRepository.findByMemberUserid(memberData.getUserid());
+            if (!fastingList.isEmpty()) {
+                fastingRepository.deleteAll(fastingList);
+            }
+            // 회원 정보 삭제
+            memberRepository.delete(memberData);
+        });
     }
 
 
