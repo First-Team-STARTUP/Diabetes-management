@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<!--<html lang="en">-->
-<!--<html lang="en" style="height: 100%" xmlns:layout="http://www.w3.org/1999/xhtml">-->
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/basic.html}">
@@ -17,101 +15,63 @@
 </head>
 
 <div layout:fragment="content">
-    <div style="width: 900px; height: 900px;">
-        <!--차트가 그려질 부분-->
-        <canvas id="myChart"></canvas>
 
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <!-- EmptyData 메시지 출력 -->
-            <p th:text="${emptyDataMessage}"></p>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </div>
+    <h2>혈당 하이라이트 페이지</h2>
+    <p th:if="${startDate != null and endDate != null}"
+       th:text="'기간: ' + ${#temporals.format(startDate, 'yyyy. MM. dd')} + ' ~ '
+       + ${#temporals.format(endDate, 'yyyy. MM. dd')}"></p>
 
+    <table class="table table-bordered">
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <thead>
+        <tr>
+            <th scope="col">날짜</th>
+            <th scope="col">공복</th>
+            <th scope="col">아침</th>
+            <th scope="col">점심</th>
+            <th scope="col">저녁</th>
+        </tr>
+        </thead>
+        <tbody>
+            <!-- 행이 아니라 각 열이 반복되므로 단일 행만 있으면 됩니다. -->
+            <tr th:each="data, stat : ${fastingDataList}">
+                <td th:text="${data.registDate.dayOfMonth}"></td>
+                <td th:text="${data.emptyData}"></td>
+                <!-- 아침 데이터 -->
+                <td th:if="${morningData.size() > stat.index}" th:text="${morningData[stat.index].afterBlood}">N/A</td>
+                <td th:unless="${morningData.size() > stat.index}">N/A</td>
 
-    <script th:inline="javascript">
-        var context = document
-            .getElementById('myChart')
-            .getContext('2d');
+                <!-- 점심 데이터 -->
+                <td th:if="${afternoonData.size() > stat.index}" th:text="${afternoonData[stat.index].afterBlood}">N/A</td>
+                <td th:unless="${afternoonData.size() > stat.index}">N/A</td>
 
-        // 서버 측 데이터가 담긴 fastingDataList 변수가 있다고 가정
-        var fastingDataList = /*[[${fastingDataList}]]*/ [];
-
-        // fastingDataList에서 labels 및 data 추출
-        var labels = /*[[${registDateList}]]*/ [];
-        var data = /*[[${emptyDataList}]]*/ [];
-
-        var average = [];
-        var averageData = Array(fastingDataList.length).fill(average); // 평균 데이터를 배열
-
-        var myChart = new Chart(context, {
-            type: 'bar', // 차트의 형태
-            data: { // 차트에 들어갈 데이터
-                labels: labels,
-                datasets: [
-                    { //데이터
-                        label: '공복혈당', //차트 제목
-                        fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-                        data: data,
-                        backgroundColor: [
-                            //색상
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(252, 169, 133, 0.2)',
-                            'rgba(145, 210, 144, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(193, 179, 215, 0.2)',
-                            'rgba(111, 183, 214, 0.2)'
-                        ],
-                        borderColor: [
-                            //경계선 색상
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(252, 169, 133, 1)',
-                            'rgba(145, 210, 144, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(193, 179, 215, 1)',
-                            'rgba(111, 183, 214, 1)'
-                        ],
-                        borderWidth: 1 //경계선 굵기
-                    },
-                            {
-                                label: '평균 공복혈당',
-                    /*data: [[${averageData}]],*/
-                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                borderColor: 'rgba(255, 99, 132, 1)',
-                                borderWidth: 2,
-                                type: 'line', // line 그래프로 변경
-                                fill: false // 선 안쪽을 채우지 않음
-                            }
-                ]
-            },
-            options: {
-                scales: {
-                    xAxes: [
-                        {
-                            type: 'time', // x축에 날짜 데이터 사용
-                            time: {
-                                unit: 'day', // 날짜 간격 설정 (day, month, year 등)
-                                displayFormats: {
-                                    day: 'YYYY-MM-DD' // 날짜 표시 형식
-                                }
-                            }
-                        }
-                    ],
-                    yAxes: [
-                        {
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }
-                    ]
-                }
-            }
-        });
-    </script>
+                <!-- 저녁 데이터 -->
+                <td th:if="${eveningData.size() > stat.index}" th:text="${eveningData[stat.index].afterBlood}">N/A</td>
+                <td th:unless="${eveningData.size() > stat.index}">N/A</td>
+            </tr>
+            <tr class="table-active">
+                <td>평균</td>
+                <td th:text="${averageEmptyData}"></td>
+                <td th:text="${averageMorningData}"></td>
+                <td th:text="${averageAfternoon}"></td>
+                <td th:text="${averageEvening}"></td>
+            </tr>
+            <tr class="table-danger">
+                <td>최고</td>
+                <td th:text="${maxEmptyData}"></td>
+                <td th:text="${maxMorningData}"></td>
+                <td th:text="${maxAfternoonData}"></td>
+                <td th:text="${maxEveningData}"></td>
+            </tr>
+            <tr class="table-success">
+                <td>최저</td>
+                <td th:text="${minEmptyData}"></td>
+                <td th:text="${minMorningData}"></td>
+                <td th:text="${minAfternoonData}"></td>
+                <td th:text="${minEveningData}"></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <script layout:fragment="script" th:inline="javascript"></script>

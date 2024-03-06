@@ -1,17 +1,20 @@
 package org.startup.diabetes.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.startup.diabetes.domain.BoardEntity;
 import org.startup.diabetes.dto.BoardDTO;
 import org.startup.diabetes.repository.BoardRepository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
+@Log4j2
 @Service //어노테이션붙여줘서 스프링이 관리하는 객체인 빈으로 등록시켜주고~!. ㅋ  조아..  컨트롤러도 안붙이니 스프링이 관리안해서 따로놀더라..
 @RequiredArgsConstructor
 public class BoardService {
+
     private final BoardRepository boardRepository;
 
     //생성자주입받고,
@@ -41,4 +44,129 @@ public class BoardService {
         }
         return boardDTOList;  //컨트롤러로 리턴.
     }
+
+    // 아침, 점심, 저녁 데이터 가져오는 메서드 추가
+//    public Map<String, List<BoardDTO>> findMorningAfternoonEveningData() {
+//        Map<String, List<BoardDTO>> dataMap = new HashMap<>();
+//
+//        // 아침 데이터 가져오기
+//        List<BoardDTO> morningData = boardRepository.findByTime("morning")
+//                .stream()
+//                .map(BoardDTO::toBoardDTO)
+//                .sorted(Comparator.comparing(BoardDTO::getRegistDate)) // registDate로 정렬
+//                .collect(Collectors.toList());
+//        dataMap.put("morning", morningData);
+//
+//        log.info("morningData" + morningData);
+//
+//        // morningData에서 afterBlood만 배열로 정리
+//        List<Integer> morningDataList = morningData.stream()
+//                .map(BoardDTO::getAfterBlood)
+//                .collect(Collectors.toList());
+//
+//        log.info("morningDataList 아침 식후 혈당은 : " + morningDataList);
+//
+//        // 평균 아침 식후 혈당
+//        double averageMorningData = morningDataList.stream()
+//                .mapToInt(Integer::intValue)
+//                .average()
+//                .orElse(0.0);
+//
+//        log.info("평균 아침 식후 혈당: " + averageMorningData);
+//
+//        // 최고 아침 식후 혈당
+//        int maxMorningData = morningDataList.stream()
+//                .max(Comparator.naturalOrder())
+//                .orElse(0);
+//
+//        log.info("최고 아침 식후 혈당: " + maxMorningData);
+//
+//        // 최저 아침 식후 혈당
+//        int minMorningData = morningDataList.stream()
+//                .min(Comparator.naturalOrder())
+//                .orElse(0);
+//
+//        log.info("최저 아침 식후 혈당: " + minMorningData);
+//
+//
+//        // 점심 데이터 가져오기
+//        List<BoardDTO> afternoonData = boardRepository.findByTime("afternoon")
+//                .stream()
+//                .map(BoardDTO::toBoardDTO)
+//                .sorted(Comparator.comparing(BoardDTO::getRegistDate)) // registDate로 정렬
+//                .collect(Collectors.toList());
+//        dataMap.put("afternoon", afternoonData);
+//        log.info("afternoonData" + afternoonData);
+//
+//        // afternoonData에서 afterBlood만 배열로 정리
+//        List<Integer> afternoonDataList = afternoonData.stream()
+//                .map(BoardDTO::getAfterBlood)
+//                .collect(Collectors.toList());
+//
+//        log.info("afternoonDataList 점심 식후 혈당 : " + afternoonDataList);
+//
+//        // 평균 아침 식후 혈당
+//        double averageAfternoon = morningDataList.stream()
+//                .mapToInt(Integer::intValue)
+//                .average()
+//                .orElse(0.0);
+//
+//        log.info("평균 아침 식후 혈당: " + averageAfternoon);
+//
+//        // 최고 아침 식후 혈당
+//        int maxAfternoonData = morningDataList.stream()
+//                .max(Comparator.naturalOrder())
+//                .orElse(0);
+//
+//        log.info("최고 아침 식후 혈당: " + maxAfternoonData);
+//
+//        // 최저 아침 식후 혈당
+//        int minAfternoonData = morningDataList.stream()
+//                .min(Comparator.naturalOrder())
+//                .orElse(0);
+//
+//        log.info("최저 아침 식후 혈당: " + minAfternoonData);
+//
+//
+//        // 저녁 데이터 가져오기
+//        List<BoardDTO> eveningData = boardRepository.findByTime("evening")
+//                .stream()
+//                .map(BoardDTO::toBoardDTO)
+//                .sorted(Comparator.comparing(BoardDTO::getRegistDate)) // registDate로 정렬
+//                .collect(Collectors.toList());
+//        dataMap.put("evening", eveningData);
+//
+//        log.info("eveningData" + eveningData);
+//
+//        // afternoonData에서 afterBlood만 배열로 정리
+//        List<Integer> eveningDataList = afternoonData.stream()
+//                .map(BoardDTO::getAfterBlood)
+//                .collect(Collectors.toList());
+//
+//        log.info("eveningDataList 저녁 식후 혈당 : " + eveningDataList);
+//
+//        // 평균 아침 식후 혈당
+//        double averageEvening = morningDataList.stream()
+//                .mapToInt(Integer::intValue)
+//                .average()
+//                .orElse(0.0);
+//
+//        log.info("평균 저녁 식후 혈당: " + averageEvening);
+//
+//        // 최고 아침 식후 혈당
+//        int maxEveningData = morningDataList.stream()
+//                .max(Comparator.naturalOrder())
+//                .orElse(0);
+//
+//        log.info("최고 저녁 식후 혈당: " + maxEveningData);
+//
+//        // 최저 아침 식후 혈당
+//        int minEveningData = morningDataList.stream()
+//                .min(Comparator.naturalOrder())
+//                .orElse(0);
+//
+//        log.info("최저 저녁 식후 혈당: " + minEveningData);
+//
+//        return dataMap;
+//    }
 }

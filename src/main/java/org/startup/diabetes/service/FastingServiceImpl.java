@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.startup.diabetes.domain.Fasting;
 import org.startup.diabetes.dto.FastingDTO;
 import org.startup.diabetes.repository.FastingRepository;
+import org.startup.diabetes.repository.FoodRepository;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -22,6 +23,7 @@ public class FastingServiceImpl implements FastingService {
 
     private final ModelMapper modelMapper;
     private final FastingRepository fastingRepository;
+    private final FoodRepository foodRepository;
 
     // register 메서드는
     // FastingDTO 객체를 받아서 modelMapper를 사용하여 Fasting 엔터티로 변환하고

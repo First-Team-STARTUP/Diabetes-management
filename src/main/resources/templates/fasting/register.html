@@ -45,6 +45,7 @@
                             <div class="float-end">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 <button type="reset" class="btn btn-secondary">Reset</button>
+                                <button type="button" class="btn btn-success" onclick="redirectToChart()">공복리포트</button>
                             </div>
                         </div>
                     </form>
@@ -64,6 +65,10 @@
                 errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`
             }
             alert(errorMsg)
+        }
+
+        function redirectToChart() {
+            window.location.href = '/fasting/report';
         }
     </script>
 </div>

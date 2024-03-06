@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Entity  //클래스,서비스,엔티티 각 패키지에맞게 어노테이션붙여주자..ㅋ
 @Setter
 @Getter
-@Table(name="startup") //테이블어노테이션은  디비에 실제 이 클래스정의대로 테이블생성되는데 그렇게만들어주는역할.
+@Table(name="board") //테이블어노테이션은  디비에 실제 이 클래스정의대로 테이블생성되는데 그렇게만들어주는역할.
 //실제 테이블 디비에만들어지면 테이블이름이됨.ㅋ
 public class BoardEntity {
 
@@ -32,13 +32,19 @@ public class BoardEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd", timezone = "Asia/Seoul")
     private LocalDate registDate; //등록하는 날짜
 
-    @Column(name = "Time", nullable = false)
-    private String Time;
+    @Column(name = "time", nullable = false)
+    private String time;
 
-    @Column(name = "Food", nullable = false)
-    private String Food;
-    @Column(name="AfterBlood", nullable = false)
-    private int AfterBlood;
+    @Column(name = "food", nullable = false)
+    private String food;
+
+    //OneToOne
+    //@JoinColumn(name="bno")
+    //@OneToOne
+    //private Food Food; //Food 엔티티 갖고오는
+
+    @Column(name="afterBlood", nullable = false)
+    private int afterBlood;
 
 
     public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
