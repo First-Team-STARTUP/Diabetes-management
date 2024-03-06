@@ -43,15 +43,12 @@ public class FastingController {
                                RedirectAttributes redirectAttributes, HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetail){
         log.info("공복 혈당 등록..........");
 
-
-
         // 공복혈당 값 50~900범위 체크
         int emptyData = fastingDTO.getEmptyData();
         if (!fastingService.emptyDataRange(emptyData)) {
             redirectAttributes.addFlashAttribute("duplicateEmptyDataMessage", "공복혈당은 50에서 900 사이의 값이어야 합니다.");
             return "redirect:/fasting/register";
         }
-
 
         if (bindingResult.hasErrors()) {
             /* 실패시 데이터 값 유지*/
@@ -68,9 +65,6 @@ public class FastingController {
             return "redirect:/fasting/register";
         }
 
-
-
-
         log.info(fastingDTO);
 
         Long bno = fastingService.register(fastingDTO, userDetail);
@@ -80,14 +74,16 @@ public class FastingController {
         return  "redirect:/fasting/list";
     }
 
+
+
     // 리스트
     @GetMapping("/list")
-    public String findAll(Model model){
+    public String findAll(Model model, @AuthenticationPrincipal UserDetails userDetails){
         log.info("리스트 페이지..............");
         //여러개 가져올때 List<>
         //List<FastingDTO> FastingDTO를 List로
         //DB에서 전체 게시글 데이터를 가져와서  list.htrml에 보여준다.
-        List<FastingDTO> fastingDTOList = fastingService.findAll();
+        List<FastingDTO> fastingDTOList = fastingService.findByUserid(userDetails.getUsername());
         log.info("fastingDTOList 는" + fastingDTOList );
         // 가져온객체를 model에
         model.addAttribute("fastingList", fastingDTOList);
@@ -109,12 +105,12 @@ public class FastingController {
 
     //highlight  수정
     @GetMapping("/highlight")
-    public String getHighlightPage(Model model) {
+    public String getHighlightPage(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         log.info("혈당정보 하이라이트 페이지.....");
 
         // 최근 7일의 데이터만 가져오기
         LocalDate sevenDaysAgo = LocalDate.now().minusDays(6);
-        List<FastingDTO> fastingDataList = fastingService.findAll()
+        List<FastingDTO> fastingDataList = fastingService.findByUserid(userDetails.getUsername())
                 .stream()
                 .filter(data -> data.getRegistDate().isAfter(sevenDaysAgo))
                 .collect(Collectors.toList());

@@ -27,13 +27,15 @@ public interface FastingService {
     // 페이징 처리된 데이터를 전달
     //PageResponseDTO<FastingDTO> list(PageRequestDTO pageRequestDTO);
 
-    List<FastingDTO> findAll();
+//    List<FastingDTO> findAll();
 
     //중복날짜 조회
     boolean registDateDuplicated(LocalDate date);
 
     //공복혈당 50~900입력
     boolean emptyDataRange(int emptyData);
+
+    List<FastingDTO> findByUserid(String userid);
 
 
 }

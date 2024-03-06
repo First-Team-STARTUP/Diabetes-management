@@ -101,22 +101,24 @@ public class FastingServiceImpl implements FastingService {
     }
 
 
-    //조회
-    public List<FastingDTO> findAll(){
-        //List 형태의 엔티티가 넘어오게 됨
-        List<Fasting> fastingList = fastingRepository.findAll();
-        // 엔티티 객체를 DTO로 저장 -> controller -> service
-        List<FastingDTO> fastingDTOList = new ArrayList<>();
+    @Override
+    public List<FastingDTO> findByUserid(String userid) {
+        // 해당 유저의 Fasting 정보 가져오기
+        List<Fasting> fastingList = fastingRepository.findByMemberUserid(userid);
 
-        // fastingList 엔티티 -> FastingDTO 변환하고
-        for(Fasting fasting: fastingList){
-            // FastingDTO 변환된 객체를 fastingDTOList에 담는다
-            fastingDTOList.add(FastingDTO.tofastingDTO(fasting));
+        // Fasting 엔티티를 FastingDTO로 변환하여 리스트에 추가
+        List<FastingDTO> fastingDTOList = new ArrayList<>();
+        for (Fasting fasting : fastingList) {
+            FastingDTO fastingDTO = FastingDTO.tofastingDTO(fasting);
+            fastingDTOList.add(fastingDTO);
         }
 
         return fastingDTOList;
     }
 
+
+
+    @Override
     //중복날짜 조회
     public boolean registDateDuplicated(LocalDate registDate) {
         // 날짜가 중복되면 true, 아니면 false 반환

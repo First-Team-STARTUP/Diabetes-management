@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.startup.diabetes.dto.MemberDTO;
 import org.startup.diabetes.service.MemberService;
 
 @Controller
@@ -17,14 +18,14 @@ public class MainController {
 
     private final MemberService memberService;
 
-    @PreAuthorize("isAuthenticated()")
     @GetMapping("/")
-    public String main(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+    public String main( Model model, @AuthenticationPrincipal UserDetails userDetails) {
         // 현재 인증된 사용자의 아이디 가져오기
         String userid = userDetails.getUsername();
 
+        boolean dto = memberService.checkUseridDuplicate(userid);
         // 사용자 아이디를 모델에 추가하여 뷰로 전달
-        model.addAttribute("userid", userid);
+        model.addAttribute("dto", dto);
         return "main";
     }
 
