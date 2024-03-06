@@ -4,11 +4,15 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.startup.diabetes.domain.Fasting;
+import org.startup.diabetes.domain.Member;
 import org.startup.diabetes.dto.FastingDTO;
 import org.startup.diabetes.repository.FastingRepository;
+import org.startup.diabetes.repository.MemberRepository;
+import org.startup.diabetes.security.UserDetail;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -22,6 +26,7 @@ public class FastingServiceImpl implements FastingService {
 
     private final ModelMapper modelMapper;
     private final FastingRepository fastingRepository;
+    private final MemberRepository memberRepository;
 
     // register 메서드는
     // FastingDTO 객체를 받아서 modelMapper를 사용하여 Fasting 엔터티로 변환하고
@@ -29,10 +34,17 @@ public class FastingServiceImpl implements FastingService {
     // save 메서드는 결과를 반환하며, 해당 결과에서 getBno() 메서드를 호출
 
     @Override
-    public Long register(@Valid FastingDTO fastingDTO) {
+    public Long register(@Valid FastingDTO fastingDTO, UserDetails userDetail) {
+
+        Member member = memberRepository.findByUserid(userDetail.getUsername())
+                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
 
         // FastingDTO에서 Fasting 엔터티로 변환
-        Fasting fasting = modelMapper.map(fastingDTO, Fasting.class); // A->B , fasting
+        Fasting fasting = Fasting.builder()
+                .registDate(fastingDTO.getRegistDate())
+                .emptyData(fastingDTO.getEmptyData())
+                .member(member)
+                .build(); // A->B , fasting
 
         // Fasting 엔터티를 데이터베이스에 저장하고 저장된 엔터티의 ID를 얻음
         //bno 데이터베이스에 Fasting 엔터티를 저장한 결과
