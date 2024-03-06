@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>oo 결과</title>
+</head>
+<body>
+<!--타임리프 문법이 사용됨! 가져오는건-->
+<table>
+    <tr>
+        <th>bno</th>
+        <th>Time</th>
+        <th>registDate</th>
+        <th>Food</th>
+        <th>AfterBlood</th>
+    </tr>
+    <!--11:20초 4강-->
+    <tr th:each="board: ${boardList}"> <!-- 데이터를 받았지 컨트롤러로 boardList-->
+        <td th:text="${board.bno}"></td>
+        <td><a th:href="@{|/board/${board.bno}|}"
+               th:text="${board.Time}"></a></td>
+        <td th:text="${board.registDate}"></td>
+        <td th:text="${board.food}"></td>
+        <td th:text="${board.afterBlood}"></td>
+    </tr>
+</table>
+</body>
+</html>
