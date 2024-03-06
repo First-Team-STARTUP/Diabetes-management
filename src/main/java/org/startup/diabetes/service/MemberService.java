@@ -3,6 +3,7 @@ package org.startup.diabetes.service;
 import lombok.extern.log4j.Log4j2;
 import org.startup.diabetes.domain.Member;
 import org.startup.diabetes.dto.MemberDTO;
+import org.startup.diabetes.dto.MemberPwUpdateDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,5 +42,8 @@ public interface MemberService {
 
         return dto;
     }
+
+
+    public String changePassword(MemberPwUpdateDTO dto, String userid) ;
 
 }

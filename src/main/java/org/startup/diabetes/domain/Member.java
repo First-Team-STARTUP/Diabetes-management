@@ -41,17 +41,18 @@ public class Member {
 
 
 
+    public void change(String name, Integer age, String gender, Integer tall, Integer weight){
 
-
-
-    public void change(String pw, String name, Integer age, String gender, Integer tall, Integer weight){
-
-        this.pw = pw;
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.tall = tall;
         this.weight = weight;
+    }
+
+
+    public void updatePassword(String pw){
+        this.pw = pw;
     }
 
 
