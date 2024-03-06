@@ -30,4 +30,6 @@ public class MemberDTO {
     private Integer tall;
 
     private Integer weight;
+
+
 }

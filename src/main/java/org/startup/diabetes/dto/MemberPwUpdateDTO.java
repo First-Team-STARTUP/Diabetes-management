@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MemberLoginDTO {
+public class MemberPwUpdateDTO {
 
     private Long id;
 
@@ -13,14 +13,8 @@ public class MemberLoginDTO {
 
     private String pw;
 
-    private String name;
+    private String newPw;
+    private String ConfirmPw;
 
-    private Integer age;
-
-    private String gender;
-
-    private Integer tall;
-
-    private Integer weight;
 
 }

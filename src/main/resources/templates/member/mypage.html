@@ -1,89 +1,142 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <!-- 부트스트랩 CSS 링크 -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-<div class="container mt-5">
+<div class="container mt-5" id="custom-form">
     <h1 class="mb-4">User Profile</h1>
     <form id="profileForm" action="/member/mypage" method="post">
-        <div class="form-group">
-            <label for="userid">ID:</label>
-            <input type="text" id="userid" name="userid" class="form-control" th:value="${dto.userid}" readonly>
+        <div class="mb-3 row">
+            <label for="userid" class="col-sm-2 col-form-label">I D :</label>
+            <div class="col-sm-10">
+                <input type="text" id="userid" name="userid" class="form-control" th:value="${dto.userid}"
+                       readonly>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="pw">비밀번호:</label>
-            <input type="password" id="pw" name="pw" class="form-control" th:value="${dto.pw}">
+        <div class="mb-3 row">
+            <label for="password" class="col-sm-2 col-form-label">비밀번호 :</label>
+            <div class="col-sm-10">
+                <a type="button" class="btn btn-secondary"
+                        href="/member/change-password">비밀번호 변경</a>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="name">이름:</label>
-            <input type="text" id="name" name="name" class="form-control" th:value="${dto.name}">
+        <div class="mb-3 row">
+            <label for="name" class="col-sm-2 col-form-label">이 름 :</label>
+            <div class="col-sm-10">
+                <input type="text" id="name" name="name" class="form-control" th:value="${dto.name}">
+            </div>
         </div>
-        <div class="form-group">
-            <label for="age">나이:</label>
-            <input type="text" id="age" name="age" class="form-control" th:value="${dto.age}">
+        <div class="mb-3 row">
+            <label for="age" class="col-sm-2 col-form-label">나 이 :</label>
+            <div class="col-sm-10">
+                <input type="text" id="age" name="age" class="form-control" th:value="${dto.age}">
+            </div>
         </div>
-        <div class="form-group">
-            <label for="gender">성별:</label>
-            <input type="text" id="gender" name="gender" class="form-control" th:value="${dto.gender}">
+        <div class="mb-3 row">
+            <label for="gender" class="col-sm-2 col-form-label">성 별 :</label>
+            <div class="col-sm-10">
+                <select id="gender" name="gender" class="form-select">
+                    <option value="남성" th:selected="${dto.gender == '남성'}">남성</option>
+                    <option value="여성" th:selected="${dto.gender == '여성'}">여성</option>
+                </select>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="tall">키:</label>
-            <input type="text" id="tall" name="tall" class="form-control" th:value="${dto.tall}">
+        <div class="mb-3 row">
+            <label for="tall" class="col-sm-2 col-form-label"> 키 :</label>
+            <div class="col-sm-10">
+                <input type="text" id="tall" name="tall" class="form-control" th:value="${dto.tall}">
+            </div>
         </div>
-        <div class="form-group">
-            <label for="weight">몸무게:</label>
-            <input type="text" id="weight" name="weight" class="form-control" th:value="${dto.weight}">
+        <div class="mb-3 row">
+            <label for="weight" class="col-sm-2 col-form-label">몸무게 :</label>
+            <div class="col-sm-10">
+                <input type="text" id="weight" name="weight" class="form-control"
+                       th:value="${dto.weight}">
+            </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">수정</button>
-        <!-- 삭제 버튼 클릭 시 확인 모달 표시 -->
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal">회원탈퇴</button>
-        <a href="/" class="btn btn-secondary">뒤로가기</a>
+        <div class="mb-3 row justify-content-end">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">수정</button>
+            </div>
+            <div class="col-auto">
+                <!-- Delete button with confirmation modal -->
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#confirmDeleteModal">회원탈퇴</button>
+            </div>
+            <div class="col-auto">
+                <a href="/" class="btn btn-secondary">뒤로가기</a>
+            </div>
+        </div>
     </form>
 </div>
 
-<!-- 삭제 확인 모달 -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+
+
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteModalLabel">회원 탈퇴 확인</h5> <!-- 타이틀 수정 -->
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title" id="confirmDeleteModalLabel">회원 탈퇴 확인</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 정말 회원 탈퇴를 진행하시겠습니까?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소할게요</button>
-                <!-- 회원 탈퇴 버튼 클릭 시 확인 모달 표시 -->
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소할게요</button>
+                <!-- Button to initiate delete action -->
                 <button type="button" class="btn btn-danger" id="confirmDeleteBtn">네</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- 부트스트랩 및 jQuery 스크립트 링크 -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!-- Thymeleaf에서 사용할 수 있도록 스크립트 내에서 속성 값에 대한 처리 -->
+<!-- Bootstrap and jQuery Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+<!-- Script to handle Thymeleaf attributes -->
 <script th:inline="javascript">
-    $(document).ready(function () {
-        // 회원 탈퇴 버튼 클릭 시 확인 모달 표시
-        $('#confirmDeleteBtn').click(function () {
-            $('#confirmDeleteModal').modal('hide');
-            $('#profileForm').attr('action', '/member/remove').submit();
-        });
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // Function to handle delete confirmation
+        var confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+        if (confirmDeleteBtn) {
+            // 클릭 이벤트 핸들러 등록
+            confirmDeleteBtn.addEventListener('click', function () {
+                // 확인 모달 닫기
+                var confirmDeleteModal = document.getElementById('confirmDeleteModal');
+                if (confirmDeleteModal) {
+                    confirmDeleteModal.style.display = 'none';
+                }
+                // 폼 제출
+                var profileForm = document.getElementById('profileForm');
+                if (profileForm) {
+                    profileForm.action = '/member/remove';
+                    profileForm.submit();
+                }
+            });
+        }
     });
+
 </script>
+<style>
+    #custom-form {
+        max-width: 600px; /* Adjust the max-width as needed */
+        margin: auto; /* Center the form horizontally */
+    }
+</style>
+
+
 </html>

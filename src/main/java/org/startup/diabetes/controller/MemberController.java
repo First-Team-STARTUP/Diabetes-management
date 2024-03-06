@@ -3,25 +3,26 @@ package org.startup.diabetes.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.startup.diabetes.config.WebSecurityConfig;
 import org.startup.diabetes.dto.MemberDTO;
-import org.startup.diabetes.dto.MemberLoginDTO;
+import org.startup.diabetes.dto.MemberPwUpdateDTO;
 import org.startup.diabetes.service.MemberService;
+
+import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,6 +31,7 @@ import org.startup.diabetes.service.MemberService;
 public class MemberController {
 
     private final MemberService memberService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
 
     @GetMapping("/login")
@@ -102,9 +104,11 @@ public class MemberController {
 
         return "/member/mypage";
     }
-//    @PreAuthorize("#memberDTO.userid == principal.username")
+
     @PostMapping("/mypage")
-    public String modifyMyPage(@Valid MemberDTO memberDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String modifyMyPage(@Valid MemberDTO memberDTO,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes) {
 
         log.info("회원 정보 변경 post" + memberDTO);
 
@@ -127,6 +131,47 @@ public class MemberController {
 
     }
 
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/change-password")
+    public String showChangePasswordPage(Authentication authentication, Model model) {
+
+        // @AuthenticationPrincipal을 통해 현재 사용자의 UserDetails를 가져옴
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        // 사용자의 아이디를 기반으로 정보 조회
+        MemberDTO dto = memberService.readMyPage(userDetails.getUsername());
+
+        // 조회된 정보를 모델에 추가하여 뷰로 전달
+        model.addAttribute("dto", dto);
+
+
+        return "/member/change-password"; // 변경할 비밀번호 입력 페이지의 뷰 이름
+    }
+
+    @PostMapping("/change-password")
+    public String changePassword(@Valid MemberPwUpdateDTO dto,
+                                 Model model,
+                                 Authentication authentication) {
+        if (!Objects.equals(dto.getNewPw(), dto.getConfirmPw())) {
+            model.addAttribute("dto", dto);
+            model.addAttribute("differentPassword", "비밀번호가 같지 않습니다.");
+            return "/member/mypage";
+        }
+
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String result = memberService.changePassword(dto, userDetails.getUsername());
+
+        if (result == null){
+            model.addAttribute("dto", dto);
+            model.addAttribute("wrongPassword", "비밀번호가 맞지 않습니다.");
+            return "/member/mypage";
+        }
+
+        return "redirect:/member/mypage";
+
+    }
+
 
 //    @PreAuthorize("#memberDTO.userid == principal.username")
     @PostMapping("/remove")
@@ -144,7 +189,25 @@ public class MemberController {
         }
 
         // 회원 삭제 후 리다이렉트할 URL을 반환합니다.
-        return "redirect:/member/login";
+        return "redirect:/member/delete-member";
     }
 
+    @GetMapping("/delete-member")
+    public String deleteUserCheck(){
+        return "/member/delete-member";
+    }
+
+
+
+//    // 비밀번호 변경 폼 보여주기
+//    @GetMapping("/change-password")
+//    public String showChangePasswordForm() {
+//        return "change-password-form";
+//    }
+
+    // 비밀번호 변경
+
+
 }
+
+
