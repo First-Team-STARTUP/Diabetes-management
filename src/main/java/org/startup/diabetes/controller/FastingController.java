@@ -5,12 +5,14 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.startup.diabetes.dto.FastingDTO;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.startup.diabetes.service.FastingService;
 
 import java.time.LocalDate;
@@ -38,8 +40,10 @@ public class FastingController {
     //오류 없는 register
     @PostMapping("/register")
     public String registerPost(@Valid FastingDTO fastingDTO, BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes,  HttpServletRequest request){
+                               RedirectAttributes redirectAttributes, HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetail){
         log.info("공복 혈당 등록..........");
+
+
 
         // 공복혈당 값 50~900범위 체크
         int emptyData = fastingDTO.getEmptyData();
@@ -63,29 +67,13 @@ public class FastingController {
             redirectAttributes.addFlashAttribute("duplicateMessage", "이미 등록된 날짜입니다.");
             return "redirect:/fasting/register";
         }
-//        if (fastingService.registDateDuplicated(registDate)) {
-//            HttpSession session = request.getSession();
-//            session.setAttribute("duplicateMessage", "이미 등록된 날짜입니다.");
-//            return "redirect:/fasting/register";
-//        }
 
 
 
-        // 중복 메세지가 없을 때만 성공 메세지를 추가
-//        redirectAttributes.addFlashAttribute("successMessage", "혈당정보 등록 완료");
-//        return "redirect:/fasting/list";
-
-
-//        int emptyData = fastingDTO.getEmptyData();
-//        if (!fastingService.emptyDataRange(emptyData)) {
-//            HttpSession session = request.getSession();
-//            session.setAttribute("duplicateMessage", "공복혈당은 50에서 900 사이의 값이어야 합니다.");
-//            return "redirect:/fasting/register";
-//        }
 
         log.info(fastingDTO);
 
-        Long bno = fastingService.register(fastingDTO);
+        Long bno = fastingService.register(fastingDTO, userDetail);
         redirectAttributes.addFlashAttribute("result", bno);
 
         log.info("혈당정보 등록 완료");

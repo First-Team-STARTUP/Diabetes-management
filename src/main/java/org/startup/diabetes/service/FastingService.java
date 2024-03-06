@@ -1,7 +1,9 @@
 package org.startup.diabetes.service;
 
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.startup.diabetes.dto.FastingDTO;
+import org.startup.diabetes.security.UserDetail;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
 // Entity -> DTO (DTO Class)
 
 public interface FastingService {
-    Long register(FastingDTO fastingDTO);
+    Long register(FastingDTO fastingDTO, UserDetails userDetail);
 
     // 조회
     FastingDTO readOne(Long bno);
