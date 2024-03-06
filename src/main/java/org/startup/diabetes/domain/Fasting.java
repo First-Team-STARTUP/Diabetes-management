@@ -31,7 +31,7 @@ public class Fasting extends BaseEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd", timezone = "Asia/Seoul")
     private LocalDate registDate;
 
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "id")
     @ManyToOne
     private Member member;
 
