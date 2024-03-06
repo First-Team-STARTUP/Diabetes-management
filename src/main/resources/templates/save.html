@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>save</title>
+</head>
+
+<body>
+
+
+<form action="/board/save" method="post"> <!--이걸받아주는 메소드가 없다..-->
+
+    <div class="input-group mb-3">
+        <span class="input-group-text">날짜</span>
+        <input type="date" name="registDate" class="form-control" placeholder="날짜">
+    </div>
+    시간대 선택:
+    <select name="Time">
+        <option value="morning">아침</option>
+        <option value="afternoon">점심</option>
+        <option value="evening">저녁</option>
+    </select><br>
+
+    식단:
+    <select name="Food">
+        <!-- food DB -->
+        <!-- value가 food DB에서 와야함. -->
+        <option value="치킨">치킨</option>
+        <option value="피자">피자</option>
+        <option value="햄버거">햄버거</option>
+    </select><br>
+    <br>
+    식후혈당:<input type="text" name="AfterBlood"> <br>
+    <input type="submit" value="저장"> <br>

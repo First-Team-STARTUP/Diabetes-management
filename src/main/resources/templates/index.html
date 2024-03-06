@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+<button onclick="listReq()">목록보기</button>
+<button onclick="saveReq()">공복혈당v1</button>
+<a href = "/board/save">공복혈당v2</a>
+
+
+</body>
+<script>
+    const saveReq= () =>{
+        location.href ="/board/save";  //이 주소를 요청.
+    }
+    const listReq= () =>{
+        location.href ="/board/";
+    }
+    // 와 동일  (단지, 버튼vs링크냐 차이일뿐. UI차이)
+    //     최근 es6에서 사용하는 함수정의방식, ㅋ 람다같이
+</script>
+</html>
