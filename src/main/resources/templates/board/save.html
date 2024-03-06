@@ -2,36 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>save</title>
+    <title>Save</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
+<div class="container mt-5">
+    <form action="/board/save" method="post">
+        <div class="form-group row">
+            <label for="registDate" class="col-sm-2 col-form-label">날짜</label>
+            <div class="col-sm-10">
+                <input type="date" name="registDate" class="form-control" id="registDate">
+            </div>
+        </div>
 
+        <div class="form-group row">
+            <label for="Time" class="col-sm-2 col-form-label">시간대 선택</label>
+            <div class="col-sm-10">
+                <select name="Time" class="form-select" id="Time">
+                    <option value="morning">아침</option>
+                    <option value="afternoon">점심</option>
+                    <option value="evening">저녁</option>
+                </select>
+            </div>
+        </div>
 
-<form action="/board/save" method="post"> <!--이걸받아주는 메소드가 없다..-->
+        <div class="form-group row">
+            <label for="Food" class="col-sm-2 col-form-label">식단</label>
+            <div class="col-sm-10">
+                <select name="Food" class="form-select" id="Food">
+                    <option value="치킨">치킨</option>
+                    <option value="피자">피자</option>
+                    <option value="햄버거">햄버거</option>
+                </select>
+            </div>
+        </div>
 
-    <div class="input-group mb-3">
-        <span class="input-group-text">날짜</span>
-        <input type="date" name="registDate" class="form-control" placeholder="날짜">
-    </div>
-    시간대 선택:
-    <select name="Time">
-        <option value="morning">아침</option>
-        <option value="afternoon">점심</option>
-        <option value="evening">저녁</option>
-    </select><br>
+        <div class="form-group row">
+            <label for="AfterBlood" class="col-sm-2 col-form-label">식후혈당</label>
+            <div class="col-sm-10">
+                <input type="text" name="AfterBlood" class="form-control" id="AfterBlood">
+            </div>
+        </div>
 
-    식단:
-    <select name="Food">
-        <!-- food DB -->
-        <!-- value가 food DB에서 와야함. -->
-        <option value="치킨">치킨</option>
-        <option value="피자">피자</option>
-        <option value="햄버거">햄버거</option>
-    </select><br>
-    <br>
-    식후혈당:<input type="text" name="AfterBlood"> <br>
-    <input type="submit" value="저장"> <br>
+        <div class="form-group row">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-primary">저장</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
