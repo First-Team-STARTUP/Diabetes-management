@@ -52,11 +52,6 @@ public class FastingServiceImpl implements FastingService {
 
         return bno;
 
-//        Fasting fasting = Fasting.builder()
-//                .emptyData(fastingDTO.getEmptyData())
-//                .build();
-//
-//        return fastingRepository.save(fasting).getBno();
     }
 
 
@@ -88,13 +83,7 @@ public class FastingServiceImpl implements FastingService {
 
     }
 
-    //삭제
-//    @Override
-//    public void remove(FastingDTO fastingDTO) {
-//        // FastingDTO에서 ID를 추출하여 삭제
-//        Long emptyId = fastingDTO.getEmptyId();
-//        fastingRepository.deleteById(emptyId);
-//    }
+
     @Override
     public void remove(Long bno) {
         fastingRepository.deleteById(bno);

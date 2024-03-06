@@ -120,11 +120,4 @@ public class MemberServiceImpl implements MemberService {
 
     }
 
-    // 새 비밀번호의 유효성을 검사하는 메서드
-//    private boolean isValidPassword(String password) {
-//        // 여기에 비밀번호 유효성 검사 로직을 추가하세요 (예: 길이, 특수문자 포함 여부 등)
-//        // 여기서는 간단히 6자 이상인지만 확인합니다.
-//        return password.length() >= 4;
-//    }
-
 }
