@@ -22,7 +22,7 @@ public class BoardDTO {
     //게시글 작성시간, 수정시간
 //    private LocalDateTime CreatedTime;
 //    private LocalDateTime UpdatedTime;
-    //이름만봐도 파악되게해야하미..
+
     //그리고 private로 접근제한자두고,,
     //그리고 생성자, 게터세터 하는게 ㅋ 필드값 가져오기위해 private라.. -> lombok!(라이브러리)으로.ㅋ대처
 
