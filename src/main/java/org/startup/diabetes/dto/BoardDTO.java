@@ -15,9 +15,9 @@ public class BoardDTO {
 
     private Long bno;  //id pk,
     private LocalDate registDate; //등록하는 날짜
-    private String Time;
-    private String Food;
-    private int AfterBlood;
+    private String time;
+    private String food;
+    private int afterBlood;
 
     //게시글 작성시간, 수정시간
 //    private LocalDateTime CreatedTime;
