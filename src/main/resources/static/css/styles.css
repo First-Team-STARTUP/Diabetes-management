@@ -2122,6 +2122,14 @@ progress {
   -webkit-overflow-scrolling: touch;
 }
 
+.width-center{
+  width: 600px;
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 575.98px) {
   .table-responsive-sm {
     overflow-x: auto;
@@ -4657,6 +4665,11 @@ textarea.form-control-lg {
 .card-group > .card:not(:first-child) .card-footer {
     border-bottom-left-radius: 0;
   }
+}
+.boder-box {
+  display: flex;
+  width: 70%;
+  border-radius: 20px;
 }
 
 .accordion-button {

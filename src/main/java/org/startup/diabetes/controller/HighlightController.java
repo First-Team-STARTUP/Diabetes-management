@@ -7,13 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.startup.diabetes.dto.BoardDTO;
 import org.startup.diabetes.dto.FastingDTO;
 import org.startup.diabetes.repository.BoardRepository;
 import org.startup.diabetes.service.BoardService;
 import org.startup.diabetes.service.FastingService;
-
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -47,7 +45,7 @@ public class HighlightController {
                 .sorted(Comparator.comparing(FastingDTO::getRegistDate)) // registDate로 정렬
                 .collect(Collectors.toList());
 
-        log.info("최근 7일 데이터" + fastingDataList);
+        log.info("fastingDataList 최근 7일 데이터" + fastingDataList);
 
 
         // fastingDataList가 비어있지 않다면
@@ -63,8 +61,8 @@ public class HighlightController {
                     .max(LocalDate::compareTo)
                     .orElse(null);
 
-            log.info("시작 날짜: " + startDate);
-            log.info("끝 날짜: " + endDate);
+            log.info("startDate 시작 날짜: " + startDate);
+            log.info("endDate 끝 날짜: " + endDate);
 
         // fastingDataList에서 registDate의 day만 추출
         // 배열로 저장하고 이전 날짜부터 순서대로 정렬
@@ -73,7 +71,7 @@ public class HighlightController {
                 .map(data -> data.getRegistDate().getDayOfMonth())
                 .collect(Collectors.toList());
 
-        log.info("날짜 정렬 : " + dayList);
+        log.info("dayList 날짜 정렬 : " + dayList);
 
         // fastingDataList에서 registDate를 기준으로 정렬하고 이전 날짜부터 emptyData를 배열로 저장
         List<Integer> emptyDataList = fastingDataList.stream()
@@ -90,21 +88,21 @@ public class HighlightController {
                     .average()
                     .orElse(0.0);
 
-            log.info("평균 공복 혈당: " + averageEmptyData);
+            log.info("averageEmptyData 평균 공복 혈당: " + averageEmptyData);
 
             // emptyDataList에서 제일 높은 값
             int maxEmptyData = emptyDataList.stream()
                     .max(Comparator.naturalOrder())
                     .orElse(0);
 
-            log.info("제일 높은 공복 혈당: " + maxEmptyData);
+            log.info("maxEmptyData 제일 높은 공복 혈당: " + maxEmptyData);
 
             // emptyDataList에서 제일 낮은 값
             int minEmptyData = emptyDataList.stream()
                     .min(Comparator.naturalOrder())
                     .orElse(0);
 
-            log.info("제일 낮은 공복 혈당: " + minEmptyData);
+            log.info("minEmptyData 제일 낮은 공복 혈당: " + minEmptyData);
 
         //BoardService
             // 아침 데이터 가져오기
