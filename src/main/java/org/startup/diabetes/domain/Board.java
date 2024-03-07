@@ -12,9 +12,11 @@ import java.time.LocalDate;
 @Entity  //클래스,서비스,엔티티 각 패키지에맞게 어노테이션붙여주자..ㅋ
 @Setter
 @Getter
-@Table(name="board") //테이블어노테이션은  디비에 실제 이 클래스정의대로 테이블생성되는데 그렇게만들어주는역할.
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name="board")//테이블어노테이션은  디비에 실제 이 클래스정의대로 테이블생성되는데 그렇게만들어주는역할.
 //실제 테이블 디비에만들어지면 테이블이름이됨.ㅋ
-public class BoardEntity {
+public class Board {
 
     //자, 테이블정의시 pk 기본키가있지?
     @Id //어노테이션을써줌
@@ -36,24 +38,32 @@ public class BoardEntity {
     @Column(name = "food", nullable = false)
     private String food;
 
-    //OneToOne
-    //@JoinColumn(name="bno")
-    //@OneToOne
-    //private Food Food; //Food 엔티티 갖고오는
-
     @Column(name="afterBlood", nullable = false)
     private int afterBlood;
 
+    @JoinColumn(name = "id")
+    @ManyToOne
+    private Member member;
 
-    public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
+
+    @JoinColumn(name = "fast_id")
+    @OneToOne
+    private Fasting fasting;
+
+
+
+
+
+    public static Board toSaveEntity(BoardDTO boardDTO) {
 
         //dto담긴객체를 엔티티로 옮기자.
-        BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setBno(boardDTO.getBno());
-        boardEntity.setRegistDate(boardDTO.getRegistDate());
-        boardEntity.setTime(boardDTO.getTime());
-        boardEntity.setFood(boardDTO.getFood());
-        boardEntity.setAfterBlood(boardDTO.getAfterBlood());
-        return boardEntity;
+        Board board = new Board();
+        board.setBno(boardDTO.getBno());
+        board.setRegistDate(boardDTO.getRegistDate());
+        board.setTime(boardDTO.getTime());
+        board.setFood(boardDTO.getFood());
+        board.setAfterBlood(boardDTO.getAfterBlood());
+        board.setMember(boardDTO.getMember());
+        return board;
     }
 }

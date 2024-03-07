@@ -30,7 +30,7 @@ public class BoardController {
     public String save(@ModelAttribute BoardDTO boardDTO) {
         System.out.println("boardDTO=" + boardDTO);
         boardService.save(boardDTO);
-        return "/board/index";
+        return "/board/save";
     }
 
     //그래서 이 메소드가 호출되면, save.html 리턴을 주게되고, 어디로??

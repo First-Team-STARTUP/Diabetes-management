@@ -14,7 +14,6 @@
     <form action="/board/save" method="post" id="custom-form">
         <div class="mb-3 row">
             <label for="registDate" class="col-sm-2 col-form-label">날짜</label>
-            <p th:text="${diabetes.afterBlood}"></p>
             <div class="col-sm-10">
                 <input type="date" name="registDate" class="form-control" id="registDate">
             </div>
@@ -35,7 +34,9 @@
             <label for="Food" class="col-sm-2 col-form-label">식단</label>
             <div class="col-sm-10">
                 <select name="Food" class="form-select" id="Food">
-                    <option th:value="${food}">치킨</option>      <!-- !!!!!!!!!!food 리스트 가져오기!!!!!!!!!!!  -->
+                    <option value="치킨">치킨</option>
+                    <option value="피자">피자</option>
+                    <option value="햄버거">햄버거</option>
                 </select>
             </div>
         </div>
@@ -60,14 +61,17 @@
         <table class="table">
             <thead>
             <tr>
+                <th scope="col">날  짜</th>
                 <th scope="col">시  간</th>
                 <th scope="col">식후 혈당</th>
-                <th scope="col">식  단</th>
+                <th scope="col">Food</th>
+
             </tr>
             </thead>
             <tbody>
             <!--11:20초 4강-->
             <tr th:each="diabetes: ${boardList}">
+                <td th:text="${diabetes.registDate}"></td>
                 <td><a th:href="@{|/diabetes/${diabetes.bno}|}" th:text="${diabetes.time}"></a></td>
                 <td th:text="${diabetes.afterBlood}"></td>
                 <td th:text="${diabetes.food}"></td>
@@ -95,13 +99,12 @@
         max-width: 600px; /* Adjust the max-width as needed */
         margin: auto;
     }
-    //.advertisement {
-    //    background-color: #f8f9fa;
-    //    padding: 20px;
-    //    border-radius: 10px;
-    //    margin-top: 30px;
-    //    text-align: center;
-    //}
+    .advertisement {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+    }
     //
     //.advertisement h5 {
     //    color: #007bff;
