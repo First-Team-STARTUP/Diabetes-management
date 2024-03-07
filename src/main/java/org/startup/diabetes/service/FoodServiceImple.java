@@ -10,6 +10,9 @@ import org.startup.diabetes.dto.FoodDTO;
 import org.startup.diabetes.repository.BoardRepository;
 import org.startup.diabetes.repository.FoodRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 @Log4j2
@@ -19,20 +22,19 @@ public class FoodServiceImple implements FoodService {
 
     private final FoodRepository foodRepository;
     private final BoardRepository boardRepository;
+    private final ModelMapper modelMapper; // ModelMapper 추가
 
     @Override
     public Long register(FoodDTO foodDTO) {
-
-        //builder sql문
         Food food = Food.builder()
-        .title(foodDTO.getTitle())
-        .plusBlood(foodDTO.getPlusBlood())
-        .calorie(foodDTO.getCalorie())
-        .protein(foodDTO.getProtein())
-        .carbohydrate(foodDTO.getCarbohydrate())
-        .sugar(foodDTO.getSugar())
-        .natrium(foodDTO.getNatrium())
-        .build();
+                .title(foodDTO.getTitle())
+                .plusBlood(foodDTO.getPlusBlood())
+                .calorie(foodDTO.getCalorie())
+                .protein(foodDTO.getProtein())
+                .carbohydrate(foodDTO.getCarbohydrate())
+                .sugar(foodDTO.getSugar())
+                .natrium(foodDTO.getNatrium())
+                .build();
 
         return foodRepository.save(food).getBno();
         // FoodDTO를 Food 엔티티로 변환
@@ -44,4 +46,21 @@ public class FoodServiceImple implements FoodService {
         // 저장된 Food 엔티티의 ID를 반환
         //return savedFood.getBno();
     }
+    @Override
+    public List<FoodDTO> findAll() {
+        List<Food> foodList = foodRepository.findAll();
+        return foodList.stream()
+                .map(food -> FoodDTO.builder()
+                        .bno(food.getBno())
+                        .title(food.getTitle())
+                        .plusBlood(food.getPlusBlood())
+                        .calorie(food.getCalorie())
+                        .protein(food.getProtein())
+                        .carbohydrate(food.getCarbohydrate())
+                        .sugar(food.getSugar())
+                        .natrium(food.getNatrium())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
 }

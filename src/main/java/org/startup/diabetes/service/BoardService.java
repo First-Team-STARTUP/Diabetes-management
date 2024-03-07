@@ -36,24 +36,24 @@ public class BoardService {
     }
     //여기선 DTO객체를 엔티티로 옮겨담았다면,  아래에선, 반대
 
-//    public List<BoardDTO> findAll() {
-//        List<Board> boardEntityList = boardRepository.findAll();
-//        // 위 코드에선, --List<>만 중요--
-//        //즉, findall()은 레포지토리로부터 뭔가 가져올땐,  거의 대부분 entity로 온다.
-//        //즉, 엔티티1개가 아닌, 다수, 여러개를 리스트라고칭하고 리스트,다수엔티티로옴
-//
-//        //그리고 이 엔티티로 넘어온 객체를 DTO객체로,  옮겨담아 닫시 컨트롤러로
-//        // 그럼, 리턴할 객체를 선언해주자.먼저
-//
-//        List<BoardDTO> boardDTOList = new ArrayList<>();
-//        //즉, 엔티티에 담긴걸-> dto위 코드로 옮겨야지.  작업이필요..
-//        //작업1) 즉, 엔티티개체를 -> dto객체로 옮겨담는과정이 필요.. 위에선 ↑
-//        for (Board board : boardEntityList) {
-//            //반복문으로 접근하는 엔티티객체를 dto로 변환하고.↓
-//            boardDTOList.add(BoardDTO.toBoardDTO(board));
-//            //변환된 객체를 boardDTOList에 받는.. for문돌려서.
-//        }
-//        return boardDTOList;  //컨트롤러로 리턴.
-//    }
+    public List<BoardDTO> findAll() {
+        List<Board> boardEntityList = boardRepository.findAll();
+        // 위 코드에선, --List<>만 중요--
+        //즉, findall()은 레포지토리로부터 뭔가 가져올땐,  거의 대부분 entity로 온다.
+        //즉, 엔티티1개가 아닌, 다수, 여러개를 리스트라고칭하고 리스트,다수엔티티로옴
+
+        //그리고 이 엔티티로 넘어온 객체를 DTO객체로,  옮겨담아 닫시 컨트롤러로
+        // 그럼, 리턴할 객체를 선언해주자.먼저
+
+        List<BoardDTO> boardDTOList = new ArrayList<>();
+        //즉, 엔티티에 담긴걸-> dto위 코드로 옮겨야지.  작업이필요..
+        //작업1) 즉, 엔티티개체를 -> dto객체로 옮겨담는과정이 필요.. 위에선 ↑
+        for (Board board : boardEntityList) {
+            //반복문으로 접근하는 엔티티객체를 dto로 변환하고.↓
+            boardDTOList.add(BoardDTO.toBoardDTO(board));
+            //변환된 객체를 boardDTOList에 받는.. for문돌려서.
+        }
+        return boardDTOList;  //컨트롤러로 리턴.
+    }
 
 }

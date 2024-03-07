@@ -32,10 +32,12 @@
     <p>공복: 90</p>
 
 <table>
-
-    <tr th:each="no: ${startup}">
-        <td th:text="${startup}"></td>
-    </tr>식후:<span th:text="${afterBlood}"></span>
+<!--각 날짜에 해당하는 공복, 식후혈당이 나와야함 -->
+<!--        <td th:text="${startup.}"></td>-->
+    <!--식후 혈당 리스트 테스트 -->
+    <tr th:each="bloodLevel: ${afterBloodList}">
+        <td th:text="${bloodLevel}"></td>
+</tr>
 <!--    <p>식사 후 혈당이 20mg/dl만큼이나 올랐네요?</p>-->
 <!--    <td th:if"${ㅁㅁ - ㅁㅁ <=0 } "></td>-->
 <!--        식사후 혈당이 변하지 않았습니다.-->
@@ -46,42 +48,38 @@
         <p>이미지</p>
         <img src="images/chicken.jpg" alt="치킨 이미지">
 </div>
+<h2>영양 정보</h2>
 <table>
     <tr>
         <th>영양소</th>
-        <th>치킨</th>
-        <th>치킨(1마리 30g, 250kcal)</th>
+        <th>치킨</th> <!-- 예시로 치킨 -->
     </tr>
-    <tr>
+    <tr th:each="foodDTO : ${foodList}">
         <td>열량</td>
-        <td>250kcal</td>
-        <td>1200kcal</td>
+        <td th:text="${foodDTO != null ? foodDTO.calorie : 'N/A'}"></td>
     </tr>
-    <tr>
+    <tr th:each="foodDTO : ${foodList}">
         <td>단백질</td>
-        <td>-</td>
-        <td>140g</td>
+        <td th:text="${foodDTO != null ? foodDTO.protein : 'N/A'}"></td>
     </tr>
-    <tr>
+    <tr th:each="foodDTO : ${foodList}">
         <td>탄수화물</td>
-        <td>-</td>
-        <td>860g</td>
+        <td th:text="${foodDTO != null ? foodDTO.carbohydrate : 'N/A'}"></td>
     </tr>
-    <tr>
-        <td>지방</td>
-        <td>-</td>
-        <td>10g</td>
-    </tr>
-    <tr>
+    <tr th:each="foodDTO : ${foodList}">
         <td>당류</td>
-        <td>-</td>
-        <td>140g</td>
+        <td th:text="${foodDTO != null ? foodDTO.sugar : 'N/A'}"></td>
     </tr>
-    <tr>
+    <tr th:each="foodDTO : ${foodList}">
         <td>나트륨</td>
-        <td>330mg</td>
-        <td>-</td>
+        <td th:text="${foodDTO != null ? foodDTO.natrium : 'N/A'}"></td>
     </tr>
 </table>
+
+
+
+</div>
+
+
 </body>
 </html>
