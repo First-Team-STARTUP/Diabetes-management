@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,18 +59,17 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">날  짜</th>
-                <th scope="col">시  간</th>
+                <th scope="col">날짜</th>
+                <th scope="col">시간</th>
                 <th scope="col">식후 혈당</th>
                 <th scope="col">Food</th>
-
             </tr>
             </thead>
             <tbody>
-            <!--11:20초 4강-->
-            <tr th:each="diabetes: ${boardList}">
+            <!-- 반복문으로 Diabetes 데이터를 출력 -->
+            <tr th:each="diabetes : ${boardList}">
                 <td th:text="${diabetes.registDate}"></td>
-                <td><a th:href="@{|/diabetes/${diabetes.bno}|}" th:text="${diabetes.time}"></a></td>
+                <td><a th:href="@{|/board/${diabetes.bno}|}" th:text="${diabetes.time}"></a></td>
                 <td th:text="${diabetes.afterBlood}"></td>
                 <td th:text="${diabetes.food}"></td>
             </tr>
