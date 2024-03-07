@@ -15,10 +15,9 @@ import org.startup.diabetes.dto.FoodDTO;
 public class Food {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bno;
 
-    @Column(name = "title")
+    @Column(name = "title", unique = true)
     private String title;
 
     @Column(name = "plusBlood")
@@ -41,6 +40,6 @@ public class Food {
 
     //매핑
 
-    @OneToOne(mappedBy = "food_id")
+    @OneToOne(mappedBy = "food")
     private Board board;
 }

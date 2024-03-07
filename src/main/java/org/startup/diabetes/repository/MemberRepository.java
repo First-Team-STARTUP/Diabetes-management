@@ -5,7 +5,7 @@ import org.startup.diabetes.domain.Member;
 
 import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member, String > {
+public interface MemberRepository extends JpaRepository<Member, String> {
 
     Optional<Member> findByUserid(String userid);
 
