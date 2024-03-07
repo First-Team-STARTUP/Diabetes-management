@@ -31,7 +31,7 @@ public class FoodDTO {
     private Integer natrium; //나트륨
 
     // 엔티티 -> DTO
-    public static FoodDTO tofoodDTO(Food food){
+    public static FoodDTO toFoodDTO(Food food){
         FoodDTO foodDTO = new FoodDTO();
         foodDTO.setBno(food.getBno());
         foodDTO.setTitle(food.getTitle());

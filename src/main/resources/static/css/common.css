@@ -18,3 +18,9 @@ body, html {
     height: 15%;
     border: solid 1px blue;
 }
+
+.content-width{
+    width: 600px;
+    display:flex;
+    justify-content:center;
+}

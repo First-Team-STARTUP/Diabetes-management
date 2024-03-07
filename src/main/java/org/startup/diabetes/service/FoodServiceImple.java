@@ -2,14 +2,14 @@ package org.startup.diabetes.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.modelmapper.ModelMapper;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.startup.diabetes.domain.Food;
 import org.startup.diabetes.dto.FoodDTO;
-import org.startup.diabetes.repository.BoardRepository;
 import org.startup.diabetes.repository.FoodRepository;
-
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Log4j2
@@ -18,7 +18,29 @@ import org.startup.diabetes.repository.FoodRepository;
 public class FoodServiceImple implements FoodService {
 
     private final FoodRepository foodRepository;
-    private final BoardRepository boardRepository;
+
+    // 모든 음식을 가져오는 메서드
+//    @Override
+//    public List<Food> getAllFoods() {
+//
+//        return foodRepository.findAll();
+//    }
+
+    // 모든 음식을 가져오는 메서드
+    @Override
+    public List<FoodDTO> getAllFoods() {
+        // 해당 유저의 Fasting 정보 가져오기
+        List<Food> foodList = foodRepository.findAll();
+
+        // Fasting 엔티티를 FastingDTO로 변환하여 리스트에 추가
+        List<FoodDTO> foodDTOList = new ArrayList<>();
+        for (Food food : foodList) {
+            FoodDTO foodDTO = FoodDTO.toFoodDTO(food);
+            foodDTOList.add(foodDTO);
+        }
+
+        return foodDTOList;
+    }
 
     @Override
     public Long register(FoodDTO foodDTO) {
