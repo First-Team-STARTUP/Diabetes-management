@@ -1,7 +1,9 @@
 package org.startup.diabetes.dto;
 
 import lombok.*;
-import org.startup.diabetes.domain.BoardEntity;
+import org.startup.diabetes.domain.Board;
+import org.startup.diabetes.domain.Fasting;
+import org.startup.diabetes.domain.Member;
 
 import java.time.LocalDate;
 
@@ -18,6 +20,8 @@ public class BoardDTO {
     private String time;
     private String food;
     private int afterBlood;
+    private Member member;
+    private Fasting fasting;
 
     //게시글 작성시간, 수정시간
 //    private LocalDateTime CreatedTime;
@@ -28,13 +32,14 @@ public class BoardDTO {
 
     // ----DTO -> entity였다면,
     // ↓이번엔 반대
-    public static BoardDTO toBoardDTO(BoardEntity boardEntity){
+    public static BoardDTO toBoardDTO(Board board){
         BoardDTO boardDTO=new BoardDTO();
-        boardDTO.setBno(boardEntity.getBno());
-        boardDTO.setRegistDate(boardEntity.getRegistDate());
-        boardDTO.setTime(boardEntity.getTime());
-        boardDTO.setFood(boardEntity.getFood());
-        boardDTO.setAfterBlood(boardEntity.getAfterBlood());
+        boardDTO.setBno(board.getBno());
+        boardDTO.setRegistDate(board.getRegistDate());
+        boardDTO.setTime(board.getTime());
+        boardDTO.setFood(board.getFood());
+        boardDTO.setAfterBlood(board.getAfterBlood());
+        boardDTO.setMember(boardDTO.getMember());
         return boardDTO;
     }
 }

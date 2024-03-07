@@ -35,10 +35,8 @@ public class Fasting extends BaseEntity {
     @ManyToOne
     private Member member;
 
-//    // Member 엔티티와의 다대일 관계 설정
-//    @ManyToOne
-//    @JoinColumn(name = "userid", nullable = false)
-//    private Member member;
+    @OneToOne(mappedBy = "fasting")
+    private Board board;
 
     public void change(int emptyData){
         this.emptyData = emptyData;

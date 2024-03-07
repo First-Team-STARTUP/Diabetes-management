@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.startup.diabetes.domain.Board;
 import org.startup.diabetes.domain.Fasting;
 import org.startup.diabetes.domain.Member;
 
@@ -32,6 +33,8 @@ public class FastingDTO {
     private Integer emptyData;
 
     private Member member;
+
+    private Board board;
 
 //    @Column(name = "Date")
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")

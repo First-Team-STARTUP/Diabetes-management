@@ -8,11 +8,8 @@ import lombok.Setter;
 public class MemberPwUpdateDTO {
 
     private Long id;
-
     private String userid;
-
     private String pw;
-
     private String newPw;
     private String ConfirmPw;
 
