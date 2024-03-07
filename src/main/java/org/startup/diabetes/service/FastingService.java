@@ -3,7 +3,6 @@ package org.startup.diabetes.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.startup.diabetes.dto.FastingDTO;
-import org.startup.diabetes.security.UserDetail;
 
 import java.time.LocalDate;
 import java.util.List;

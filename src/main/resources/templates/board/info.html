@@ -29,24 +29,25 @@
 </div>
 <h2>--혈당 정보--</h2>
 
-    <p>공복: 90</p>
+<p>공복: 90</p>
 
 <table>
-<!--각 날짜에 해당하는 공복, 식후혈당이 나와야함 -->
-<!--        <td th:text="${startup.}"></td>-->
+    <p>식후혈당:</p>
+    <!--각 날짜에 해당하는 공복, 식후혈당이 나와야함 -->
+    <!--        <td th:text="${startup.}"></td>-->
     <!--식후 혈당 리스트 테스트 -->
-    <tr th:each="bloodLevel: ${afterBloodList}">
-        <td th:text="${bloodLevel}"></td>
-</tr>
-<!--    <p>식사 후 혈당이 20mg/dl만큼이나 올랐네요?</p>-->
-<!--    <td th:if"${ㅁㅁ - ㅁㅁ <=0 } "></td>-->
-<!--        식사후 혈당이 변하지 않았습니다.-->
+    <tr>식후혈당:
+        <td th:text="${afterBloodList != null && afterBloodList.size() > 0 ? afterBloodList[0] : 'N/A'}"></td>
+    </tr>
+    <!--    <p>식사 후 혈당이 20mg/dl만큼이나 올랐네요?</p>-->
+    <!--    <td th:if"${ㅁㅁ - ㅁㅁ <=0 } "></td>-->
+    <!--        식사후 혈당이 변하지 않았습니다.-->
 </table>
-</div>
+
 <h2>영양 정보</h2>
 <div>
-        <p>이미지</p>
-        <img src="images/chicken.jpg" alt="치킨 이미지">
+    <p>이미지</p>
+    <img src="images/chicken.jpg" alt="치킨 이미지">
 </div>
 <h2>영양 정보</h2>
 <table>
@@ -54,31 +55,28 @@
         <th>영양소</th>
         <th>치킨</th> <!-- 예시로 치킨 -->
     </tr>
-    <tr th:each="foodDTO : ${foodList}">
+    <tr>
         <td>열량</td>
-        <td th:text="${foodDTO != null ? foodDTO.calorie : 'N/A'}"></td>
+        <td th:text="${foodList != null && foodList.size() > 0 ? foodList[0].calorie : 'N/A'}"></td>
     </tr>
-    <tr th:each="foodDTO : ${foodList}">
+    <tr>
         <td>단백질</td>
-        <td th:text="${foodDTO != null ? foodDTO.protein : 'N/A'}"></td>
+        <td th:text="${foodList != null && foodList.size() > 1 ? foodList[1].protein : 'N/A'}"></td>
     </tr>
-    <tr th:each="foodDTO : ${foodList}">
+    <tr>
         <td>탄수화물</td>
-        <td th:text="${foodDTO != null ? foodDTO.carbohydrate : 'N/A'}"></td>
+        <td th:text="${foodList != null && foodList.size() > 2 ? foodList[2].carbohydrate : 'N/A'}"></td>
     </tr>
-    <tr th:each="foodDTO : ${foodList}">
+    <tr>
         <td>당류</td>
-        <td th:text="${foodDTO != null ? foodDTO.sugar : 'N/A'}"></td>
+        <td th:text="${foodList != null && foodList.size() > 3 ? foodList[3].sugar : 'N/A'}"></td>
     </tr>
-    <tr th:each="foodDTO : ${foodList}">
+    <tr>
         <td>나트륨</td>
-        <td th:text="${foodDTO != null ? foodDTO.natrium : 'N/A'}"></td>
+        <td th:text="${foodList != null && foodList.size() > 4 ? foodList[4].natrium : 'N/A'}"></td>
     </tr>
 </table>
 
-
-
-</div>
 
 
 </body>

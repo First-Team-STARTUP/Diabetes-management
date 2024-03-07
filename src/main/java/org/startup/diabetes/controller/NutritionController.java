@@ -35,8 +35,8 @@ public class NutritionController {
 
         // 음식 정보 가져오기
 
-            List<FoodDTO> foodDTOList = foodService.findAll();
-            model.addAttribute("foodList", foodDTOList);
+        List<FoodDTO> foodDTOList = foodService.findAll();
+        model.addAttribute("foodList", foodDTOList);
 
         // 식후 혈당 정보 가져오기 및 정렬
         List<Integer> afterBloodList = new ArrayList<>();
@@ -48,8 +48,4 @@ public class NutritionController {
 
         return "/board/info";
     }
-
-
-
-
 }

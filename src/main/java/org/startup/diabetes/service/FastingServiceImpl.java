@@ -11,12 +11,13 @@ import org.startup.diabetes.domain.Fasting;
 import org.startup.diabetes.domain.Member;
 import org.startup.diabetes.dto.FastingDTO;
 import org.startup.diabetes.repository.FastingRepository;
-import org.startup.diabetes.repository.MemberRepository;
-import org.startup.diabetes.security.UserDetail;
 import org.startup.diabetes.repository.FoodRepository;
+import org.startup.diabetes.repository.MemberRepository;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 
 @Service

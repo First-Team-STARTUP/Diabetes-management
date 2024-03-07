@@ -2,7 +2,6 @@ package org.startup.diabetes.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.startup.diabetes.domain.Board;
 import org.startup.diabetes.dto.BoardDTO;

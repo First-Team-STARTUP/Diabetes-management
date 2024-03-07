@@ -12,6 +12,5 @@ public interface BoardRepository extends JpaRepository<Board,Long>{
     // 사용자가 속한 게시판 그룹을 찾는 메서드
     List<Board> findByMemberUserid(String userid);
 
-    Board findByAfterBlood(int afterBlood);
 
 }
