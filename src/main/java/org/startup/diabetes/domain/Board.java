@@ -35,20 +35,17 @@ public class Board {
     @Column(name = "time", nullable = false)
     private String time;
 
-    @Column(name = "food", nullable = false)
-    private String food;
-
     @Column(name="afterBlood", nullable = false)
     private int afterBlood;
 
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "userid")
     @ManyToOne
     private Member member;
 
 
-    @JoinColumn(name = "fast_id")
+    @JoinColumn(name = "food_id")
     @OneToOne
-    private Fasting fasting;
+    private Food food_id;
 
 
 
@@ -61,7 +58,6 @@ public class Board {
         board.setBno(boardDTO.getBno());
         board.setRegistDate(boardDTO.getRegistDate());
         board.setTime(boardDTO.getTime());
-        board.setFood(boardDTO.getFood());
         board.setAfterBlood(boardDTO.getAfterBlood());
         board.setMember(boardDTO.getMember());
         return board;

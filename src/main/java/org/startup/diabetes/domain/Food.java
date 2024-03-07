@@ -40,4 +40,7 @@ public class Food {
     private Integer natrium; //나트륨
 
     //매핑
+
+    @OneToOne(mappedBy = "food_id")
+    private Board board;
 }
