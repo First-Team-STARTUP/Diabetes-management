@@ -2,6 +2,8 @@ package org.startup.diabetes.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +32,7 @@ public class HighlightController {
     private final BoardRepository boardRepository;
 
     @GetMapping("/highlight")
-    public String highlightGET(Model model) {
+    public String highlightGET(Model model, @AuthenticationPrincipal UserDetails userDetails) {
 
         Map<String, List<BoardDTO>> dataMap = new HashMap<>();
 
@@ -39,7 +41,7 @@ public class HighlightController {
 
         // 최근 7일의 데이터만 가져오기
         LocalDate sevenDaysAgo = LocalDate.now().minusDays(6);
-        List<FastingDTO> fastingDataList = fastingService.findAll()
+        List<FastingDTO> fastingDataList = fastingService.findByUserid(userDetails.getUsername())
                 .stream()
                 .filter(data -> data.getRegistDate().isAfter(sevenDaysAgo))
                 .sorted(Comparator.comparing(FastingDTO::getRegistDate)) // registDate로 정렬

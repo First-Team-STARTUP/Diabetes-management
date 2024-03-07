@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>식후 혈당 목록</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        #sidebar-wrapper {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        #page-content-wrapper {
+            margin-left: 250px;
+            transition: all 0.3s ease;
+        }
+
+        #sidebar-wrapper.collapsed {
+            width: 80px;
+        }
+
+        #sidebar-wrapper.collapsed #sidebarToggle::before {
+            content: '\f0c9';
+        }
+
+        #sidebar-wrapper #sidebarToggle {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            top: 10px;
+            right: -40px;
+            font-size: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #sidebar-wrapper #sidebarToggle:hover {
+            background-color: #f8f9fa;
+        }
+
+        #sidebar-wrapper #sidebarToggle::before {
+            content: '\f0c9';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+        }
+
+        #sidebar-wrapper.collapsed #sidebarToggle::before {
+            content: '\f0c9';
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <h1>식후 혈당 목록</h1>
+            <p>페이지 컨텐츠를 여기에 추가하세요.</p>
+            <p>작은 화면에서는 메뉴의 시작 상태가 축소된 상태로 표시되고, 큰 화면에서는 축소되지 않은 상태로 표시됩니다. 메뉴 토글은 위의 버튼을 클릭하여 수행할 수 있습니다.</p>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">bno</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">registDate</th>
+                    <th scope="col">Food</th>
+                    <th scope="col">AfterBlood</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--11:20초 4강-->
+                <tr th:each="diabetes: ${boardList}"> <!-- 데이터를 받았지 컨트롤러로 boardList-->
+                    <td th:text="${diabetes.bno}"></td>
+                    <td><a th:href="@{|/diabetes/${diabetes.bno}|}" th:text="${diabetes.time}"></a></td>
+                    <td th:text="${diabetes.registDate}"></td>
+                    <td th:text="${diabetes.food}"></td>
+                    <td th:text="${diabetes.afterBlood}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+</div>
+<!-- /#wrapper -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $("#sidebarToggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+</script>
+
+</body>
+</html>

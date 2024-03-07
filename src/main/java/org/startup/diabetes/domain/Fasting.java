@@ -13,6 +13,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "fasting_table") //테이블 이름
 public class Fasting extends BaseEntity {
@@ -28,6 +30,10 @@ public class Fasting extends BaseEntity {
     @DateTimeFormat(pattern = "MM-dd")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd", timezone = "Asia/Seoul")
     private LocalDate registDate;
+
+    @JoinColumn(name = "userid")
+    @ManyToOne
+    private Member member;
 
 //    // Member 엔티티와의 다대일 관계 설정
 //    @ManyToOne

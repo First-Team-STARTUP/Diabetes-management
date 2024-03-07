@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.startup.diabetes.domain.Fasting;
+import org.startup.diabetes.domain.Member;
 
 import java.time.LocalDate;
 
@@ -27,7 +28,15 @@ public class FastingDTO {
 
     @NotNull(message = "공복혈당은 필수값입니다.")
     @Range(min = 50, max = 899, message = "공복혈당은 50 이상, 899 미만이어야 합니다.")
+    //@Size(min =3, max =100)
     private Integer emptyData;
+
+    private Member member;
+
+//    @Column(name = "Date")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+//    private YearMonth yearMonth;
 
     @NotNull(message = "날짜입력은 필수값입니다.")
     @Column(name = "registDate")
@@ -41,6 +50,7 @@ public class FastingDTO {
         fastingDTO.setBno(fasting.getBno());
         fastingDTO.setEmptyData(fasting.getEmptyData());
         fastingDTO.setRegistDate(fasting.getRegistDate());
+        fastingDTO.setMember(fasting.getMember());
         return fastingDTO;
     }
 

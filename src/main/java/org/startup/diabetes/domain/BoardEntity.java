@@ -9,8 +9,6 @@ import org.startup.diabetes.dto.BoardDTO;
 
 import java.time.LocalDate;
 
-//먼저 -entity, 그다음 적절한 어노테이션추가해주자
-
 @Entity  //클래스,서비스,엔티티 각 패키지에맞게 어노테이션붙여주자..ㅋ
 @Setter
 @Getter

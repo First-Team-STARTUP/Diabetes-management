@@ -4,11 +4,15 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.startup.diabetes.domain.Fasting;
+import org.startup.diabetes.domain.Member;
 import org.startup.diabetes.dto.FastingDTO;
 import org.startup.diabetes.repository.FastingRepository;
+import org.startup.diabetes.repository.MemberRepository;
+import org.startup.diabetes.security.UserDetail;
 import org.startup.diabetes.repository.FoodRepository;
 
 import java.time.LocalDate;
@@ -23,6 +27,7 @@ public class FastingServiceImpl implements FastingService {
 
     private final ModelMapper modelMapper;
     private final FastingRepository fastingRepository;
+    private final MemberRepository memberRepository;
     private final FoodRepository foodRepository;
 
     // register 메서드는
@@ -31,10 +36,17 @@ public class FastingServiceImpl implements FastingService {
     // save 메서드는 결과를 반환하며, 해당 결과에서 getBno() 메서드를 호출
 
     @Override
-    public Long register(@Valid FastingDTO fastingDTO) {
+    public Long register(@Valid FastingDTO fastingDTO, UserDetails userDetail) {
+
+        Member member = memberRepository.findByUserid(userDetail.getUsername())
+                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
 
         // FastingDTO에서 Fasting 엔터티로 변환
-        Fasting fasting = modelMapper.map(fastingDTO, Fasting.class); // A->B , fasting
+        Fasting fasting = Fasting.builder()
+                .registDate(fastingDTO.getRegistDate())
+                .emptyData(fastingDTO.getEmptyData())
+                .member(member)
+                .build(); // A->B , fasting
 
         // Fasting 엔터티를 데이터베이스에 저장하고 저장된 엔터티의 ID를 얻음
         //bno 데이터베이스에 Fasting 엔터티를 저장한 결과
@@ -78,35 +90,31 @@ public class FastingServiceImpl implements FastingService {
 
     }
 
-    //삭제
-//    @Override
-//    public void remove(FastingDTO fastingDTO) {
-//        // FastingDTO에서 ID를 추출하여 삭제
-//        Long emptyId = fastingDTO.getEmptyId();
-//        fastingRepository.deleteById(emptyId);
-//    }
+
     @Override
     public void remove(Long bno) {
         fastingRepository.deleteById(bno);
     }
 
 
-    //조회
-    public List<FastingDTO> findAll(){
-        //List 형태의 엔티티가 넘어오게 됨
-        List<Fasting> fastingList = fastingRepository.findAll();
-        // 엔티티 객체를 DTO로 저장 -> controller -> service
-        List<FastingDTO> fastingDTOList = new ArrayList<>();
+    @Override
+    public List<FastingDTO> findByUserid(String userid) {
+        // 해당 유저의 Fasting 정보 가져오기
+        List<Fasting> fastingList = fastingRepository.findByMemberUserid(userid);
 
-        // fastingList 엔티티 -> FastingDTO 변환하고
-        for(Fasting fasting: fastingList){
-            // FastingDTO 변환된 객체를 fastingDTOList에 담는다
-            fastingDTOList.add(FastingDTO.tofastingDTO(fasting));
+        // Fasting 엔티티를 FastingDTO로 변환하여 리스트에 추가
+        List<FastingDTO> fastingDTOList = new ArrayList<>();
+        for (Fasting fasting : fastingList) {
+            FastingDTO fastingDTO = FastingDTO.tofastingDTO(fasting);
+            fastingDTOList.add(fastingDTO);
         }
 
         return fastingDTOList;
     }
 
+
+
+    @Override
     //중복날짜 조회
     public boolean registDateDuplicated(LocalDate registDate) {
         // 날짜가 중복되면 true, 아니면 false 반환

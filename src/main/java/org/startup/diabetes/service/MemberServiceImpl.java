@@ -4,11 +4,13 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.startup.diabetes.domain.Member;
 import org.startup.diabetes.dto.MemberDTO;
+import org.startup.diabetes.dto.MemberPwUpdateDTO;
 import org.startup.diabetes.repository.MemberRepository;
 
 import javax.swing.text.html.Option;
@@ -80,7 +82,6 @@ public class MemberServiceImpl implements MemberService {
         Member member = result.orElseThrow(() -> new NoSuchElementException("해당하는 회원을 찾을 수 없습니다."));
 
         member.change(
-                memberDTO.getPw(),
                 memberDTO.getName(),
                 memberDTO.getAge(),
                 memberDTO.getGender(),
@@ -95,9 +96,28 @@ public class MemberServiceImpl implements MemberService {
     public void removeUser(String userid) {
 
         Optional<Member> member = memberRepository.findByUserid(userid);
-        member.ifPresent(memberid -> {
-            // 관련 데이터 삭제 또는 적절히 처리하는 로직 추가
-            memberRepository.delete(memberid);
-        });
+        // 관련 데이터 삭제 또는 적절히 처리하는 로직 추가
+        member.ifPresent(memberRepository::delete);
     }
+
+
+    @Override
+    public String changePassword(MemberPwUpdateDTO dto, String userid) {
+
+        Member member = memberRepository.findByUserid(userid)
+                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+
+
+        if(!passwordEncoder.matches(dto.getPw(), member.getPw())){
+            return null;
+        } else {
+            dto.setNewPw(passwordEncoder.encode(dto.getNewPw()));
+            member.updatePassword(dto.getNewPw());
+            memberRepository.save(member);
+        }
+        return member.getUserid();
+
+
+    }
+
 }

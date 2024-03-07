@@ -1,15 +1,18 @@
 package org.startup.diabetes.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.startup.diabetes.dto.FastingDTO;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.startup.diabetes.service.FastingService;
 
 import java.time.LocalDate;
@@ -29,12 +32,15 @@ public class FastingController {
 //    public void registerGET(){}
 
     @GetMapping("/register")
-    public void registerGET(){}
+    public void registerGET(){
+
+    }
+
 
     //오류 없는 register
     @PostMapping("/register")
     public String registerPost(@Valid FastingDTO fastingDTO, BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes,  HttpServletRequest request){
+                               RedirectAttributes redirectAttributes, HttpServletRequest request, @AuthenticationPrincipal UserDetails userDetail){
         log.info("공복 혈당 등록..........");
 
         // 공복혈당 값 50~900범위 체크
@@ -59,29 +65,10 @@ public class FastingController {
             redirectAttributes.addFlashAttribute("duplicateMessage", "이미 등록된 날짜입니다.");
             return "redirect:/fasting/register";
         }
-//        if (fastingService.registDateDuplicated(registDate)) {
-//            HttpSession session = request.getSession();
-//            session.setAttribute("duplicateMessage", "이미 등록된 날짜입니다.");
-//            return "redirect:/fasting/register";
-//        }
-
-
-
-        // 중복 메세지가 없을 때만 성공 메세지를 추가
-//        redirectAttributes.addFlashAttribute("successMessage", "혈당정보 등록 완료");
-//        return "redirect:/fasting/list";
-
-
-//        int emptyData = fastingDTO.getEmptyData();
-//        if (!fastingService.emptyDataRange(emptyData)) {
-//            HttpSession session = request.getSession();
-//            session.setAttribute("duplicateMessage", "공복혈당은 50에서 900 사이의 값이어야 합니다.");
-//            return "redirect:/fasting/register";
-//        }
 
         log.info(fastingDTO);
 
-        Long bno = fastingService.register(fastingDTO);
+        Long bno = fastingService.register(fastingDTO, userDetail);
         redirectAttributes.addFlashAttribute("result", bno);
 
         log.info("혈당정보 등록 완료");
@@ -90,12 +77,12 @@ public class FastingController {
 
     // 리스트
     @GetMapping("/list")
-    public String findAll(Model model){
+    public String findAll(Model model, @AuthenticationPrincipal UserDetails userDetails){
         log.info("리스트 페이지..............");
         //여러개 가져올때 List<>
         //List<FastingDTO> FastingDTO를 List로
         //DB에서 전체 게시글 데이터를 가져와서  list.htrml에 보여준다.
-        List<FastingDTO> fastingDTOList = fastingService.findAll();
+        List<FastingDTO> fastingDTOList = fastingService.findByUserid(userDetails.getUsername());
         log.info("fastingDTOList 는" + fastingDTOList );
         // 가져온객체를 model에
         model.addAttribute("fastingList", fastingDTOList);
@@ -117,12 +104,12 @@ public class FastingController {
 
     //highlight -> report 수정
     @GetMapping("/report")
-    public String getReportPage(Model model) {
+    public String getReportPage(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         log.info("공복혈당 리포트 페이지.....");
 
         // 최근 7일의 데이터만 가져오기
         LocalDate sevenDaysAgo = LocalDate.now().minusDays(6);
-        List<FastingDTO> fastingDataList = fastingService.findAll()
+        List<FastingDTO> fastingDataList = fastingService.findByUserid(userDetails.getUsername())
                 .stream()
                 .filter(data -> data.getRegistDate().isAfter(sevenDaysAgo))
                 .collect(Collectors.toList());
@@ -168,7 +155,7 @@ public class FastingController {
         String emptyDataMessage = (todayValue > yesterdayValue) ?
                 "오늘은 혈당이 어제보다 높습니다. 혈당 관리에 신경써주세요.😂":
                 "오늘은 어제보다 혈당이 낮습니다. 혈당을 잘 관리하셨어요! 훌륭합니다.😃";
-
+;
 
         // 메시지를 로그에 출력
         log.info("혈당 관리 메세지 : " + emptyDataMessage);
@@ -207,7 +194,6 @@ public class FastingController {
         // templates 폴더에 있는 report.html을 렌더링
         return "/fasting/report";
     }
-
 
 }
 

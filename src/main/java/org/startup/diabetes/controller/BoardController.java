@@ -23,14 +23,14 @@ public class BoardController {
 
     @GetMapping("/save")  //역시 만들어줘야지 ㅋ
     public String saveForm() {
-        return "save";
+        return "/board/save";
     }
 
     @PostMapping("/save")
     public String save(@ModelAttribute BoardDTO boardDTO) {
         System.out.println("boardDTO=" + boardDTO);
         boardService.save(boardDTO);
-        return "index";
+        return "/board/index";
     }
 
     //그래서 이 메소드가 호출되면, save.html 리턴을 주게되고, 어디로??
@@ -43,7 +43,7 @@ public class BoardController {
         //가져온데이터를 모델객체에 담자.   모델에담아서 List q뷰로 넘어가게됨!
         model.addAttribute("boardList", boardDTOList);
         //그리고 어디로? 리스트뷰로!가자
-        return "list";
+        return "/board/list";
         //즉 DB에서 전체 게시글 데이터를 가져와  뷰에서보여준다.
         //서비스에만들어줘야지?
 
