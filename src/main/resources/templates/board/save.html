@@ -68,26 +68,43 @@
         <div class="form-group row">
             <div class="col-sm-10 offset-sm-2">
                 <button type="submit" class="btn btn-primary">저장</button>
+                <button onclick="listReq()">목록보기</button>
             </div>
         </div>
     </form>
 
+
     <!-- 추가된 부분 -->
-    <div class="advertisement">
-        <h5>평균적인 정보</h5>
-        <p>식후혈당</p>
-        <ul>
-            <li>아침: 약 110mg/dL</li>
-            <li>점심: 약 140mg/dL</li>
-            <li>저녁: 약 120mg/dL</li>
-        </ul>
-        <p>평균적인 식단</p>
-        <ul>
-            <li>아침: 닭가슴살</li>
-            <li>점심: 샐러드</li>
-            <li>저녁: 생선</li>
-        </ul>
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <h1>식후 혈당 목록</h1>
+            <p>페이지 컨텐츠를 여기에 추가하세요.</p>
+            <p>작은 화면에서는 메뉴의 시작 상태가 축소된 상태로 표시되고, 큰 화면에서는 축소되지 않은 상태로 표시됩니다. 메뉴 토글은 위의 버튼을 클릭하여 수행할 수 있습니다.</p>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">bno</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">registDate</th>
+                    <th scope="col">Food</th>
+                    <th scope="col">AfterBlood</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--11:20초 4강-->
+                <tr th:each="diabetes: ${boardList}"> <!-- 데이터를 받았지 컨트롤러로 boardList-->
+                    <td th:text="${diabetes.bno}"></td>
+                    <td><a th:href="@{|/diabetes/${diabetes.bno}|}" th:text="${diabetes.time}"></a></td>
+                    <td th:text="${diabetes.registDate}"></td>
+                    <td th:text="${diabetes.food}"></td>
+                    <td th:text="${diabetes.afterBlood}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+    <!-- /#page-content-wrapper -->
+</div>
     <!-- /추가된 부분 -->
 
 </div>
@@ -95,5 +112,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>const listReq= () =>{
+    location.href ="/board/list";
+}</script>
 </body>
 </html>

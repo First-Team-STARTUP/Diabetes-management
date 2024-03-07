@@ -19,10 +19,19 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="password" class="col-sm-2 col-form-label">비밀번호</label>
+                <label for="join-password" class="col-sm-2 col-form-label">비밀번호</label>
                 <div class="col-sm-10">
-                    <input type="password" id="pw" name="pw" class="form-control" placeholder="비밀번호를 입력하세요">
+                    <input type="password" id="join-password" name="pw" class="form-control" placeholder="비밀번호를 입력하세요">
                 </div>
+            </div>
+            <div class="row">
+                <label for="join-password2" class="col-sm-2 col-form-label">비밀번호 확인</label>
+                <div class="col-sm-10">
+                    <input type="password" id="join-password2" name="pw2" class="form-control" placeholder="같은 비밀번호를 입력하세요">
+                </div>
+            </div>
+            <div class="mb-1">
+                <p class="password-content"></p>
             </div>
             <div class="mb-3 row">
                 <label for="name" class="col-sm-2 col-form-label">이름</label>
@@ -83,13 +92,35 @@
         return  document.getElementById(a).value;
     }
     document.querySelector('.btn-primary').addEventListener('click',function(e){
-        if( /\S/.test(blank('userid')) == false ||  /\S/.test(blank('pw')) == false ||  /\S/.test(blank('name')) == false ||
-        /\S/.test(blank('age')) == false ||  /\S/.test(blank('gender')) == false ||  /\S/.test(blank('tall')) == false ||
-        /\S/.test(blank('weight')) == false){
+        if( /\S/.test(blank('userid')) === false ||  /\S/.test(blank('pw')) === false ||  /\S/.test(blank('pw2')) === false||  /\S/.test(blank('name')) === false ||
+        /\S/.test(blank('age')) === false ||  /\S/.test(blank('gender')) === false ||  /\S/.test(blank('tall')) === false ||
+        /\S/.test(blank('weight')) === false){
         alert('빈칸을 입력해주세요');
         e.preventDefault();
         }
     })
+
+
+    const pwd1 = document.getElementById('join-password');
+    const pwd2 = document.getElementById('join-password2');
+    const p2 = document.querySelector('.password-content');
+
+    pwd2.addEventListener('keyup', () => {
+        const pw1Value = pwd1.value;
+        const pw2Value = pwd2.value;
+
+        if(pw1Value !== '' && pw2Value !== '') {
+            if (pw1Value === pw2Value) {
+                p2.style.color = 'green';
+                p2.textContent = `비밀번호가 일치합니다`;
+            } else {
+                p2.style.color = 'red';
+                p2.textContent = `비밀번호가 일치하지 않습니다`;
+            }
+        } else {
+            p2.textContent = ''; // 한 쪽이라도 입력이 없으면 메시지를 지웁니다.
+        }
+    });
 
 </script>
 
