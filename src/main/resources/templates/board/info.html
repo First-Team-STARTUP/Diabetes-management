@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food and Blood Sugar Info</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h2>--음식 정보--</h2>
+<div>
+    <p>치킨(1마리 30g, 250kcal)</p>
+    <p>치킨(1마리 30g, 250kcal)</p>
+</div>
+<h2>--혈당 정보--</h2>
+
+    <p>공복: 90</p>
+
+<table>
+
+    <tr th:each="no: ${startup}">
+        <td th:text="${startup}"></td>
+    </tr>식후:<span th:text="${afterBlood}"></span>
+<!--    <p>식사 후 혈당이 20mg/dl만큼이나 올랐네요?</p>-->
+<!--    <td th:if"${ㅁㅁ - ㅁㅁ <=0 } "></td>-->
+<!--        식사후 혈당이 변하지 않았습니다.-->
+</table>
+</div>
+<h2>영양 정보</h2>
+<div>
+        <p>이미지</p>
+        <img src="images/chicken.jpg" alt="치킨 이미지">
+</div>
+<table>
+    <tr>
+        <th>영양소</th>
+        <th>치킨</th>
+        <th>치킨(1마리 30g, 250kcal)</th>
+    </tr>
+    <tr>
+        <td>열량</td>
+        <td>250kcal</td>
+        <td>1200kcal</td>
+    </tr>
+    <tr>
+        <td>단백질</td>
+        <td>-</td>
+        <td>140g</td>
+    </tr>
+    <tr>
+        <td>탄수화물</td>
+        <td>-</td>
+        <td>860g</td>
+    </tr>
+    <tr>
+        <td>지방</td>
+        <td>-</td>
+        <td>10g</td>
+    </tr>
+    <tr>
+        <td>당류</td>
+        <td>-</td>
+        <td>140g</td>
+    </tr>
+    <tr>
+        <td>나트륨</td>
+        <td>330mg</td>
+        <td>-</td>
+    </tr>
+</table>
+</body>
+</html>
