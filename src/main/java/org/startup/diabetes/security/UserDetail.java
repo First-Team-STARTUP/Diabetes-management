@@ -17,6 +17,7 @@ public class UserDetail implements UserDetails {
 
     private Member member;
 
+
     @Override //권한 반환
     public Collection<? extends GrantedAuthority> getAuthorities() {
 

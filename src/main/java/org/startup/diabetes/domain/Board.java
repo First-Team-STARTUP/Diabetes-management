@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Entity  //클래스,서비스,엔티티 각 패키지에맞게 어노테이션붙여주자..ㅋ
 @Setter
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="board")//테이블어노테이션은  디비에 실제 이 클래스정의대로 테이블생성되는데 그렇게만들어주는역할.
@@ -38,21 +39,22 @@ public class Board {
     @Column(name="afterBlood", nullable = false)
     private int afterBlood;
 
-    @JoinColumn(name = "userid")
+
     @ManyToOne
+    @JoinColumn(name = "id")
     private Member member;
 
 
-    @JoinColumn(name = "food_id")
+
     @OneToOne
-    private Food food_id;
+    @JoinColumn(name = "food_id")
+    private Food food;
 
 
 
 
 
     public static Board toSaveEntity(BoardDTO boardDTO) {
-
         //dto담긴객체를 엔티티로 옮기자.
         Board board = new Board();
         board.setBno(boardDTO.getBno());

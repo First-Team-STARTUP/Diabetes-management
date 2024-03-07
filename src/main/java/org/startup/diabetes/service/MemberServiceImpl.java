@@ -1,21 +1,23 @@
 package org.startup.diabetes.service;
 
+import jakarta.validation.Valid;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.startup.diabetes.domain.Board;
 import org.startup.diabetes.domain.Fasting;
 import org.startup.diabetes.domain.Member;
 import org.startup.diabetes.dto.MemberDTO;
 import org.startup.diabetes.dto.MemberPwUpdateDTO;
+import org.startup.diabetes.repository.BoardRepository;
 import org.startup.diabetes.repository.FastingRepository;
 import org.startup.diabetes.repository.MemberRepository;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -31,6 +33,8 @@ public class MemberServiceImpl implements MemberService {
     private final FastingRepository fastingRepository;
 
     private final MemberRepository memberRepository;
+
+    private final BoardRepository boardRepository;
 
     private final ModelMapper modelMapper;
 
@@ -97,18 +101,21 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void removeUser(String userid) {
+    public String removeUser(@Valid MemberDTO memberDTO, UserDetails userDetails) {
 
-        Optional<Member> member = memberRepository.findByUserid(userid);
+        Optional<Member> member = memberRepository.findByUserid(userDetails.getUsername());
         member.ifPresent(memberData -> {
             // 해당 유저의 정보를 삭제하기 전에 fasting 테이블에서 관련된 데이터를 삭제
             List<Fasting> fastingList = fastingRepository.findByMemberUserid(memberData.getUserid());
+            List<Board> boardList = boardRepository.findByMemberUserid(memberData.getUserid());
             if (!fastingList.isEmpty()) {
                 fastingRepository.deleteAll(fastingList);
+                boardRepository.deleteAll(boardList);
             }
             // 회원 정보 삭제
             memberRepository.delete(memberData);
         });
+        return null;
     }
 
 

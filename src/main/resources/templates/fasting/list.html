@@ -4,6 +4,7 @@
       layout:decorate="~{layouts/basic.html}">
 
 <div layout:fragment="content">
+    <div id="custom-form">
     <table>
         <tr>
             <th>no</th>
@@ -30,13 +31,20 @@
     <div class="my-4">
         <div class="float-end">
             <button class="btn btn-primary" onclick="location.href='/fasting/register'">공복혈당 입력하기</button>
-            <button class="btn btn-secondary" onclick="location.href='/fasting/highlight'">혈당 하이라이트</button>
+            <button class="btn btn-secondary" onclick="location.href='/highlight'">혈당 하이라이트</button>
             <button class="btn btn-primary" onclick="location.href='/board/list'">식후혈당 입력하기</button>
         </div>
     </div>
+</div>
 </div>
 
 <script layout:fragment="script" th:inline="javascript">
     console.log("script.......")
 </script>
+<style>
+    #custom-form {
+        max-width: 600px; /* Adjust the max-width as needed */
+        margin: auto; /* Center the form horizontally */
+    }
+</style>
 </html>

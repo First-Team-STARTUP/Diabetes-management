@@ -8,7 +8,7 @@
 
 <!-- Content -->
 <div layout:fragment="content">
-
+<div id="custom-form">
     <h3>공복혈당 입력 하기</h3>
 
     <div class="row mt-3">
@@ -53,6 +53,7 @@
             </div><!--end card-->
         </div><!-- end col-->
     </div><!-- end row-->
+</div>
 
     <script layout:fragment="script" th:inline="javascript">
         const errors = [[${errors}]]
@@ -71,4 +72,10 @@
             window.location.href = '/fasting/report';
         }
     </script>
+    <style>
+        #custom-form {
+            max-width: 600px; /* Adjust the max-width as needed */
+            margin: auto; /* Center the form horizontally */
+        }
+    </style>
 </div>

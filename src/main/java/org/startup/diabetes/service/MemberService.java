@@ -1,12 +1,9 @@
 package org.startup.diabetes.service;
 
-import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.startup.diabetes.domain.Member;
 import org.startup.diabetes.dto.MemberDTO;
 import org.startup.diabetes.dto.MemberPwUpdateDTO;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 public interface MemberService {
@@ -26,7 +23,7 @@ public interface MemberService {
 
     public void modifyUser(MemberDTO memberDTO);
 
-    public void removeUser(String userid);
+    public String removeUser(MemberDTO memberDTO, UserDetails userDetails);
 
     default MemberDTO entityToDTO(Member member) {
 
