@@ -35,8 +35,6 @@ public class Fasting extends BaseEntity {
     @ManyToOne
     private Member member;
 
-    @OneToOne(mappedBy = "fasting")
-    private Board board;
 
     public void change(int emptyData){
         this.emptyData = emptyData;

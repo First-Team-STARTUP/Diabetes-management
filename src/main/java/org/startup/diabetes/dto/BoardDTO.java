@@ -21,7 +21,7 @@ public class BoardDTO {
     private String food;
     private int afterBlood;
     private Member member;
-    private Fasting fasting;
+
 
     //게시글 작성시간, 수정시간
 //    private LocalDateTime CreatedTime;
@@ -37,7 +37,6 @@ public class BoardDTO {
         boardDTO.setBno(board.getBno());
         boardDTO.setRegistDate(board.getRegistDate());
         boardDTO.setTime(board.getTime());
-        boardDTO.setFood(board.getFood());
         boardDTO.setAfterBlood(board.getAfterBlood());
         boardDTO.setMember(boardDTO.getMember());
         return boardDTO;
