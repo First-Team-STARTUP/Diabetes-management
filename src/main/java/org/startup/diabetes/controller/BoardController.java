@@ -43,7 +43,7 @@ public class BoardController {
         //가져온데이터를 모델객체에 담자.   모델에담아서 List q뷰로 넘어가게됨!
         model.addAttribute("boardList", boardDTOList);
         //그리고 어디로? 리스트뷰로!가자
-        return "/board/list";
+        return "/board/save";
         //즉 DB에서 전체 게시글 데이터를 가져와  뷰에서보여준다.
         //서비스에만들어줘야지?
 
