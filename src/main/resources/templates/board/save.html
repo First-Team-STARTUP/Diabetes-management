@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,38 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Save</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .advertisement {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .advertisement h5 {
-            color: #007bff;
-            font-weight: bold;
-        }
-
-        .advertisement p {
-            font-size: 18px;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
 <body>
-<div class="container mt-5">
-    <form action="/board/save" method="post">
-        <div class="form-group row">
+<div class="container mt-5 mb-5" >
+    <form action="/board/save" method="post" id="custom-form">
+        <div class="mb-3 row">
             <label for="registDate" class="col-sm-2 col-form-label">날짜</label>
+            <p th:text="${diabetes.afterBlood}"></p>
             <div class="col-sm-10">
                 <input type="date" name="registDate" class="form-control" id="registDate">
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="Time" class="col-sm-2 col-form-label">시간대 선택</label>
             <div class="col-sm-10">
                 <select name="Time" class="form-select" id="Time">
@@ -47,73 +31,88 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="Food" class="col-sm-2 col-form-label">식단</label>
             <div class="col-sm-10">
                 <select name="Food" class="form-select" id="Food">
-                    <option value="치킨">치킨</option>
-                    <option value="피자">피자</option>
-                    <option value="햄버거">햄버거</option>
+                    <option th:value="${food}">치킨</option>      <!-- !!!!!!!!!!food 리스트 가져오기!!!!!!!!!!!  -->
                 </select>
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="AfterBlood" class="col-sm-2 col-form-label">식후혈당</label>
             <div class="col-sm-10">
                 <input type="text" name="AfterBlood" class="form-control" id="AfterBlood">
             </div>
         </div>
 
-        <div class="form-group row">
-            <div class="col-sm-10 offset-sm-2">
-                <button type="submit" class="btn btn-primary">저장</button>
-                <button onclick="listReq()">목록보기</button>
+        <div class="mb-3 row">
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary me-2">저  장</button>
+                <button type="button" class="btn btn-secondary" onclick="listReq()">목록보기</button>
             </div>
         </div>
     </form>
 
-
-    <!-- 추가된 부분 -->
-    <div id="page-content-wrapper">
-        <div class="container-fluid">
-            <h1>식후 혈당 목록</h1>
-            <p>페이지 컨텐츠를 여기에 추가하세요.</p>
-            <p>작은 화면에서는 메뉴의 시작 상태가 축소된 상태로 표시되고, 큰 화면에서는 축소되지 않은 상태로 표시됩니다. 메뉴 토글은 위의 버튼을 클릭하여 수행할 수 있습니다.</p>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">bno</th>
-                    <th scope="col">Time</th>
-                    <th scope="col">registDate</th>
-                    <th scope="col">Food</th>
-                    <th scope="col">AfterBlood</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!--11:20초 4강-->
-                <tr th:each="diabetes: ${boardList}"> <!-- 데이터를 받았지 컨트롤러로 boardList-->
-                    <td th:text="${diabetes.bno}"></td>
-                    <td><a th:href="@{|/diabetes/${diabetes.bno}|}" th:text="${diabetes.time}"></a></td>
-                    <td th:text="${diabetes.registDate}"></td>
-                    <td th:text="${diabetes.food}"></td>
-                    <td th:text="${diabetes.afterBlood}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="advertisement" id="custom-form1">
+        <h3 class="text-center mb-3 mt-5">오늘의 식후 혈당 목록</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">시  간</th>
+                <th scope="col">식후 혈당</th>
+                <th scope="col">식  단</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--11:20초 4강-->
+            <tr th:each="diabetes: ${boardList}">
+                <td><a th:href="@{|/diabetes/${diabetes.bno}|}" th:text="${diabetes.time}"></a></td>
+                <td th:text="${diabetes.afterBlood}"></td>
+                <td th:text="${diabetes.food}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <!-- /#page-content-wrapper -->
-</div>
-    <!-- /추가된 부분 -->
-
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>const listReq= () =>{
-    location.href ="/board/list";
-}</script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+<script>
+    const listReq = () => {
+        location.href = "/board/list";
+    }
+</script>
+
+<style>
+    #custom-form {
+        max-width: 600px; /* Adjust the max-width as needed */
+        margin: auto; /* Center the form horizontally */
+        margin-top: 100px;
+    }
+    #custom-form1 {
+        max-width: 600px; /* Adjust the max-width as needed */
+        margin: auto;
+    }
+    //.advertisement {
+    //    background-color: #f8f9fa;
+    //    padding: 20px;
+    //    border-radius: 10px;
+    //    margin-top: 30px;
+    //    text-align: center;
+    //}
+    //
+    //.advertisement h5 {
+    //    color: #007bff;
+    //    font-weight: bold;
+    //}
+    //
+    //.advertisement p {
+    //    font-size: 18px;
+    //}
+</style>
+
 </body>
 </html>
+
