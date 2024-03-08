@@ -1,12 +1,19 @@
 package org.startup.diabetes.service;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.startup.diabetes.domain.Board;
+import org.startup.diabetes.domain.Food;
+import org.startup.diabetes.domain.Member;
 import org.startup.diabetes.dto.BoardDTO;
 import org.startup.diabetes.repository.BoardRepository;
 import org.startup.diabetes.repository.FastingRepository;
+import org.startup.diabetes.repository.FoodRepository;
+import org.startup.diabetes.repository.MemberRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +21,47 @@ import java.util.List;
 @Log4j2
 @Service //어노테이션붙여줘서 스프링이 관리하는 객체인 빈으로 등록시켜주고~!. ㅋ  조아..  컨트롤러도 안붙이니 스프링이 관리안해서 따로놀더라..
 @RequiredArgsConstructor
+@Transactional
 public class BoardService {
 
     private final BoardRepository boardRepository;
     private final FastingRepository fastingRepository;
 
+    private final MemberRepository memberRepository;
+    private final FoodRepository foodRepository;
+
+
+    public Long saveBoard(@Valid BoardDTO boardDTO, UserDetails userDetails) {
+        // 사용자 정보와 함께 Board 저장
+        Member member = memberRepository.findByUserid(userDetails.getUsername())
+                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+        Food food = foodRepository.findById(boardDTO.getFood().getBno())
+                .orElseThrow(()-> new RuntimeException("foodId를 찾을 수 없습니다."));
+
+        Board board = Board.builder()
+                .registDate(boardDTO.getRegistDate())
+                .time(boardDTO.getTime())
+                .afterBlood(boardDTO.getAfterBlood())
+                .member(member)
+                .food(food)
+                .build();
+
+        Long bno = boardRepository.save(board).getBno();
+
+        return bno;
+    }
 
 
     // 사용자가 속한 게시판 그룹을 가져오는 메서드
-    public List<Board> getBoardGroups(String userid) {
-        return boardRepository.findByMemberUserid(userid);
+    public List<BoardDTO> getBoardGroups(String userid) {
+        List<Board> boardList = boardRepository.findByMemberUserid(userid);
+
+        List<BoardDTO> boardDTOList = new ArrayList<>();
+        for (Board board : boardList){
+            BoardDTO boardDTO = BoardDTO.toBoardDTO(board);
+            boardDTOList.add(boardDTO);
+        }
+        return boardDTOList;
     }
 
 

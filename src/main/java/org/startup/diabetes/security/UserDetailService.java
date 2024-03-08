@@ -20,12 +20,12 @@ public class UserDetailService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 
-        Optional<Member> result = memberRepository.findByUserid(userid);
+        Optional<Member> result = memberRepository.findByUserid(userId);
 
         if(result.isEmpty()){
-            throw new UsernameNotFoundException("Userid Not Found"+userid);
+            throw new UsernameNotFoundException("Userid Not Found"+userId);
         }
 
         Member member = result.get();

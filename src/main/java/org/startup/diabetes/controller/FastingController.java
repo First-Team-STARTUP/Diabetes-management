@@ -28,14 +28,12 @@ public class FastingController {
 
     private final FastingService fastingService;
 
-//    @GetMapping("/register")
-//    public void registerGET(){}
+    //@GetMapping("/register")
+    //public void registerGET(){}
 
     @GetMapping("/register")
     public void registerGET(){
-
     }
-
 
     //오류 없는 register
     @PostMapping("/register")
@@ -49,7 +47,6 @@ public class FastingController {
             redirectAttributes.addFlashAttribute("duplicateEmptyDataMessage", "공복혈당은 50에서 900 사이의 값이어야 합니다.");
             return "redirect:/fasting/register";
         }
-
 
         if (bindingResult.hasErrors()) {
             /* 실패시 데이터 값 유지*/
@@ -114,7 +111,7 @@ public class FastingController {
                 .filter(data -> data.getRegistDate().isAfter(sevenDaysAgo))
                 .collect(Collectors.toList());
 
-        log.info("최근 7일 데이터" + fastingDataList);
+        log.info("fastingDataList 최근 7일 데이터" + fastingDataList);
 
         // emptyData
         List<Integer> emptyDataList = fastingDataList.stream()

@@ -15,6 +15,7 @@
 </head>
 
 <div layout:fragment="content">
+    <div class="container">
     <div style="width: 900px; height: 900px;">
         <!--차트가 그려질 부분-->
         <canvas id="myChart"></canvas>
@@ -34,6 +35,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+    </div>
     </div>
 
 
@@ -85,15 +87,15 @@
                         ],
                         borderWidth: 1 //경계선 굵기
                     },
-                            {
-                                label: '평균 공복혈당',
-                                data: [[${averageData}]],
-                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                borderColor: 'rgba(255, 99, 132, 1)',
-                                borderWidth: 2,
-                                type: 'line', // line 그래프로 변경
-                                fill: false // 선 안쪽을 채우지 않음
-                            }
+                    {
+                        label: '평균 공복혈당',
+                        data: [[${averageData}]],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 2,
+                        type: 'line', // line 그래프로 변경
+                        fill: false // 선 안쪽을 채우지 않음
+                    }
                 ]
             },
             options: {

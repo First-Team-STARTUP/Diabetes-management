@@ -21,17 +21,18 @@ public class FoodDTO {
     private Integer sugar;
     private Integer natrium;
 
-    public static FoodDTO tofoodDTO(Food food) {
-        return FoodDTO.builder()
-                .bno(food.getBno())
-                .title(food.getTitle())
-                .plusBlood(food.getPlusBlood())
-                .calorie(food.getCalorie())
-                .protein(food.getProtein())
-                .carbohydrate(food.getCarbohydrate())
-                .sugar(food.getSugar())
-                .natrium(food.getNatrium())
-                .build();
-    }
 
+    // 엔티티 -> DTO
+    public static FoodDTO toFoodDTO(Food food){
+        FoodDTO foodDTO = new FoodDTO();
+        foodDTO.setBno(food.getBno());
+        foodDTO.setTitle(food.getTitle());
+        foodDTO.setPlusBlood(food.getPlusBlood());
+        foodDTO.setCalorie(food.getCalorie());
+        foodDTO.setProtein(food.getProtein());
+        foodDTO.setCarbohydrate(food.getCarbohydrate());
+        foodDTO.setSugar(food.getSugar());
+        foodDTO.setNatrium(food.getNatrium());
+        return foodDTO;
+    }
 }

@@ -5,12 +5,13 @@
 
 <div layout:fragment="content">
 
-    <div>
+    <div id="custom-form">
         <h1 class="mt-4">당당히 서비스</h1>
         <button onclick="redirectToRegister()">공복혈당</button>
         <button onclick="redirectToChart()">공복리포트</button>
     </div>
 </div>
+
 
 <script layout:fragment="script" th:inline="javascript">
     function redirectToRegister() {
@@ -21,3 +22,9 @@
         window.location.href = '/fasting/report';
     }
 </script>
+<style>
+    #custom-form {
+        max-width: 600px; /* Adjust the max-width as needed */
+        margin: auto; /* Center the form horizontally */
+    }
+</style>

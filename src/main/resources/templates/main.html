@@ -13,10 +13,13 @@
             <h1 class="text-dark">회원 기능</h1>
             <div class="mt-3">
                 <a class="btn btn-primary mr-2" th:href="@{/member/mypage}"> MY PAGE </a>
-                <a class="btn btn-primary mr-2" href="/fasting/register">공복혈당</a>
+                <a class="btn btn-info mr-2" href="/fasting/register">공복혈당</a>
                 <button type="button" class="btn btn-success" onclick="location.href='/fasting/report'">공복리포트</button>
                 <button type="button" class="btn btn-warning" onclick="location.href='/highlight'">공복하이라이트</button>
+                <button type="button" class="btn btn-dark" onclick="location.href='/safefood'">safe food</button>
+                <button type="button" class="btn btn-dark" onclick="location.href='/board/save'">식후혈당기록</button>
                 <button class="btn btn-danger" type="button" onclick="location.href='/logout'">LOGOUT</button>
+
 
             </div>
         </div>
