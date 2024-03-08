@@ -52,14 +52,14 @@ public class FoodServiceImple implements FoodService {
     @Override
     public Long register(FoodDTO foodDTO) {
         Food food = Food.builder()
-        .title(foodDTO.getTitle())
-        .plusBlood(foodDTO.getPlusBlood())
-        .calorie(foodDTO.getCalorie())
-        .protein(foodDTO.getProtein())
-        .carbohydrate(foodDTO.getCarbohydrate())
-        .sugar(foodDTO.getSugar())
-        .natrium(foodDTO.getNatrium())
-        .build();
+                .title(foodDTO.getTitle())
+                .plusBlood(foodDTO.getPlusBlood())
+                .calorie(foodDTO.getCalorie())
+                .protein(foodDTO.getProtein())
+                .carbohydrate(foodDTO.getCarbohydrate())
+                .sugar(foodDTO.getSugar())
+                .natrium(foodDTO.getNatrium())
+                .build();
 
         return foodRepository.save(food).getBno();
         // FoodDTO를 Food 엔티티로 변환
@@ -88,3 +88,4 @@ public class FoodServiceImple implements FoodService {
                         .build())
                 .collect(Collectors.toList());
     }
+}

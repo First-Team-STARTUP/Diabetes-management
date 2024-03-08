@@ -25,8 +25,13 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //mysql에서의 오토인크리먼트,ㅋ
     private Long bno;
 
-//    @Column(length = 20,nullable = false) //그다음 일반컬럼, + 유니크 제약조건추가
-//    private String Time;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @OneToOne
+    @JoinColumn(name = "food_id")
+    private Food food;
 
     @Column(name = "registDate", nullable = false)
     @DateTimeFormat(pattern = "MM-dd")
@@ -39,17 +44,6 @@ public class Board {
     @Column(name="afterBlood", nullable = false)
     private int afterBlood;
 
-
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private Member member;
-
-
-
-    @OneToOne
-    @JoinColumn(name = "food_id")
-    private Food food;
-
     public static Board toSaveEntity(BoardDTO boardDTO) {
         //dto담긴객체를 엔티티로 옮기자.
         Board board = new Board();
@@ -58,6 +52,7 @@ public class Board {
         board.setTime(boardDTO.getTime());
         board.setAfterBlood(boardDTO.getAfterBlood());
         board.setMember(boardDTO.getMember());
+        board.setFood(boardDTO.getFood());
         return board;
     }
 }

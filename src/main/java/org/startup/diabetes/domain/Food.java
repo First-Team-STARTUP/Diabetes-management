@@ -15,6 +15,7 @@ import org.startup.diabetes.dto.FoodDTO;
 public class Food {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //auto
     private Long bno;
 
     @Column(name = "title", unique = true)
@@ -38,8 +39,10 @@ public class Food {
     @Column(name = "natrium")
     private Integer natrium; //나트륨
 
-    //매핑
+    @Column(name = "images")
+    private String images; //이미지
 
+    //매핑
     @OneToOne(mappedBy = "food")
     private Board board;
 }
