@@ -216,6 +216,7 @@ public class HighlightController {
         log.info("최저 저녁 식후 혈당: " + minEveningData);
 
         // Thymeleaf에서 사용할 수 있도록 데이터를 모델에 추가
+        model.addAttribute("fastingDataList", fastingDataList);
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
         model.addAttribute("dayList", dayList);
