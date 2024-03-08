@@ -2,12 +2,17 @@ package org.startup.diabetes.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.startup.diabetes.domain.Food;
 import org.startup.diabetes.dto.FoodDTO;
+import org.startup.diabetes.repository.BoardRepository;
 import org.startup.diabetes.repository.FoodRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +23,8 @@ import java.util.List;
 public class FoodServiceImple implements FoodService {
 
     private final FoodRepository foodRepository;
+    private final BoardRepository boardRepository;
+    private final ModelMapper modelMapper; // ModelMapper 추가
 
     // 모든 음식을 가져오는 메서드
 //    @Override
@@ -44,8 +51,6 @@ public class FoodServiceImple implements FoodService {
 
     @Override
     public Long register(FoodDTO foodDTO) {
-
-        //builder sql문
         Food food = Food.builder()
         .title(foodDTO.getTitle())
         .plusBlood(foodDTO.getPlusBlood())
@@ -66,4 +71,20 @@ public class FoodServiceImple implements FoodService {
         // 저장된 Food 엔티티의 ID를 반환
         //return savedFood.getBno();
     }
-}
+
+    @Override
+    public List<FoodDTO> findAll() {
+        List<Food> foodList = foodRepository.findAll();
+        return foodList.stream()
+                .map(food -> FoodDTO.builder()
+                        .bno(food.getBno())
+                        .title(food.getTitle())
+                        .plusBlood(food.getPlusBlood())
+                        .calorie(food.getCalorie())
+                        .protein(food.getProtein())
+                        .carbohydrate(food.getCarbohydrate())
+                        .sugar(food.getSugar())
+                        .natrium(food.getNatrium())
+                        .build())
+                .collect(Collectors.toList());
+    }

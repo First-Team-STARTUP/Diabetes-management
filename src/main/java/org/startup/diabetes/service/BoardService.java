@@ -11,10 +11,12 @@ import org.startup.diabetes.domain.Food;
 import org.startup.diabetes.domain.Member;
 import org.startup.diabetes.dto.BoardDTO;
 import org.startup.diabetes.repository.BoardRepository;
+import org.startup.diabetes.repository.FastingRepository;
 import org.startup.diabetes.repository.FoodRepository;
 import org.startup.diabetes.repository.MemberRepository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Log4j2
 @Service //어노테이션붙여줘서 스프링이 관리하는 객체인 빈으로 등록시켜주고~!. ㅋ  조아..  컨트롤러도 안붙이니 스프링이 관리안해서 따로놀더라..
@@ -23,6 +25,8 @@ import java.util.*;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final FastingRepository fastingRepository;
+
     private final MemberRepository memberRepository;
     private final FoodRepository foodRepository;
 

@@ -72,7 +72,7 @@
             <tbody>
             <!-- 반복문으로 Diabetes 데이터를 출력 -->
             <tr th:each="diabetes : ${boardList}">
-                <td th:text="${diabetes.registDate}"></td>
+                <td th:text="${diabetes.bno}"></td>
                 <td><a th:href="@{|/board/${diabetes.bno}|}" th:text="${diabetes.time}"></a></td>
                 <td th:text="${diabetes.AfterBlood}"></td>
                 <td th:text="${diabetes.food.title}"></td>

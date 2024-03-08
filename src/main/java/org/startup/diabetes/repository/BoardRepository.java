@@ -14,4 +14,5 @@ public interface BoardRepository extends JpaRepository<Board,Long>{
     List<Board> findByMemberUserid(String userid);
     List<Board> findByFood_Bno(Long foodId);
 
+
 }

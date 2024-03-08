@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food and Blood Sugar Info</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h2>--음식 정보--</h2>
+<div>
+    <p>치킨(1마리 30g, 250kcal)</p>
+    <p>치킨(1마리 30g, 250kcal)</p>
+</div>
+<h2>--혈당 정보--</h2>
+
+<p>공복:<td th:text="${fastingBloodList != null && fastingBloodList.size() > 0 ? fastingBloodList[0] : 'N/A'}"></td> </p>
+
+<table>
+    <!--각 날짜에 해당하는 공복, 식후혈당이 나와야함 -->
+    <!--        <td th:text="${startup.}"></td>-->
+    <!--식후 혈당 리스트 테스트 -->
+    <tr>식후:
+        <td th:text="${afterBloodList != null && afterBloodList.size() > 0 ? afterBloodList[0] : 'N/A'}"></td>
+    </tr>
+    <!--    <p>식사 후 혈당이 20mg/dl만큼이나 올랐네요?</p>-->
+    <!--    <td th:if"${ㅁㅁ - ㅁㅁ <=0 } "></td>-->
+    <!--        식사후 혈당이 변하지 않았습니다.-->
+</table>
+
+<div>
+    <p>이미지</p>
+    <img src="images/chicken.jpg" alt="치킨 이미지">
+</div>
+<h2>영양 정보</h2>
+<table>
+    <tr>
+        <th>영양소</th>
+        <th>치킨</th> <!-- 예시로 치킨 -->
+    </tr>
+    <tr>
+        <td>열량</td>
+        <td th:text="${foodList != null && foodList.size() > 0 ? foodList[0].calorie : 'N/A'}"></td>
+    </tr>
+    <tr>
+        <td>단백질</td>
+        <td th:text="${foodList != null && foodList.size() > 1 ? foodList[1].protein : 'N/A'}"></td>
+    </tr>
+    <tr>
+        <td>탄수화물</td>
+        <td th:text="${foodList != null && foodList.size() > 2 ? foodList[2].carbohydrate : 'N/A'}"></td>
+    </tr>
+    <tr>
+        <td>당류</td>
+        <td th:text="${foodList != null && foodList.size() > 3 ? foodList[3].sugar : 'N/A'}"></td>
+    </tr>
+    <tr>
+        <td>나트륨</td>
+        <td th:text="${foodList != null && foodList.size() > 4 ? foodList[4].natrium : 'N/A'}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

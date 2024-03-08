@@ -36,6 +36,7 @@ public class FastingDTO {
 
     private Board board;
 
+
 //    @Column(name = "Date")
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")

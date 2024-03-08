@@ -50,10 +50,6 @@ public class Board {
     @JoinColumn(name = "food_id")
     private Food food;
 
-
-
-
-
     public static Board toSaveEntity(BoardDTO boardDTO) {
         //dto담긴객체를 엔티티로 옮기자.
         Board board = new Board();
