@@ -26,7 +26,6 @@ public interface FastingService {
     // 페이징 처리된 데이터를 전달
     //PageResponseDTO<FastingDTO> list(PageRequestDTO pageRequestDTO);
 
-//    List<FastingDTO> findAll();
 
     //중복날짜 조회
     boolean registDateDuplicated(LocalDate date);
@@ -35,6 +34,8 @@ public interface FastingService {
     boolean emptyDataRange(int emptyData);
 
     List<FastingDTO> findByUserid(String userid);
+    List<FastingDTO> findAll();
+
 
 
 }

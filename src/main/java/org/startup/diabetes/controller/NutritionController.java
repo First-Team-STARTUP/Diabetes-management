@@ -26,7 +26,10 @@ import java.util.stream.Collectors;
 public class NutritionController {
     private final BoardService boardService;
     private final FoodService foodService;
+    private final FastingService fastingService; // FastingService 주입
 
+    // --공복혈당 가져오기 --
+    // --공복혈당 가져오기 --
     @GetMapping("/info")
     public String findAll(Model model) {
         // 게시글 정보 가져오기
@@ -34,7 +37,6 @@ public class NutritionController {
         model.addAttribute("boardDTOList", boardDTOList);
 
         // 음식 정보 가져오기
-
         List<FoodDTO> foodDTOList = foodService.findAll();
         model.addAttribute("foodList", foodDTOList);
 
@@ -46,6 +48,17 @@ public class NutritionController {
         afterBloodList.sort(Comparator.naturalOrder());
         model.addAttribute("afterBloodList", afterBloodList);
 
+        // 공복 혈당 정보 가져오기 및 정렬
+        List<FastingDTO> fastingDTOList = fastingService.findAll();
+        List<Integer> fastingBloodList = new ArrayList<>();
+        for (FastingDTO fastingDTO : fastingDTOList) {
+            fastingBloodList.add(fastingDTO.getEmptyData());
+        }
+        fastingBloodList.sort(Comparator.naturalOrder());
+        model.addAttribute("fastingBloodList", fastingBloodList);
+
         return "/board/info";
     }
+
+
 }

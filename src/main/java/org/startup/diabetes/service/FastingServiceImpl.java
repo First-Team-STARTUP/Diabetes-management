@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,7 @@ import java.util.Optional;
 public class FastingServiceImpl implements FastingService {
 
     private final ModelMapper modelMapper;
-    private final FastingRepository fastingRepository;
+    private FastingRepository fastingRepository;
     private final MemberRepository memberRepository;
     private final FoodRepository foodRepository;
 
@@ -72,7 +73,7 @@ public class FastingServiceImpl implements FastingService {
         // 2 조회 결과는 Optional<Fasting> 형태로 반환, 조회된 결과가 없을 수도 있다는 것
         Optional<Fasting> result = fastingRepository.findById(bno);
         // result.orElseThrow()를 통해 값이 없는 경우 예외
-        Fasting fasting= result.orElseThrow();
+        Fasting fasting = result.orElseThrow();
 
         // modelMapper를 사용하여 Fasting 엔터티를 FastingDTO로 변환
         // 엔터티 객체와 DTO 객체 사이의 필드 매핑을 자동으로 수행
@@ -114,7 +115,6 @@ public class FastingServiceImpl implements FastingService {
     }
 
 
-
     @Override
     //중복날짜 조회
     public boolean registDateDuplicated(LocalDate registDate) {
@@ -128,4 +128,23 @@ public class FastingServiceImpl implements FastingService {
         return emptyData >= 50 && emptyData <= 900;
     }
 
+
+    //--3월7일 재형 - 공복혈당얻어오기위해 씀.
+    @Autowired
+    public void FastingService(FastingRepository fastingRepository) {
+        this.fastingRepository = fastingRepository;
+    }
+
+    public List<FastingDTO> findAll() {
+        List<Fasting> fastingEntityList = fastingRepository.findAll();
+        // fastingEntityList를 FastingDTO로 변환하는 작업을 수행
+        // ...
+        List<FastingDTO> fastingDTOList = new ArrayList<>();
+        for (Fasting fasting : fastingEntityList) {
+            fastingDTOList.add(FastingDTO.tofastingDTO(fasting));
+            //변환된 객체를 "fastingDTOList"에 받는.. for문돌려서
+        }
+        return fastingDTOList;
+
+    }
 }
