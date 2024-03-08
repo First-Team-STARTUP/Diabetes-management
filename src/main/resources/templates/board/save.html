@@ -14,7 +14,7 @@
         <div class="mb-3 row">
             <label for="registDate" class="col-sm-2 col-form-label">날짜</label>
             <div class="col-sm-10">
-                <input type="date" name="registDate" class="form-control" id="registDate">
+                <input type="date" name="registDate" class="form-control" id="registDate" th:value="${registDate}" onchange="fetchDataByDate()"  />
             </div>
         </div>
 
@@ -22,25 +22,25 @@
             <label for="Time" class="col-sm-2 col-form-label">시간대 선택</label>
             <div class="col-sm-10">
                 <select name="Time" class="form-select" id="Time">
-                    <option value="morning">아침</option>
-                    <option value="afternoon">점심</option>
-                    <option value="evening">저녁</option>
+                    <option value="아침">아침</option>
+                    <option value="점심">점심</option>
+                    <option value="저녁">저녁</option>
                 </select>
             </div>
         </div>
 
-            <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">식단</label>
-                <div class="col-sm-10">
-                    <select class="form-select mb-3" name="food"> <!-- name 속성을 food_id로 수정 -->
-                        <option th:each="food : ${foodList}" th:value="${food.bno}" th:text="${food.title}"></option>
-                    </select>
-<!--                    <select class="form-select mb-3" th:if="${not #lists.isEmpty(foodTitles)}">-->
-<!--                        <option th:each="title : ${foodTitles}"  th:text="${title}"></option>-->
-<!--                    </select>-->
-                </div>
-
+        <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">식단</label>
+            <div class="col-sm-10">
+                <select class="form-select mb-3" name="food"> <!-- name 속성을 food_id로 수정 -->
+                    <option th:each="food : ${foodList}" th:value="${food.bno}" th:text="${food.title}"></option>
+                </select>
+                <!--                    <select class="form-select mb-3" th:if="${not #lists.isEmpty(foodTitles)}">-->
+                <!--                        <option th:each="title : ${foodTitles}"  th:text="${title}"></option>-->
+                <!--                    </select>-->
             </div>
+
+        </div>
 
 
         <div class="mb-3 row">
@@ -53,27 +53,26 @@
         <div class="mb-3 row">
             <div class="text-end">
                 <button type="submit" class="btn btn-primary me-2">저  장</button>
-                <button type="button" class="btn btn-secondary" onclick="listReq()">목록보기</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='/'" >뒤로 가기</button>
             </div>
         </div>
     </form>
 
     <div class="advertisement" id="custom-form1">
+        <p><span th:text="${registDate}"></span></p>
         <h3 class="text-center mb-3 mt-5">오늘의 식후 혈당 목록</h3>
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">날짜</th>
                 <th scope="col">시간</th>
                 <th scope="col">식후 혈당</th>
                 <th scope="col">Food</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="diabetesData">
             <!-- 반복문으로 Diabetes 데이터를 출력 -->
             <tr th:each="diabetes : ${boardList}">
-                <td th:text="${diabetes.bno}"></td>
-                <td><a th:href="@{|/board/${diabetes.bno}|}" th:text="${diabetes.time}"></a></td>
+                <td th:text="${diabetes.time}"></td>
                 <td th:text="${diabetes.AfterBlood}"></td>
                 <td th:text="${diabetes.food.title}"></td>
             </tr>
@@ -85,18 +84,53 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 <script>
-    const listReq = () => {
-        location.href = "/board/list";
-    }
+    // 사용자가 날짜를 선택할 때마다 호출되는 함수
+    // function fetchDataByDate() {
+    //     var selectedDate = document.getElementById("registDate").value; // 변경된 날짜 가져오기
+    //     var url = "/getDataByDate?date=" + selectedDate; // 요청할 URL 생성
+    //
+    //     // AJAX를 사용하여 해당 URL로 GET 요청을 보냅니다.
+    //     fetch(url)
+    //         .then(response => {
+    //             if (!response.ok) {
+    //                 throw new Error('Network response was not ok');
+    //             }
+    //             return response.json(); // JSON 형식으로 응답 받기
+    //         })
+    //         .then(data => {
+    //             // 성공적으로 데이터를 받았을 때 실행할 코드 작성
+    //             console.log(data); // 받은 데이터를 콘솔에 출력
+    //             displayData(data); // 받은 데이터를 화면에 표시
+    //         })
+    //         .catch(error => {
+    //             // 데이터를 받아오는 도중 에러가 발생한 경우 실행할 코드
+    //             console.error('Error fetching data:', error); // 에러 메시지 출력
+    //         });
+    // }
+    //
+    // // 서버로부터 받은 데이터를 화면에 표시하는 함수
+    // function displayData(boardList) {
+    //     var tableBody = document.getElementById("diabetesData");
+    //     tableBody.innerHTML = ''; // 표 내용 초기화
+    //
+    //     boardList.forEach(item => {
+    //         var row = document.createElement('tr');
+    //         row.innerHTML = `
+    //             <td>${item.time}</td>
+    //             <td>${item.AfterBlood}</td>
+    //             <td>${item.food.title}</td>
+    //         `;
+    //         tableBody.appendChild(row);
+    //     });
+    // }
 </script>
-
 <style>
     #custom-form {
-        max-width: 600px; /* Adjust the max-width as needed */
+        max-width: 700px; /* Adjust the max-width as needed */
         margin: auto; /* Center the form horizontally */
     }
     #custom-form1 {
-        max-width: 600px; /* Adjust the max-width as needed */
+        max-width: 700px; /* Adjust the max-width as needed */
         margin: auto;
     }
     .advertisement {
@@ -105,15 +139,6 @@
         border-radius: 10px;
         text-align: center;
     }
-    //
-    //.advertisement h5 {
-    //    color: #007bff;
-    //    font-weight: bold;
-    //}
-    //
-    //.advertisement p {
-    //    font-size: 18px;
-    //}
 </style>
 
 </body>
