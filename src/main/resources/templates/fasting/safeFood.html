@@ -15,7 +15,7 @@
 </head>
 
 
-<div layout:fragment="content">
+<div layout:fragment="content" class="container">
     <div>
         <div class="width-center">
             <h5>당당히에서 건강한 음식을 추천받아보세요</h5>
@@ -56,6 +56,7 @@
                 var selectedTitle = radio.value;
                 var plusBlood = radio.getAttribute('data-plus-blood');
 
+
                 // 선택된 음식 정보 업데이트
                 selectedFood.title = selectedTitle;
                 selectedFood.plusBlood = plusBlood;
@@ -63,15 +64,12 @@
                 // 예: 콘솔에 정보 출력
                 console.log('Selected Title:', selectedTitle);
                 console.log('Plus Blood:', plusBlood);
-
-                // 선택된 음식 정보를 화면에 표시
-                var selectedFoodInfo = document.getElementById('selectedFoodInfo');
-                if (selectedFoodInfo) {
-                    var alertMessage = '음식 ' + selectedTitle + ' 섭취할 시 혈당이 ' + plusBlood + ' 올라갑니다.';
-                    selectedFoodInfo.querySelector('p').innerText = alertMessage;
-                }
             }
 
+            // 버튼 누를시 콘트롤러에서
+            // 요청 서비스 작업
+            // 공복혈당이랑, 메뉴 혈당스파이크 를 합쳐서
+            // 반환
             function checkSelectedFood() {
                 try {
                     // 선택된 음식 정보 업데이트

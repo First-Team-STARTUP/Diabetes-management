@@ -105,7 +105,7 @@ public class FastingController {
         log.info("공복혈당 리포트 페이지.....");
 
         // 최근 7일의 데이터만 가져오기
-        LocalDate sevenDaysAgo = LocalDate.now().minusDays(6);
+        LocalDate sevenDaysAgo = LocalDate.now().minusDays(7);
         List<FastingDTO> fastingDataList = fastingService.findByUserid(userDetails.getUsername())
                 .stream()
                 .filter(data -> data.getRegistDate().isAfter(sevenDaysAgo))

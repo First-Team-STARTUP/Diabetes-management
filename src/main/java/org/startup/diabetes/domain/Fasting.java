@@ -16,12 +16,16 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "fasting_table") //테이블 이름
+@Table(name = "fasting") //테이블 이름
 public class Fasting extends BaseEntity {
 
     @Id //pk지정 필수
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
     private Long bno;
+
+    @JoinColumn(name = "member_id")
+    @ManyToOne
+    private Member member;
 
     @Column(length = 20, nullable = false) //크기 20, not null
     private Integer emptyData;
@@ -31,14 +35,8 @@ public class Fasting extends BaseEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd", timezone = "Asia/Seoul")
     private LocalDate registDate;
 
-    @JoinColumn(name = "id")
-    @ManyToOne
-    private Member member;
-
-
     public void change(int emptyData){
         this.emptyData = emptyData;
-
     }
 
 }

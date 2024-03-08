@@ -36,17 +36,14 @@ public class HighlightController {
 
         log.info("혈당정보 하이라이트 페이지.....");
 
-
         // 최근 7일의 데이터만 가져오기
-        LocalDate sevenDaysAgo = LocalDate.now().minusDays(6);
+        LocalDate sevenDaysAgo = LocalDate.now().minusDays(7);
         List<FastingDTO> fastingDataList = fastingService.findByUserid(userDetails.getUsername())
                 .stream()
                 .filter(data -> data.getRegistDate().isAfter(sevenDaysAgo))
                 .sorted(Comparator.comparing(FastingDTO::getRegistDate)) // registDate로 정렬
                 .collect(Collectors.toList());
-
         log.info("fastingDataList 최근 7일 데이터" + fastingDataList);
-
 
         // fastingDataList가 비어있지 않다면
         if (!fastingDataList.isEmpty()) {
@@ -60,7 +57,6 @@ public class HighlightController {
                     .map(FastingDTO::getRegistDate)
                     .max(LocalDate::compareTo)
                     .orElse(null);
-
             log.info("startDate 시작 날짜: " + startDate);
             log.info("endDate 끝 날짜: " + endDate);
 
@@ -79,153 +75,147 @@ public class HighlightController {
                 .map(FastingDTO::getEmptyData)
                 .collect(Collectors.toList());
 
-
         log.info("emptyDataList 공복 혈당 정렬 : " + emptyDataList);
 
-            // emptyDataList에서 평균값 계산
-            double averageEmptyData = emptyDataList.stream()
-                    .mapToInt(Integer::intValue) // 이 부분을 수정
-                    .average()
-                    .orElse(0.0);
+        // emptyDataList에서 평균값 계산
+        int averageEmptyData = (int)emptyDataList.stream()
+                .mapToInt(Integer::intValue) // 이 부분을 수정
+                .average()
+                .orElse(0);
 
-            log.info("averageEmptyData 평균 공복 혈당: " + averageEmptyData);
+        log.info("averageEmptyData 평균 공복 혈당: " + averageEmptyData);
 
-            // emptyDataList에서 제일 높은 값
-            int maxEmptyData = emptyDataList.stream()
-                    .max(Comparator.naturalOrder())
-                    .orElse(0);
+        // emptyDataList에서 제일 높은 값
+        int maxEmptyData = emptyDataList.stream()
+                .max(Comparator.naturalOrder())
+                .orElse(0);
 
-            log.info("maxEmptyData 제일 높은 공복 혈당: " + maxEmptyData);
+        log.info("maxEmptyData 제일 높은 공복 혈당: " + maxEmptyData);
 
-            // emptyDataList에서 제일 낮은 값
-            int minEmptyData = emptyDataList.stream()
-                    .min(Comparator.naturalOrder())
-                    .orElse(0);
+        // emptyDataList에서 제일 낮은 값
+        int minEmptyData = emptyDataList.stream()
+                .min(Comparator.naturalOrder())
+                .orElse(0);
 
-            log.info("minEmptyData 제일 낮은 공복 혈당: " + minEmptyData);
+        log.info("minEmptyData 제일 낮은 공복 혈당: " + minEmptyData);
 
         //BoardService
-            // 아침 데이터 가져오기
-            List<BoardDTO> morningData = boardRepository.findByTime("morning")
-                    .stream()
-                    .map(BoardDTO::toBoardDTO)
-                    .sorted(Comparator.comparing(BoardDTO::getRegistDate)) // registDate로 정렬
-                    .collect(Collectors.toList());
-            dataMap.put("morning", morningData);
+        // 아침 데이터 가져오기
+        List<BoardDTO> morningData = boardRepository.findByTime("morning")
+                .stream()
+                .map(BoardDTO::toBoardDTO)
+                .sorted(Comparator.comparing(BoardDTO::getRegistDate)) // registDate로 정렬
+                .collect(Collectors.toList());
+        dataMap.put("morning", morningData);
 
-            log.info("morningData" + morningData);
+        log.info("morningData" + morningData);
 
-            // morningData에서 afterBlood만 배열로 정리
-            List<Integer> morningDataList = morningData.stream()
-                    .map(BoardDTO::getAfterBlood)
-                    .collect(Collectors.toList());
+        // morningData에서 afterBlood만 배열로 정리
+        List<Integer> morningDataList = morningData.stream()
+                .map(BoardDTO::getAfterBlood)
+                .collect(Collectors.toList());
+        log.info("morningDataList 아침 식후 혈당은 : " + morningDataList);
 
-            log.info("morningDataList 아침 식후 혈당은 : " + morningDataList);
+        // 평균 아침 식후 혈당
+        int averageMorningData = (int)morningDataList.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(0);
 
-            // 평균 아침 식후 혈당
-            double averageMorningData = morningDataList.stream()
-                    .mapToInt(Integer::intValue)
-                    .average()
-                    .orElse(0.0);
+        log.info("평균 아침 식후 혈당: " + averageMorningData);
 
-            log.info("평균 아침 식후 혈당: " + averageMorningData);
+        // 최고 아침 식후 혈당
+        int maxMorningData = morningDataList.stream()
+                .max(Comparator.naturalOrder())
+                .orElse(0);
 
-            // 최고 아침 식후 혈당
-            int maxMorningData = morningDataList.stream()
-                    .max(Comparator.naturalOrder())
-                    .orElse(0);
+        log.info("최고 아침 식후 혈당: " + maxMorningData);
 
-            log.info("최고 아침 식후 혈당: " + maxMorningData);
+        // 최저 아침 식후 혈당
+        int minMorningData = morningDataList.stream()
+                .min(Comparator.naturalOrder())
+                .orElse(0);
 
-            // 최저 아침 식후 혈당
-            int minMorningData = morningDataList.stream()
-                    .min(Comparator.naturalOrder())
-                    .orElse(0);
+        log.info("최저 아침 식후 혈당: " + minMorningData);
 
-            log.info("최저 아침 식후 혈당: " + minMorningData);
+        // 점심 데이터 가져오기
+        List<BoardDTO> afternoonData = boardRepository.findByTime("afternoon")
+                .stream()
+                .map(BoardDTO::toBoardDTO)
+                .sorted(Comparator.comparing(BoardDTO::getRegistDate)) // registDate로 정렬
+                .collect(Collectors.toList());
+        dataMap.put("afternoon", afternoonData);
+        log.info("afternoonData" + afternoonData);
 
+        // afternoonData에서 afterBlood만 배열로 정리
+        List<Integer> afternoonDataList = afternoonData.stream()
+                .map(BoardDTO::getAfterBlood)
+                .collect(Collectors.toList());
 
-            // 점심 데이터 가져오기
-            List<BoardDTO> afternoonData = boardRepository.findByTime("afternoon")
-                    .stream()
-                    .map(BoardDTO::toBoardDTO)
-                    .sorted(Comparator.comparing(BoardDTO::getRegistDate)) // registDate로 정렬
-                    .collect(Collectors.toList());
-            dataMap.put("afternoon", afternoonData);
-            log.info("afternoonData" + afternoonData);
+        log.info("afternoonDataList 점심 식후 혈당 : " + afternoonDataList);
 
-            // afternoonData에서 afterBlood만 배열로 정리
-            List<Integer> afternoonDataList = afternoonData.stream()
-                    .map(BoardDTO::getAfterBlood)
-                    .collect(Collectors.toList());
+        // 평균 점심 식후혈당
+        int averageAfternoon = (int)afternoonDataList.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(0);
 
-            log.info("afternoonDataList 점심 식후 혈당 : " + afternoonDataList);
+        log.info("평균 아침 식후 혈당: " + averageAfternoon);
 
-            // 평균 점심 식후혈당
-            double averageAfternoon = afternoonDataList.stream()
-                    .mapToInt(Integer::intValue)
-                    .average()
-                    .orElse(0.0);
+        // 최고 점심 식후혈당
+        int maxAfternoonData = afternoonDataList.stream()
+                .max(Comparator.naturalOrder())
+                .orElse(0);
 
-            log.info("평균 아침 식후 혈당: " + averageAfternoon);
+        log.info("최고 아침 식후 혈당: " + maxAfternoonData);
 
-            // 최고 점심 식후혈당
-            int maxAfternoonData = afternoonDataList.stream()
-                    .max(Comparator.naturalOrder())
-                    .orElse(0);
+        // 최저 점심 식후 혈당
+        int minAfternoonData = afternoonDataList.stream()
+                .min(Comparator.naturalOrder())
+                .orElse(0);
 
-            log.info("최고 아침 식후 혈당: " + maxAfternoonData);
+        log.info("최저 아침 식후 혈당: " + minAfternoonData);
 
-            // 최저 점심 식후 혈당
-            int minAfternoonData = afternoonDataList.stream()
-                    .min(Comparator.naturalOrder())
-                    .orElse(0);
+        // 저녁 데이터 가져오기
+        List<BoardDTO> eveningData = boardRepository.findByTime("evening")
+                .stream()
+                .map(BoardDTO::toBoardDTO)
+                .sorted(Comparator.comparing(BoardDTO::getRegistDate)) // registDate로 정렬
+                .collect(Collectors.toList());
+        dataMap.put("evening", eveningData);
 
-            log.info("최저 아침 식후 혈당: " + minAfternoonData);
+        log.info("eveningData" + eveningData);
 
+        // afternoonData에서 afterBlood만 배열로 정리
+        List<Integer> eveningDataList = eveningData.stream()
+                .map(BoardDTO::getAfterBlood)
+                .collect(Collectors.toList());
 
-            // 저녁 데이터 가져오기
-            List<BoardDTO> eveningData = boardRepository.findByTime("evening")
-                    .stream()
-                    .map(BoardDTO::toBoardDTO)
-                    .sorted(Comparator.comparing(BoardDTO::getRegistDate)) // registDate로 정렬
-                    .collect(Collectors.toList());
-            dataMap.put("evening", eveningData);
+        log.info("eveningDataList 저녁 식후 혈당 : " + eveningDataList);
 
-            log.info("eveningData" + eveningData);
+        // 평균 아침 식후 혈당
+        int averageEvening = (int)eveningDataList.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(0);
 
-            // afternoonData에서 afterBlood만 배열로 정리
-            List<Integer> eveningDataList = eveningData.stream()
-                    .map(BoardDTO::getAfterBlood)
-                    .collect(Collectors.toList());
+        log.info("평균 저녁 식후 혈당: " + averageEvening);
 
-            log.info("eveningDataList 저녁 식후 혈당 : " + eveningDataList);
+        // 최고 아침 식후 혈당
+        int maxEveningData = eveningDataList.stream()
+                .max(Comparator.naturalOrder())
+                .orElse(0);
 
-            // 평균 아침 식후 혈당
-            double averageEvening = eveningDataList.stream()
-                    .mapToInt(Integer::intValue)
-                    .average()
-                    .orElse(0.0);
+        log.info("최고 저녁 식후 혈당: " + maxEveningData);
 
-            log.info("평균 저녁 식후 혈당: " + averageEvening);
+        // 최저 아침 식후 혈당
+        int minEveningData = eveningDataList.stream()
+                .min(Comparator.naturalOrder())
+                .orElse(0);
 
-            // 최고 아침 식후 혈당
-            int maxEveningData = eveningDataList.stream()
-                    .max(Comparator.naturalOrder())
-                    .orElse(0);
-
-            log.info("최고 저녁 식후 혈당: " + maxEveningData);
-
-            // 최저 아침 식후 혈당
-            int minEveningData = eveningDataList.stream()
-                    .min(Comparator.naturalOrder())
-                    .orElse(0);
-
-            log.info("최저 저녁 식후 혈당: " + minEveningData);
-
+        log.info("최저 저녁 식후 혈당: " + minEveningData);
 
         // Thymeleaf에서 사용할 수 있도록 데이터를 모델에 추가
-        model.addAttribute("fastingDataList", fastingDataList);
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
         model.addAttribute("dayList", dayList);
@@ -233,8 +223,6 @@ public class HighlightController {
         model.addAttribute("averageEmptyData", averageEmptyData);
         model.addAttribute("maxEmptyData", maxEmptyData);
         model.addAttribute("minEmptyData", minEmptyData);
-
-
         model.addAttribute("morningData", morningData);
         model.addAttribute("afternoonData", afternoonData);
         model.addAttribute("eveningData", eveningData);
@@ -247,7 +235,6 @@ public class HighlightController {
         model.addAttribute("averageEvening", averageEvening);
         model.addAttribute("maxEveningData", maxEveningData);
         model.addAttribute("minEveningData", minEveningData);
-
         }
         return "/fasting/highlight";  // Return the view name
     }

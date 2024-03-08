@@ -20,7 +20,7 @@ public class FoodDTO {
     private Integer carbohydrate;
     private Integer sugar;
     private Integer natrium;
-
+    private String images;
 
     // 엔티티 -> DTO
     public static FoodDTO toFoodDTO(Food food){
@@ -33,6 +33,7 @@ public class FoodDTO {
         foodDTO.setCarbohydrate(food.getCarbohydrate());
         foodDTO.setSugar(food.getSugar());
         foodDTO.setNatrium(food.getNatrium());
+        foodDTO.setImages(food.getImages());
         return foodDTO;
     }
 }

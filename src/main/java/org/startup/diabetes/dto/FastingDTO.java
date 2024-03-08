@@ -18,7 +18,6 @@ import java.time.LocalDate;
 @Data
 //@Getter
 //@Setter
-@ToString //필드값
 @NoArgsConstructor //기본생성
 @AllArgsConstructor //모든 필드를 매개변수로 하는 생성자
 public class FastingDTO {
@@ -26,24 +25,14 @@ public class FastingDTO {
     // html name, 필드값 동일하다면
     // setter 메서드로 DTO에 담아줌
     private Long bno;
+    private Member member;
 
     @NotNull(message = "공복혈당은 필수값입니다.")
     @Range(min = 50, max = 899, message = "공복혈당은 50 이상, 899 미만이어야 합니다.")
     //@Size(min =3, max =100)
     private Integer emptyData;
 
-    private Member member;
-
-    private Board board;
-
-
-//    @Column(name = "Date")
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-//    private YearMonth yearMonth;
-
     @NotNull(message = "날짜입력은 필수값입니다.")
-    @Column(name = "registDate")
     @DateTimeFormat(pattern = "MM-dd")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd", timezone = "Asia/Seoul")
     private LocalDate registDate;
@@ -52,9 +41,9 @@ public class FastingDTO {
     public static FastingDTO tofastingDTO(Fasting fasting){
         FastingDTO fastingDTO = new FastingDTO();
         fastingDTO.setBno(fasting.getBno());
+        fastingDTO.setMember(fasting.getMember());
         fastingDTO.setEmptyData(fasting.getEmptyData());
         fastingDTO.setRegistDate(fasting.getRegistDate());
-        fastingDTO.setMember(fasting.getMember());
         return fastingDTO;
     }
 
