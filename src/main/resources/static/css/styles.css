@@ -657,7 +657,7 @@ progress {
 }
 @media (min-width: 1200px) {
   .container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 1140px;
+    max-width: 1600px; /*  1140 수정 */
   }
 }
 @media (min-width: 1400px) {
@@ -2743,6 +2743,8 @@ textarea.form-control-lg {
   align-items: stretch;
   width: 100%;
 }
+
+
 .input-group > .form-control,
 .input-group > .form-select {
   position: relative;
@@ -3153,12 +3155,12 @@ textarea.form-control-lg {
 
 .btn-warning {
   color: #000;
-  background-color: #ffc107;
+  background-color: rgb(255, 237, 0);
   border-color: #ffc107;
 }
 .btn-warning:hover {
   color: #000;
-  background-color: #ffca2c;
+  background-color: rgb(255, 237, 0);
   border-color: #ffc720;
 }
 .btn-check:focus + .btn-warning, .btn-warning:focus {
@@ -6543,6 +6545,8 @@ textarea.form-control-lg {
 }
 
 .fixed-top {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   top: 0;
   right: 0;
