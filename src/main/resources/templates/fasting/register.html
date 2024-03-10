@@ -3,14 +3,14 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/basic.html}">
 
-<!--/* css */-->
-<!--<link th:href="@{/css/common.css}" rel="stylesheet" />-->
 
 <!-- Content -->
 <div layout:fragment="content">
 <div id="custom-form">
-    <h3>공복혈당 입력 하기</h3>
-
+    <div class="m-bottom">
+        <h2 class="text-center-align">당당히와 <span class="text-shadow">오늘의 건강을</span> 기록해볼까요?</h2>
+        <p class="text-center-align">어제의 혈당과 오늘의 혈당을 기록하면서 건강을 관리해보세요.</p>
+    </div>
     <div class="row mt-3">
         <div class="col">
             <div class="card">
@@ -43,9 +43,9 @@
 
                         <div class="my-4">
                             <div class="float-end">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <button type="reset" class="btn btn-secondary">Reset</button>
-                                <button type="button" class="btn btn-success" onclick="redirectToChart()">공복리포트</button>
+                                <button type="submit" class="btn btn-danger">Submit</button>
+                                <!--                                <button type="reset" class="btn btn-secondary">Reset</button>-->
+                                <button type="button" class="btn btn-warning" onclick="redirectToChart()">공복리포트</button>
                             </div>
                         </div>
                     </form>
@@ -72,10 +72,10 @@
             window.location.href = '/fasting/report';
         }
     </script>
-    <style>
-        #custom-form {
-            max-width: 600px; /* Adjust the max-width as needed */
-            margin: auto; /* Center the form horizontally */
-        }
-    </style>
+<!--    <style>-->
+<!--        #custom-form {-->
+<!--            max-width: 600px; /* Adjust the max-width as needed */-->
+<!--            margin: auto; /* Center the form horizontally */-->
+<!--        }-->
+<!--    </style>-->
 </div>
