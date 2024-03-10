@@ -34,6 +34,12 @@ public class MemberController {
     private final BCryptPasswordEncoder passwordEncoder;
 
 
+    @GetMapping("/successSignUp")
+    public String forLogin(){
+
+        return "/member/successSignUp";
+    }
+
     @GetMapping("/login")
     public void loginGet(String errorCode, String logout){
 
@@ -86,7 +92,7 @@ public class MemberController {
 
         redirectAttributes.addFlashAttribute("result", "success");
 
-        return "redirect:/";
+        return "redirect:/member/successSignUp";
     }
 
     @PreAuthorize("hasRole('USER')")
