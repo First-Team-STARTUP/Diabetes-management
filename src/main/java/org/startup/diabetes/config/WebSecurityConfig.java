@@ -30,7 +30,7 @@ public class WebSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeRequests(authorize ->
                 authorize
-                        .requestMatchers( "member/login", "/member/join").permitAll()
+                        .requestMatchers( "member/login", "/member/join","/member/successSignUp").permitAll()
                         .anyRequest().authenticated()
         );
         http.formLogin(formLogin ->

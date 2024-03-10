@@ -78,6 +78,11 @@ public class BoardService {
         return boards;
     }
 
+    public List<BoardDTO> getBoardByDate(LocalDate date, String userid) {
+        // 사용자의 해당 날짜에 해당하는 데이터 가져오기
+        return boardRepository.findBoardByRegistDateAndMemberUserid(date, userid);
+    }
+
     //생성자주입받고,
     public void save(BoardDTO boardDTO) {
         Board board = Board.toSaveEntity(boardDTO);

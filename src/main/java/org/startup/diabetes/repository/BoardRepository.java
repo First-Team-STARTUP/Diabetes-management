@@ -17,7 +17,7 @@ public interface BoardRepository extends JpaRepository<Board,Long>{
 
     List<Board> findByMemberUseridAndRegistDate(String userid, LocalDate date);
 
-    List<BoardDTO> findBoardByRegistDateAndMemberUserid(LocalDate date, String userId);
+    List<BoardDTO> findBoardByRegistDateAndMemberUserid(LocalDate date, String userid);
 
 
     List<Board> findByMember_Id (Long id);
