@@ -64,7 +64,7 @@ public class BoardController {
         // 현재 사용자의 해당 날짜에 해당하는 보드 그룹 가져오기
         List<BoardDTO> boardDTOList = boardService.getBoardGroupsByDate(userDetails.getUsername(), selectedDate);
 
-        log.info(boardDTOList);
+        log.info("^^^^^^^^^^^^^^^^^{}",boardDTOList.size());
         return boardDTOList;
     }
 
