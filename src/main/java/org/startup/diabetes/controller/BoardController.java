@@ -58,13 +58,15 @@ public class BoardController {
 
     @GetMapping("/save/data")
     @ResponseBody
-    public List<BoardDTO> dataByData(@RequestParam(name = "selectedDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate selectedDate,
+    public List<BoardDTO> dataByData(@RequestParam(name = "selectedDate", required = false)
+                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate selectedDate,
                                      @AuthenticationPrincipal UserDetails userDetails) {
 
         // 현재 사용자의 해당 날짜에 해당하는 보드 그룹 가져오기
-        List<BoardDTO> boardDTOList = boardService.getBoardGroupsByDate(userDetails.getUsername(), selectedDate);
+        List<BoardDTO> boardDTOList =
+                boardService.getBoardGroupsByDate(userDetails.getUsername(), selectedDate);
 
-        log.info("^^^^^^^^^^^^^^^^^{}",boardDTOList.size());
+        log.info("^^^^^^^^^^^^^^^^^{}", boardDTOList.size());
         return boardDTOList;
     }
 

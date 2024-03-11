@@ -30,7 +30,7 @@ public class WebSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeRequests(authorize ->
                 authorize
-                        .requestMatchers( "member/login", "/member/join","/member/successSignUp").permitAll()
+                        .requestMatchers( "member/login", "/member/join","/member/successSignUp").permitAll() //모든사용자에게 허용
                         .anyRequest().authenticated()
         );
         http.formLogin(formLogin ->
@@ -38,15 +38,15 @@ public class WebSecurityConfig {
                         .loginPage("/member/login")
                         .usernameParameter("userid")
                         .passwordParameter("pw")
-                        .defaultSuccessUrl("/service",true)
+                        .defaultSuccessUrl("/service",true) //로그인 후 넘어갈 페이지 설정
                         .permitAll()
         );
         http.logout(logout ->
                 logout
-                        .logoutSuccessUrl("/member/login")
+                        .logoutSuccessUrl("/member/login") //로그아웃 후 넘어갈 페이지
                         .invalidateHttpSession(true)
         );
-        http.sessionManagement(sessionManagement ->
+        http.sessionManagement(sessionManagement -> //동시접속자 수
                 sessionManagement
                         .maximumSessions(1)
                         .maxSessionsPreventsLogin(false)
@@ -57,16 +57,19 @@ public class WebSecurityConfig {
 
 
     @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider() throws Exception{
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
 
+        // DaoAuthenticationProvider 빈 생성
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+
+        // 사용자 상세 서비스 설정
         daoAuthenticationProvider.setUserDetailsService(userDetailService);
+
+        // 패스워드 인코더 설정
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
 
         return daoAuthenticationProvider;
     }
-
-
 
 
     @Bean
@@ -74,14 +77,5 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // @AuthenticationPrincipal을 이용하여 로그인 정보를 가져오는 메소드 추가
-    // 이 메소드는 현재 로그인한 사용자의 정보를 받아옵니다.
-    // 만약 사용자가 로그인하지 않은 상태라면 principal은 null이 됩니다.
-    public String getCurrentUserId(@AuthenticationPrincipal UserDetails userDetails) {
-        if (userDetails != null) {
-            return userDetails.getUsername();
-        } else {
-            return null;
-        }
-    }
+
 }
