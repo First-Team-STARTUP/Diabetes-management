@@ -14,103 +14,113 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 
-
-<div layout:fragment="content" class="container">
-    <div>
-        <div class="width-center">
-            <h5>당당히에서 건강한 음식을 추천받아보세요</h5>
-            <p>당으로부터 안전한 음식을 safe food에서 미리 알려줄거예요😘</p>
-            <p>오늘날짜: <span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></span></p>
-            <th:block th:if="${#lists.size(safeFoodDataList) > 0}">
-                <p th:if="${safeFoodDataList}">
-                    오늘의 공복혈당은 <strong th:text="${safeFoodDataList[0].emptyData}"></strong>
-                </p>
-            </th:block>
+<div layout:fragment="content">
+    <div id="custom-form">
+        <div class="m-bottom">
+            <h2 class="text-center-align">당당히에서 <span class="text-stroke">건강한 음식을</span> 추천받아보세요</h2>
+            <p class="text-center-align">당으로부터 안전한 음식을 safe food에서 미리 알려줄거예요😘</p>
         </div>
+        <div class="inside-content">
+            <div class="flex-row sub-text">
+                <span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></span>
+                <th:block th:if="${#lists.size(safeFoodDataList) > 0}">
+                    <p style="color:#c82333;" th:if="${safeFoodDataList}">
+                        <span>:</span>
+                        오늘의 공복혈당 <strong th:text="${safeFoodDataList[0].emptyData}"></strong>
+                    </p>
+                </th:block>
+            </div>
 
-        <!-- 선택된 음식 정보 표시 -->
-        <div id="selectedFoodInfo"></div>
+            <div style="text-align: left; display: flex; flex-wrap: wrap;">
+                <!-- 음식 목록 표시 -->
+                <div th:each="foodData, foodIndex : ${foodDataList}" class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" th:id="'inlineRadio' + ${foodIndex.index}" name="inlineRadioOptions"
+                           th:value="${foodData.title}" th:attr="data-plus-blood=${foodData.plusBlood}"
+                           onclick="updateSelectedFoodInfo(this)">
+                    <label class="form-check-label" th:for="'inlineRadio' + ${foodIndex.index}" th:text="${foodData.title}"></label>
 
-        <!-- 음식 목록 표시 -->
-        <div th:each="foodData, foodIndex : ${foodDataList}" class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" th:id="'inlineRadio' + ${foodIndex.index}" name="inlineRadioOptions"
-                   th:value="${foodData.title}" th:attr="data-plus-blood=${foodData.plusBlood}"
-                   onclick="updateSelectedFoodInfo(this)">
-            <label class="form-check-label" th:for="'inlineRadio' + ${foodIndex.index}" th:text="${foodData.title}"></label>
+                    <!-- 매 7개마다 라인 바꾸기 -->
+                    <th:if test="${foodIndex.index % 7 == 0 and not foodIndex.first}">
+                        <div class="form-check form-check-inline"></div>
+                    </th:if>
+                </div>
+            </div>
+
+            <!-- 체크하기 버튼 -->
+            <!-- checkSelectedFood 함수를 호출하면, alert 창에 선택된 음식 정보가 나타남 -->
+            <div>
+                <button class="btn btn-danger btn-mid" type="button" onclick="checkSelectedFood()"
+                style="display: flex">체크하기</button>
+                <!-- 선택된 음식 정보 표시 -->
+                <div id="selectedFoodInfo"></div>
+            </div>
         </div>
-
-        <!-- 체크하기 버튼 -->
-        <!-- checkSelectedFood 함수를 호출하면, alert 창에 선택된 음식 정보가 나타남 -->
-        <div>
-            <button class="btn btn-danger" type="button" onclick="checkSelectedFood()">체크하기</button>
-        </div>
-
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-            var selectedFood = {
-                title: '',
-                plusBlood: 0
-            }
-
-            function updateSelectedFoodInfo(radio) {
-                var selectedTitle = radio.value;
-                var plusBlood = radio.getAttribute('data-plus-blood');
-
-
-                // 선택된 음식 정보 업데이트
-                selectedFood.title = selectedTitle;
-                selectedFood.plusBlood = plusBlood;
-
-                // 예: 콘솔에 정보 출력
-                console.log('Selected Title:', selectedTitle);
-                console.log('Plus Blood:', plusBlood);
-            }
-
-            // 버튼 누를시 콘트롤러에서
-            // 요청 서비스 작업
-            // 공복혈당이랑, 메뉴 혈당스파이크 를 합쳐서
-            // 반환
-            function checkSelectedFood() {
-                try {
-                    // 선택된 음식 정보 업데이트
-                    var selectedTitle = selectedFood.title;
-                    var plusBlood = selectedFood.plusBlood;
-                    var alertMessage = '음식 ' + selectedTitle + ' 섭취할 시 혈당이 ' + plusBlood + ' 올라갑니다.';
-
-                    // 동적으로 HTML 생성
-                    var dynamicHTML = '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
-                        '<p> 음식 <strong>' + selectedTitle + '</strong> 섭취할 시 혈당이 <strong>' + plusBlood + '</strong> 올라갑니다.🔺🔺🔺 </p>' +
-                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                        '<span aria-hidden="true">&times;</span>' +
-                        '</button>' +
-                        '</div>';
-                    //정상작동
-                    // var dynamicHTML = '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
-                    //     '<p>' + alertMessage + '</p>' +
-                    //     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                    //     '<span aria-hidden="true">&times;</span>' +
-                    //     '</button>' +
-                    //     '</div>';
-
-                    // 동적으로 생성된 HTML을 콘솔에 출력
-                    console.log('Dynamic HTML:', dynamicHTML);
-
-                    // 동적으로 생성된 HTML을 추가
-                    var alertContainer = document.getElementById('selectedFoodInfo');
-                    if (alertContainer) {
-                        alertContainer.innerHTML = dynamicHTML;
-                        console.log('HTML Updated Successfully');
-
-                        // 화면에 출력된 HTML을 확인하기 위해 추가
-                        document.body.appendChild(alertContainer);
-                    } else {
-                        console.error('Alert Container not found');
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-            }
-            /*]]>*/
-        </script>
     </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var selectedFood = {
+            title: '',
+            plusBlood: 0
+        }
+
+        function updateSelectedFoodInfo(radio) {
+            var selectedTitle = radio.value;
+            var plusBlood = radio.getAttribute('data-plus-blood');
+
+
+            // 선택된 음식 정보 업데이트
+            selectedFood.title = selectedTitle;
+            selectedFood.plusBlood = plusBlood;
+
+            // 예: 콘솔에 정보 출력
+            console.log('Selected Title:', selectedTitle);
+            console.log('Plus Blood:', plusBlood);
+        }
+
+        // 버튼 누를시 콘트롤러에서
+        // 요청 서비스 작업
+        // 공복혈당이랑, 메뉴 혈당스파이크 를 합쳐서
+        // 반환
+        function checkSelectedFood() {
+            try {
+                // 선택된 음식 정보 업데이트
+                var selectedTitle = selectedFood.title;
+                var plusBlood = selectedFood.plusBlood;
+                var alertMessage = '음식 ' + selectedTitle + ' 섭취할 시 혈당이 ' + plusBlood + ' 올라갑니다.';
+
+                // 동적으로 HTML 생성
+                var dynamicHTML = '<div class="alert alert-warning alert-dismissible fade show inside-content alert-position" role="alert">' +
+                    '<p> 음식 <strong>' + selectedTitle + '</strong> 섭취할 시 혈당이 <strong>' + plusBlood + '</strong> 올라갑니다.🔺🔺🔺 </p>' +
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                    '<span aria-hidden="true">&times;</span>' +
+                    '</button>' +
+                    '</div>';
+                //정상작동
+                // var dynamicHTML = '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                //     '<p>' + alertMessage + '</p>' +
+                //     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                //     '<span aria-hidden="true">&times;</span>' +
+                //     '</button>' +
+                //     '</div>';
+
+                // 동적으로 생성된 HTML을 콘솔에 출력
+                console.log('Dynamic HTML:', dynamicHTML);
+
+                // 동적으로 생성된 HTML을 추가
+                var alertContainer = document.getElementById('selectedFoodInfo');
+                if (alertContainer) {
+                    alertContainer.innerHTML = dynamicHTML;
+                    console.log('HTML Updated Successfully');
+
+                    // 화면에 출력된 HTML을 확인하기 위해 추가
+                    document.body.appendChild(alertContainer);
+                } else {
+                    console.error('Alert Container not found');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        /*]]>*/
+    </script>
 </div>

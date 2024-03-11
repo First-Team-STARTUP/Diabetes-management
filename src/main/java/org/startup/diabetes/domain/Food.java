@@ -43,6 +43,6 @@ public class Food {
     private String images; //이미지
 
     //매핑
-    @OneToOne(mappedBy = "food")
-    private Board board;
+    //@OneToOne(mappedBy = "food")
+    //private Board board;
 }

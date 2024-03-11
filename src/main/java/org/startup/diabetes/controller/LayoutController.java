@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-//@RequestMapping("/page")
 public class LayoutController {
 
 //    @RequestMapping("/page/home")
@@ -26,6 +25,11 @@ public class LayoutController {
     @GetMapping({"/intro"})
     public String introGET(){
         return "/fasting/intro.html";
+    }
+
+    @GetMapping({"/service"})
+    public String serviceGET(){
+        return "/fasting/service.html";
     }
 
 }

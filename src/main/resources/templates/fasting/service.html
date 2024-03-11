@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/basic.html}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Safe food</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+
+<!-- Content -->
+<div layout:fragment="content">
+    <div id="custom-form">
+        <div class="m-bottom">
+            <h2 class="text-center-align">일상속 혈당관리 비서 <span class="text-stroke">당당히</span>와 함께</h2>
+            <p class="text-center-align">당신의 신뢰할 수 있는 혈당 비서, 언제나 당신과 함께합니다.</p>
+        </div>
+<!--    <div class="demo">-->
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" style="background-color: rgb(255, 237, 0)" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <strong> 📈 하루시작을 함께 "공복혈당 관리" </strong>
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <strong>새로운 하루를 '공복혈당 관리'와 함께 시작해보세요</strong>
+                        아침마다 혈당을 체크하고, 건강한 습관을 길러보세요. 우리의 서비스는 당신의 일상을 함께하는 친구처럼, 언제나 편안하게 동행합니다. '공복혈당 관리', 당신의 건강한 삶을 응원하는 최고의 파트너입니다. 함께 걷는 혈당 건강을 향한 여정, 지금 시작해보세요!
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" style="background-color: rgb(255, 237, 0)" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <strong> 🍚혈당 스파이크가 걱정될 땐? "safe food" </strong>
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <strong>혈당 걱정,Safe Food와 함께하는 건강한 식사의 시작."</strong>
+                        안전한 음식을 조회할 수 있는 특별한 시스템으로, 혈당을 안정적으로 유지하세요. 건강과 맛을 고려한 식사를 선택하여 안전한 식생활을 유지하세요. "Safe Food"는 혈당 건강을 존중하며 당신의 식품 선택을 돕습니다. 걱정 없는 안전한 식품 소비로 더 나은 건강을 경험해보세요!
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" style="background-color: rgb(255, 237, 0)" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <strong> 🍽 식후혈당과 식단을 기록하세요! </strong>
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <strong>건강한 내일을 위한 첫 걸음</strong>
+                        식후혈당과 식단을 기록하세요! 우리의 서비스는 간편한 기록 시스템으로 식후혈당 수치와 식단을 손쉽게 관리할 수 있습니다. 건강한 식습관을 유지하고 혈당 변화를 효과적으로 추적하여 더 나은 건강을 경험하세요. 식후혈당과 식단의 조화, 우리와 함께하세요!
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed" style="background-color: rgb(255, 237, 0)" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <strong> 📊 7일간의 혈당기록을 한번에 파악하는 "혈당 하이라이트" </strong>
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <strong>7일간의 혈당을 한눈에! 더 나은 건강을 시작하세요</strong>
+                        간편하게 7일 동안의 혈당 추이를 확인할 수 있어 건강한 생활을 도와줍니다. 일일 혈당 변화를 차트로 시각화하여 쉽게 이해할 수 있어, 당신의 건강을 관리하는 데 큰 도움이 됩니다. 혈당 하이라이트와 함께 건강한 삶을 책임지세요!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    </div>-->
+</div>

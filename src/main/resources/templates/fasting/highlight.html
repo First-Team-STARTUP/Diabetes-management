@@ -12,11 +12,17 @@
 </head>
 
 <body>
-<div layout:fragment="content" class="container">
-    <h2 class="text-center mb-4">혈당 하이라이트 페이지</h2>
-    <p th:if="${startDate != null and endDate != null}" class="mb-4"
+<div layout:fragment="content">
+    <div id="custom-form">
+    <div class="m-bottom">
+        <h2 class="text-center-align">당당히에서 확인하는 이번주 <span class="text-stroke">혈당 하이라이트</span></h2>
+        <p class="text-center-align">이번한주 혈당 기록을 확인해보고 건강관리에 신경쓰세요!</p>
+    </div>
+
+    <p th:if="${startDate != null and endDate != null}" class="mb-4 text-center-align sub-text"
        th:text="'기간: ' + ${#temporals.format(startDate, 'yyyy. MM. dd')} + ' ~ ' + ${#temporals.format(endDate, 'yyyy. MM. dd')}"></p>
-    <div class="table-responsive">
+    <div class="inside-content">
+        <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -65,6 +71,8 @@
             </tr>
             </tbody>
         </table>
+        </div>
+    </div>
     </div>
 </div>
 </body>

@@ -29,7 +29,7 @@ public class Board {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "food_id")
     private Food food;
 
