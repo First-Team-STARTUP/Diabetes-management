@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/basic.html}">
+      layout:decorate="~{layouts/basic.html}"
+>
 
 <head>
     <meta charset="UTF-8">
@@ -12,84 +13,105 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
     <script layout:fragment="script" type="text/javascript" src="/lib/jquery-3.7.1.min.js"></script>
+    <style>
+        #card {
+            display: flex; /* Flexbox 사용 */
+            justify-content: center; /* 수평 가운데 정렬 */
+            align-items: center; /* 수직 가운데 정렬 */
+            height: 100vh;
+        }
+        #
+        #custom-form{
+            max-width: 800px;
+            margin: 20px;
+        }
+        #custom-form1{
+            max-width: 800px;
+            margin: 20px;
+        }
+    </style>
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="container">
-        <div id="custom-form">
-            <form action="/board/save" method="post">
-        <h2 class="mb-5 mt-5 justify-content-center"> 당신의 혈당을 당당히 기록하세요 </h2>
-        <div class="mb-3 row">
-            <label for="registDate" class="col-sm-2 col-form-label">날짜</label>
-            <div class="col-sm-10">
-                <input type="date" name="registDate" class="form-control" id="registDate" th:value="${defaultDate}" onchange=fetchDataByDate()>
+<form action="/board/save" method="post">
+    <div class="container" id="card">
+        <div id="custom-form" class="row">
+            <div class="row mb-3">
+                <h2> 당신의 혈당을 당당히 기록하세요 </h2>
+            </div>
 
+            <div class="mb-3 row">
+                <label for="registDate" class="col-lg-2 col-form-label">날짜</label>
+                <div class="col-lg-10">
+                    <input type="date" name="registDate" class="form-control" id="registDate"
+                           th:value="${defaultDate}" onchange=fetchDataByDate()>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="Time" class="col-lg-2 col-form-label">시간대 선택</label>
+                <div class="col-lg-10">
+                    <select name="Time" class="form-select" id="Time">
+                        <option value="아침">아침</option>
+                        <option value="점심">점심</option>
+                        <option value="저녁">저녁</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-lg-2 col-form-label">식단</label>
+                <div class="col-lg-10">
+                    <select class="form-select mb-3" name="food"> <!-- name 속성을 food_id로 수정 -->
+                        <option th:each="food : ${foodList}" th:value="${food.bno}"
+                                th:text="${food.title}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="AfterBlood" class="col-lg-2 col-form-label">식후혈당</label>
+                <div class="col-lg-10">
+                    <input type="text" name="AfterBlood" class="form-control" id="AfterBlood">
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="text-end">
+                    <button type="submit" class="btn btn-warning me-2">저 장</button>
+                </div>
             </div>
         </div>
 
-        <div class="mb-3 row">
-            <label for="Time" class="col-sm-2 col-form-label">시간대 선택</label>
-            <div class="col-sm-10">
-                <select name="Time" class="form-select" id="Time">
-                    <option value="아침">아침</option>
-                    <option value="점심">점심</option>
-                    <option value="저녁">저녁</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label">식단</label>
-            <div class="col-sm-10">
-                <select class="form-select mb-3" name="food"> <!-- name 속성을 food_id로 수정 -->
-                    <option th:each="food : ${foodList}" th:value="${food.bno}" th:text="${food.title}"></option>
-                </select>
-            </div>
-
-        </div>
-
-
-        <div class="mb-3 row">
-            <label for="AfterBlood" class="col-sm-2 col-form-label">식후혈당</label>
-            <div class="col-sm-10">
-                <input type="text" name="AfterBlood" class="form-control" id="AfterBlood">
-            </div>
-        </div>
-
-        <div class="mb-3 row">
-            <div class="text-end">
-                <button type="submit" class="btn btn-primary me-2">저  장</button>
-                <button type="button" class="btn btn-secondary" onclick="location.href='/'" >뒤로 가기</button>
-            </div>
-        </div>
-    </form>
-
-            <div class="advertisement" id="custom-form1">
-                <h5 class="text-center mt-3"><span th:text="${defaultDate}"></span></h5>
-                <h3 class="text-center mb-3 mt-3">오늘의 식후 혈당 목록</h3>
-                <table class="table">
-                    <thead>
+        <div id="custom-form1" class="row">
+            <h5 class="text-center mt-3"><span th:value="${defaultDate}" onchange=fetchDataByDate()></span></h5>
+            <h3 class="text-center mb-3 mt-3">오늘의 식후 혈당 목록</h3>
+            <table class="table">
+                <thead>
                     <tr>
                         <th scope="col">시간</th>
                         <th scope="col">식후 혈당</th>
-                        <th scope="col">Food</th>
+                        <th scope="col">먹은 음식</th>
                     </tr>
-                    </thead>
-                    <tbody id="diabetesData">
-<!--                     반복문으로 Diabetes 데이터를 출력 -->
-                    <tr th:each="diabetes : ${boardDTOList}">
-                        <td th:text="${diabetes.time}"></td>
-                        <td th:text="${diabetes.AfterBlood}"></td>
-                        <td th:text="${diabetes.food.title}"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                </thead>
+                <tbody id="diabetesData">
+                <!-- 반복문으로 Diabetes 데이터를 출력 -->
+                    <th:block th:each=" diabetes: ${boardDTOList}">
+                        <tr>
+                            <td th:text="${diabetes.time}"></td>
+                            <td th:text="${diabetes.afterBlood}"></td>
+                            <td th:text="${diabetes.food.title}"></td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
         </div>
     </div>
+</form>
 </div>
 
 
+</body>
 
 
 <script layout:fragment="script" th:inline="javascript">
@@ -99,7 +121,7 @@
     function fetchDataByDate() {
 
         var selectedDate = $("#registDate").val(); // 변경된 날짜 가져오기
-        var url = "/board/save/data?selectedDate=" +selectedDate;
+        var url = "/board/save/data?selectedDate=" + selectedDate;
         // var url = `"/board/save?selectedDate=${selectedDate}"`; // 요청할 URL 생성`
 
         $.ajax({
@@ -107,7 +129,7 @@
             method: "GET",
             // contentType: "application/json; charset=UTF-8",
             // dataType:"json",
-            success: function(data){
+            success: function (data) {
                 // 성공적으로 데이터를 받았을 때 실행할 코드 작성
                 console.log(data);// 받은 데이터를 콘솔에 출력
                 displayData(data); // 받은 데이터를 화면에 표시
@@ -119,7 +141,6 @@
         });
     }
 
-    // 서버로부터 받은 데이터를 화면에 표시하는 함수
     function displayData(boardDTOList) {
         var tableBody = $("#diabetesData");
         tableBody.empty(); // 표 내용 초기화
@@ -127,37 +148,46 @@
         if (boardDTOList.length === 0) {
             // 반환된 데이터가 없는 경우 메시지를 표시하거나 다른 처리를 수행할 수 있습니다.
             console.log("데이터가 없습니다.");
-            return null;
+            return;
         }
+
         // 데이터가 배열로 잘 넘어왔다면 테이블에 추가
         for (var i = 0; i < boardDTOList.length; i++) {
-            var item = boardDTOList[i];
+            var diabetes = boardDTOList[i];
             tableBody.append(
                 `<tr>
-                <td>${item.time}</td>
-                <td>${item.afterBlood}</td>
-                <td>${item.food.title}</td>
-            </tr>`
+                    <td>${diabetes.time}</td>
+                    <td>${diabetes.afterBlood}</td>
+                    <td>${diabetes.food.title}</td>
+                </tr>`
             );
         }
     }
+
+
+    //[ b01 ] --- > read.html
+    // function printList(dtoList){
+    //
+    //     let str = '';
+    //
+    //
+    //     if(dtoList && dtoList.length > 0){
+    //
+    //         for (const dto of dtoList){
+    //
+    //             str += `<li class = "list-group-item d-flex replyItem">
+    //         <span class="col-2">${dto.rno}</span>
+    //         <span class="col-6" data-rno="${dto.rno}">${dto.replyText}</span>
+    //         <span class="col-2">${dto.replyer}</span>
+    //         <span class="col-2">${dto.regDate}</span>
+    //         </li>`
+    //         }
+    //     }
+    //     replyList.innerHTML = str
+    // }
+
 </script>
-<style>
-    #custom-form {
-        max-width: 700px; /* Adjust the max-width as needed */
-        margin: auto; /* Center the form horizontally */
-    }
-    #custom-form1 {
-        max-width: 700px; /* Adjust the max-width as needed */
-        margin: auto;
-    }
-    .advertisement {
-        background-color: #f8f9fa;
-        padding: 20px;
-        border-radius: 10px;
-        text-align: center;
-    }
-</style>
-</body>
+
+
 </html>
 
