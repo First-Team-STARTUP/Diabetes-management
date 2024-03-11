@@ -42,7 +42,4 @@ public class Food {
     @Column(name = "images")
     private String images; //이미지
 
-    //매핑
-    @OneToOne(mappedBy = "food")
-    private Board board;
 }

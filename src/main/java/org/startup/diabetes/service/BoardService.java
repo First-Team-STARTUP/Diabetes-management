@@ -54,6 +54,7 @@ public class BoardService {
         // 사용자 아이디와 날짜를 기준으로 보드를 조회하여 리스트로 가져옵니다.
         List<Board> boardList = boardRepository.findByMemberUseridAndRegistDate(userid, date);
 
+        log.info("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^{}",boardList.size());
         // Board를 BoardDTO로 변환하여 리스트에 추가합니다.
         List<BoardDTO> boardDTOList = new ArrayList<>();
         for (Board board : boardList){
