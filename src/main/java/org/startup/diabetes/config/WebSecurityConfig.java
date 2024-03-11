@@ -38,7 +38,7 @@ public class WebSecurityConfig {
                         .loginPage("/member/login")
                         .usernameParameter("userid")
                         .passwordParameter("pw")
-                        .defaultSuccessUrl("/fasting/register",true)
+                        .defaultSuccessUrl("/service",true)
                         .permitAll()
         );
         http.logout(logout ->
