@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.startup.diabetes.dto.BoardDTO;
 import org.startup.diabetes.dto.FoodDTO;
 import org.startup.diabetes.service.BoardService;
+import org.startup.diabetes.service.FastingService;
 import org.startup.diabetes.service.FoodService;
 
 import java.time.LocalDate;
@@ -29,6 +30,7 @@ public class BoardController {
 
     private final BoardService boardService;
     private final FoodService foodService;
+    private final FastingService fastingService;
 
 
     @GetMapping("/save")
@@ -39,9 +41,8 @@ public class BoardController {
         // 현재 날짜 설정
         LocalDate currentDate = (selectedDate == null) ? LocalDate.now() : selectedDate;
 
-
         // 선택된 날짜를 모델에 추가
-//        model.addAttribute("registDate", currentDate);
+        // model.addAttribute("registDate", currentDate);
         // 현재 사용자의 해당 날짜에 해당하는 보드 그룹 가져오기
         List<BoardDTO> boardDTOList = boardService.getBoardGroupsByDate(userDetails.getUsername(), currentDate);
 
@@ -51,7 +52,6 @@ public class BoardController {
         model.addAttribute("foodList", foodList);
         model.addAttribute("defaultDate", currentDate);
         model.addAttribute("boardDTOList", boardDTOList);
-
 
         return "/board/save";
     }

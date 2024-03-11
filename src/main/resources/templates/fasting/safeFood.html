@@ -22,6 +22,7 @@
         </div>
         <div class="inside-content">
             <div class="flex-row sub-text">
+                <!-- 오늘 날짜 -->
                 <span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></span>
                 <th:block th:if="${#lists.size(safeFoodDataList) > 0}">
                     <p style="color:#c82333;" th:if="${safeFoodDataList}">
