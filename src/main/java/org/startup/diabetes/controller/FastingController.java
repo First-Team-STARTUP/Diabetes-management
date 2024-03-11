@@ -69,7 +69,7 @@ public class FastingController {
         redirectAttributes.addFlashAttribute("result", bno);
 
         log.info("혈당정보 등록 완료");
-        return  "redirect:/fasting/list";
+        return  "redirect:/fasting/report";
     }
 
     // 리스트

@@ -40,7 +40,6 @@ public class SafeFoodController {
 
         log.info("fastingDataList 최근 1일 데이터" + safeFoodDataList);
 
-
         // 모델에 음식 목록 추가
         model.addAttribute("foodDataList", foodDataList);
         log.info("foodDataList 는 :" + foodDataList);
