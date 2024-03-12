@@ -44,7 +44,7 @@
 
 <br>
 
-## 1. 개발 환경
+## 1. 개발 환경    // 루아
 
 ![개발환경](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/7bebd3a8-222c-47e2-8ab5-2a1c6128733f)
 
@@ -54,6 +54,8 @@
 - 협업 툴 : Notion, KakaoTalk
 - UX/UI : [피그마](https://www.figma.com/file/Z78TTVni1hRUd3cZFUWlEt/startup?type=design&node-id=0%3A1&mode=dev&t=IoGgtOolww1rHbRh-1)
 
+
+<br>
 
 ## 2. 채택한 개발 기술과 브랜치 전략
 
@@ -92,74 +94,161 @@
 
 <br>
 
-## 3. 프로젝트 구조
+## 3. 프로젝트 구조  // 김루아
 
 ```
 ├── README.md
-├── .eslintrc.js
-├── .gitignore
-├── .prettierrc.json
-├── package-lock.json
-├── package.json
-│
-├── public
-│    └── index.html
-└── src
-     ├── App.jsx
-     ├── index.jsx
-     ├── api
-     │     └── mandarinAPI.js
-     ├── asset
-     │     ├── fonts
-     │     ├── css_sprites.png
-     │     ├── logo-404.svg
-     │     └── logo-home.svg
-     │          .
-     │          .
-     │          .
-     ├── atoms
-     │     ├── LoginData.js
-     │     └── LoginState.js
-     ├── common
-     │     ├── alert
-     │     │     ├── Alert.jsx
-     │     │     └── Alert.Style.jsx
-     │     ├── button
-     │     ├── comment
-     │     ├── inputBox
-     │     ├── post
-     │     ├── postModal
-     │     ├── product
-     │     ├── tabMenu
-     │     ├── topBanner
-     │     └── userBanner
-     ├── pages
-     │     ├── addProduct
-     │     │     ├── AddProduct.jsx
-     │     │     └── AddProduct.Style.jsx
-     │     ├── chatList
-     │     ├── chatRoom
-     │     ├── emailLogin
-     │     ├── followerList
-     │     ├── followingList
-     │     ├── home
-     │     ├── join
-     │     ├── page404
-     │     ├── postDetail
-     │     ├── postEdit
-     │     ├── postUpload
-     │     ├── productEdit
-     │     ├── profile
-     │     ├── profileEdit
-     │     ├── profileSetting
-     │     ├── search
-     │     ├── snsLogin
-     │     └── splash
-     ├── routes
-     │     ├── privateRoutes.jsx
-     │     └── privateRoutesRev.jsx  
-     └── styles
-           └── Globalstyled.jsx
+├── build
+│   ├── classes
+│   │   └── java
+│   │       ├── main
+│   │       │   └── org
+│   │       │       └── startup
+│   │       │           └── diabetes
+│   │       │               ├── DiabetesApplication.class
+│   │       │               ├── config
+│   │       │               │   ├── RootConfig.class
+│   │       │               │   ├── SwaggerConfig.class
+│   │       │               │   └── WebSecurityConfig.class
+│   │       │               ├── controller
+│   │       │               │   ├── BoardController.class
+│   │       │               │   ├── FastingController.class
+│   │       │               │   ├── HighlightController.class
+│   │       │               │   ├── LayoutController.class
+│   │       │               │   ├── MainController.class
+│   │       │               │   ├── MemberController.class
+│   │       │               │   ├── NutritionController.class
+│   │       │               │   └── SafeFoodController.class
+│   │       │               ├── domain
+│   │       │               │   ├── BaseEntity.class
+│   │       │               │   ├── Board$BoardBuilder.class
+│   │       │               │   ├── Board.class
+│   │       │               │   ├── Fasting$FastingBuilder.class
+│   │       │               │   ├── Fasting.class
+│   │       │               │   ├── Food$FoodBuilder.class
+│   │       │               │   ├── Food.class
+│   │       │               │   └── Member.class
+│   │       │               ├── dto
+│   │       │               │   ├── BoardDTO$BoardDTOBuilder.class
+│   │       │               │   ├── BoardDTO.class
+│   │       │               │   ├── FastingDTO$FastingDTOBuilder.class
+│   │       │               │   ├── FastingDTO.class
+│   │       │               │   ├── FoodDTO$FoodDTOBuilder.class
+│   │       │               │   ├── FoodDTO.class
+│   │       │               │   ├── MemberDTO$MemberDTOBuilder.class
+│   │       │               │   ├── MemberDTO.class
+│   │       │               │   ├── MemberPwUpdateDTO.class
+│   │       │               │   ├── PageRequestDTO$PageRequestDTOBuilder.class
+│   │       │               │   ├── PageRequestDTO.class
+│   │       │               │   ├── PageResponseDTO$PageResponseDTOBuilder.class
+│   │       │               │   └── PageResponseDTO.class
+│   │       │               ├── repository
+│   │       │               │   ├── BoardRepository.class
+│   │       │               │   ├── FastingRepository.class
+│   │       │               │   ├── FoodRepository.class
+│   │       │               │   └── MemberRepository.class
+│   │       │               ├── security
+│   │       │               │   ├── MemberSecurityDTO.class
+│   │       │               │   ├── UserDetail$1.class
+│   │       │               │   ├── UserDetail.class
+│   │       │               │   └── UserDetailService.class
+│   │       │               └── service
+│   │       │                   ├── BoardService.class
+│   │       │                   ├── FastingService.class
+│   │       │                   ├── FastingServiceImpl.class
+│   │       │                   ├── FoodService.class
+│   │       │                   ├── FoodServiceImple.class
+│   │       │                   ├── MemberService$MidExistException.class
+│   │       │                   ├── MemberService.class
+│   │       │                   ├── MemberServiceImpl$MemberServiceImplBuilder.class
+│   │       │                   └── MemberServiceImpl.class
+│   │       └── test
+│   │           └── org
+│   │               └── startup
+│   │                   └── diabetes
+│   │                       ├── B01ApplicationTests.class
+│   │                       └── service
+│   │                           └── FastingServiceTests.class
+│   ├── generated
+│   │   └── sources
+│   │       ├── annotationProcessor
+│   │       │   └── java
+│   │       │       ├── main
+│   │       │       └── test
+│   │       └── headers
+│   │           └── java
+│   │               ├── main
+│   │               └── test
+│   ├── libs
+│   │   ├── Diabetes-0.0.1-SNAPSHOT-plain.jar
+│   │   └── Diabetes-0.0.1-SNAPSHOT.jar
+│   ├── reports
+│   │   └── tests
+│   │       └── test
+│   │           ├── classes
+│   │           │   ├── org.startup.diabetes.B01ApplicationTests.html
+│   │           │   └── org.startup.diabetes.service.FastingServiceTests.html
+│   │           ├── css
+│   │           │   ├── base-style.css
+│   │           │   └── style.css
+│   │           ├── index.html
+│   │           ├── js
+│   │           │   └── report.js
+│   │           └── packages
+│   │               ├── org.startup.diabetes.html
+│   │               └── org.startup.diabetes.service.html
+│   ├── resolvedMainClassName
+│   ├── resources
+│   │   └── main
+│   │       ├── application.yml
+│   │       ├── static
+│   │       │   ├── assets
+│   │       │   │   ├── background.png
+│   │       │   │   ├── favicon.ico
+│   │       │   │   ├── logo.png
+│   │       │   │   └── profile.jpg
+│   │       │   ├── css
+│   │       │   │   ├── addStyle.css
+│   │       │   │   ├── common.css
+│   │       │   │   └── styles.css
+│   │       │   ├── images
+│   │       │   │   └── chicken.jpg
+│   │       │   ├── index.html
+│   │       │   ├── js
+│   │       │   │   └── scripts.js
+│   │       │   └── lib
+│   │       │       └── jquery-3.7.1.min.js
+│   │       └── templates
+│   │           ├── board
+│   │           │   ├── index.html
+│   │           │   ├── info.html
+│   │           │   ├── list.html
+│   │           │   └── save.html
+│   │           ├── fasting
+│   │           │   ├── highlight.html
+│   │           │   ├── intro.html
+│   │           │   ├── list.html
+│   │           │   ├── register.html
+│   │           │   ├── report.html
+│   │           │   ├── safeFood.html
+│   │           │   ├── save.html
+│   │           │   └── service.html
+│   │           ├── fragments
+│   │           │   ├── footer.html
+│   │           │   └── header.html
+│   │           ├── layouts
+│   │           │   ├── basic.html
+│   │           │   └── defaultLayout.html
+│   │           ├── main.html
+│   │           ├── member
+│   │           │   ├── change-password.html
+│   │           │   ├── delete-member.html
+│   │           │   ├── join.html
+│   │           │   ├── login.html
+│   │           │   ├── mypage.html
+│   │           │   └── successSignUp.html
+│   │           └── page
+│   │               └── home.html
 ```
 
 <br>
@@ -176,17 +265,17 @@
 
 <br>
     
-### 👻김민제
+### 👩🏼‍💻김루아
 
 - **UI**
-    - 페이지 : 프로필 설정, 프로필 수정, 팔로잉&팔로워 리스트, 상품 등록, 상품 수정, 채팅 목록, 404 페이지
-    - 공통 컴포넌트 : 탭메뉴, InputBox, Alert 모달, 댓글
+    - 페이지 : 로그인, 회원가입, 회원가입확인, 회원정보 및 수정, 비밀번호 변경, 식후 혈당
+    - 공통 컴포넌트 : 모달, 비밀번호 유효성 확인
 - **기능**
-    - 프로필 설정 및 수정 페이지 유저 아이디 유효성 및 중복 검사, 상품 등록 및 수정
+    - Member 테이블설계, 테이블 간 외래키 맵핑, 회원가입 및 로그인, 보안기능, 비밀번호 암호화, 식후 혈당 기록, 데이터 조회 및 시각화
 
 <br>
 
-### 😎양희지
+### 😎김이랑
 
 - **UI**
     - 페이지 : splash 페이지, sns 로그인 페이지, 로그인, 회원가입
@@ -194,16 +283,6 @@
 - **기능**
     - splash 페이지, sns로그인 페이지, 로그인 유효성 및 중복 검사, 회원가입 유효성 및 중복 검사, 이메일 검증, 프로필 설정, 접근제한 설정
 
-<br>
-
-### 🐬지창언
-
-- **UI**
-    - 페이지 : 사용자 프로필 페이지
-    - 공통 컴포넌트 : 탑배너, 하단 모달창
-- **기능**
-    - 팔로우 & 언팔로우, 로그아웃, 하단 모달창, 댓글 삭제, 게시글 삭제, 상품 삭제, 사용자 게시글 앨범형 이미지, 탑 배너 뒤로가기 버튼, Alert 모달
-    
 <br>
 
 ## 5. 개발 기간 및 작업 관리
