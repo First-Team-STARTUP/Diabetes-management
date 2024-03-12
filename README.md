@@ -49,56 +49,6 @@
 
 ### 
 
-# 요구사항 명세서
-
-[STA-**MEMBER-001**](https://www.notion.so/STA-MEMBER-001-367ecbfe8ffd4396b0b19351166e38b7?pvs=21)
-
-[**STA-MEMBER-002**](https://www.notion.so/STA-MEMBER-002-483830c58bc8454390f8a64effd8aab6?pvs=21)
-
-[**STA-MEMBER-003**](https://www.notion.so/STA-MEMBER-003-1d83329ed9304d59b3873fe1713cc21d?pvs=21)
-
-[**STA-MEMBER-004**](https://www.notion.so/STA-MEMBER-004-85e7cd49c53946ceb061bdb33c112da5?pvs=21)
-
-[**STA-MEMBER-005**](https://www.notion.so/STA-MEMBER-005-12595dffb554472aa2aca91dba111641?pvs=21)
-
-[**STA-MEMBER-006**](https://www.notion.so/STA-MEMBER-006-5c1afe4f21ca4cdc81040d966e3eb704?pvs=21)
-
-[**STA-MEMBER-007**](https://www.notion.so/STA-MEMBER-007-66aafed9d8b349bfa7f857cb3f80cab2?pvs=21)
-
-[**STA-MEMBER-008**](https://www.notion.so/STA-MEMBER-008-7798ca71b979429284390e6b947a4391?pvs=21)
-
-[**STA-MEMBER-009**](https://www.notion.so/STA-MEMBER-009-b11c222f37ce4792b15bdfeeec3d4b8a?pvs=21)
-
-[](https://www.notion.so/f6079d8c85dd43779d5cf36feffca976?pvs=21)
-
-[](https://www.notion.so/c84e55293b6f42db83a1cf784c5e80d6?pvs=21)
-
-[STA-SERVICEA-001](https://www.notion.so/STA-SERVICEA-001-ec8099a45081447a9f8dfe91968839c3?pvs=21)
-
-[STA-SERVICEA-002](https://www.notion.so/STA-SERVICEA-002-3d74ad83a011466aa9bda92f63bec329?pvs=21)
-
-[STA-SERVICEA-003](https://www.notion.so/STA-SERVICEA-003-bd24ab7e5c4340cfa6a46282c6da2ed8?pvs=21)
-
-[STA-SERVICEA-004](https://www.notion.so/STA-SERVICEA-004-08826888f343472ea1739bb1b703768e?pvs=21)
-
-[STA-SERVICEA-005](https://www.notion.so/STA-SERVICEA-005-92eb9868951a4764b9ca2a087c127a40?pvs=21)
-
-[STA-SERVICEA-006](https://www.notion.so/STA-SERVICEA-006-d3301f83320547079328edfc810da49d?pvs=21)
-
-[](https://www.notion.so/52ff08c6267548ec87f2dc793551d04e?pvs=21)
-
-[](https://www.notion.so/475a45c67e62498b9b1ab0ccdb3f383e?pvs=21)
-
-[STA-SERVICEB-001](https://www.notion.so/STA-SERVICEB-001-ddd9221595d84ba7acc09d02ee3e5cf5?pvs=21)
-
-[STA-SERVICEB-002](https://www.notion.so/STA-SERVICEB-002-b29854df22694fbb8c56d93e4de2f61b?pvs=21)
-
-[STA-SERVICEB-003](https://www.notion.so/STA-SERVICEB-003-66116e441b254f838f59a1ff286ba77d?pvs=21)
-
-[STA-SERVICEB-004](https://www.notion.so/STA-SERVICEB-004-e2fe9fbc79d94ed8b935cb48db8800b2?pvs=21)
-
-[](https://www.notion.so/7241d18586974c2faeb72da6410505d0?pvs=21)
-
 ## 2. 채택한 개발 기술과 브랜치 전략
 
 ### React, styled-component
