@@ -18,7 +18,7 @@
 
 # 📖 스타트업 혈당 관리 프로그램 '당당히' README
 
-![readme_mockup2](https://user-images.githubusercontent.com/112460466/210706312-6a44b60d-a42e-4210-b334-9e5983f70fb3.png)
+![readme_mockup2]([https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/6c93a0bb-7924-434d-a262-9e39ed7f4f38])
 
 
 <br>
