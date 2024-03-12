@@ -5,6 +5,7 @@
 ## 설명
 
 프로젝트에 대한 간단한 소개 문구를 작성합니다.
+![image](https://github.com/First-Team-STARTUP/Diabetes-management/assets/150316684/41834124-3099-4580-8003-b14ea9a86ce8)
 
 -- 프로젝트 로고나 이미지--
   당당히
