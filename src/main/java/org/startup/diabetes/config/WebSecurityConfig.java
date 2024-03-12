@@ -30,7 +30,7 @@ public class WebSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeRequests(authorize ->
                 authorize
-                        .requestMatchers( "member/login", "/member/join","/member/successSignUp").permitAll() //모든사용자에게 허용
+                        .requestMatchers( "member/login", "/member/join","/member/successSignUp","/service").permitAll() //모든사용자에게 허용
                         .anyRequest().authenticated()
         );
         http.formLogin(formLogin ->
