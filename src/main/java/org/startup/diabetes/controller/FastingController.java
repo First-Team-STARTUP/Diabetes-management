@@ -105,6 +105,9 @@ public class FastingController {
         log.info("공복혈당 리포트 페이지.....");
 
         // 최근 7일의 데이터만 가져오기
+        // 데이터 베이스 접근 service : db값 가공
+        // service리스트 받아오고, 데이터가공은
+        // controller 실행 service리스트
         LocalDate sevenDaysAgo = LocalDate.now().minusDays(7);
         List<FastingDTO> fastingDataList = fastingService.findByUserid(userDetails.getUsername())
                 .stream()
@@ -112,6 +115,7 @@ public class FastingController {
                 .collect(Collectors.toList());
 
         log.info("fastingDataList 최근 7일 데이터" + fastingDataList);
+
 
         // emptyData
         List<Integer> emptyDataList = fastingDataList.stream()
