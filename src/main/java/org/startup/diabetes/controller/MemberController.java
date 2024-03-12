@@ -3,7 +3,6 @@ package org.startup.diabetes.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,12 +10,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.startup.diabetes.dto.MemberDTO;
 import org.startup.diabetes.dto.MemberPwUpdateDTO;
@@ -31,7 +31,6 @@ import java.util.Objects;
 public class MemberController {
 
     private final MemberService memberService;
-    private final BCryptPasswordEncoder passwordEncoder;
 
 
     @GetMapping("/successSignUp")
@@ -80,15 +79,15 @@ public class MemberController {
         memberService.checkUseridDuplicate(memberJoinDTO.getUserid());
 
         try {
+
             memberService.join(memberJoinDTO);
+
         } catch (Exception e) {
+
             redirectAttributes.addFlashAttribute("error", "id");
-
-
-            //"<script>alert('아이디 중복입니다')</script>"
+            log.info("아이디 중복입니다.");
             return "redirect:/member/join";
         }
-
 
         redirectAttributes.addFlashAttribute("result", "success");
 
@@ -133,7 +132,7 @@ public class MemberController {
             redirectAttributes.addAttribute("userid", memberDTO.getUserid());
         }
 
-        return "redirect:/";
+        return "redirect:/service";
 
     }
 
@@ -179,20 +178,16 @@ public class MemberController {
     }
 
 
-//    @PreAuthorize("#memberDTO.userid == principal.username")
     @PostMapping("/remove")
     public String removeUser(@Valid MemberDTO memberDTO, RedirectAttributes redirectAttributes, @AuthenticationPrincipal UserDetails userDetails) {
-        // 회원 정보를 DTO로부터 가져옵니다.
-//        String userid = memberDTO.getUserid();
-//        log.info("remove 유저"+ userid);
 
         // 서비스 레이어에서 회원을 삭제하는 메서드를 호출합니다.
         try {
            String userid = memberService.removeUser(memberDTO, userDetails);
             redirectAttributes.addFlashAttribute("message", "회원 탈퇴가 완료되었습니다.");
-            redirectAttributes.addFlashAttribute("userid", userid);
+            redirectAttributes.addFlashAttribute("가시는 회원님 😭", userid);
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "회원 탈퇴 중 오류가 발생했습니다.");
+            redirectAttributes.addFlashAttribute("error 🤬", "회원 탈퇴 중 오류가 발생했습니다.");
             return "redirect:/member/mypage";
         }
 
@@ -207,13 +202,6 @@ public class MemberController {
 
 
 
-//    // 비밀번호 변경 폼 보여주기
-//    @GetMapping("/change-password")
-//    public String showChangePasswordForm() {
-//        return "change-password-form";
-//    }
-
-    // 비밀번호 변경
 
 
 }
