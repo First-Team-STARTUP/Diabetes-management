@@ -1,7 +1,4 @@
 
-# 스타트업 혈당 관리 프로그램 '당당히'
-
-
 ## Logo
 ![image](https://github.com/First-Team-STARTUP/Diabetes-management/assets/150316684/41834124-3099-4580-8003-b14ea9a86ce8)
 
