@@ -350,14 +350,18 @@
 
 <br>
 
-### [홈 피드]
-- 자신이 팔로우 한 유저의 게시글이 최신순으로 보여집니다.
-- 팔로우 한 유저가 없거나, 팔로워의 게시글이 없을 경우 검색 버튼이 표시됩니다.
-- 게시글의 상단 유저 배너 클릭 시 게시글을 작성한 유저의 프로필 페이지로, 본문 클릭 시 게시글 상세 페이지로 이동합니다.
+### [식후혈당 기록 및 기록 확인]
+- 맨 첫 페이지는 로그인 당일로 넘어갑니다.
+- 식후 먹은 음식과 혈당을 기록 후 비동기 방식으로 당일의 혈당이 즉각 반영됩니다.
+- 모든 기록은 데이터베이스에 저장됩니다.
+- 날짜를 옮기면 그날 저장했던 식후 혈당 정보를 함께 볼 수 있습니다.
 
-| 팔로우하는 유저가 없을 때 | 팔로우하는 유저가 있을 때 |
-|----------|----------|
-|![home0](https://user-images.githubusercontent.com/112460466/210379059-48900aac-3735-45c6-a249-bc9c41b49414.gif)|![home1](https://user-images.githubusercontent.com/112460466/210379110-49153d27-0405-48e6-adfb-62c7818d2f43.gif)|
+|  식후혈당기록 및 기록 확인 |
+|----------|
+|![home0](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/a28f1545-ec8f-40fb-bc2b-91b8b0867802)|
+|----------|
+|![ezgif com-video-to-gif-converter](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/5d9db598-7fe3-4d0b-9ea8-5537f160eadd)|
+
 
 <br>
 
