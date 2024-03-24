@@ -339,7 +339,8 @@
 
 | 로그인 |
 |----------|
-![login](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/b50eee7d-2b65-4323-b97a-92aebdabfd89)
+![login](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/b50771ac-5324-42e2-98bc-742f9840f9b7)|
+
 
 
 <br>
