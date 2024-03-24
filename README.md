@@ -326,8 +326,7 @@
 
 | 로그인 |
 |----------|
-![login](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/f2898def-2e0b-4d68-95dc-96da7777edc9)|
-
+![login](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/56b0765d-030a-415a-b386-0186c008c2d7)|
 
 ### [비밀번호 변경]
 - 비밀번호 재확인 유효성 검사를 통과해야 변경이 가능합니다.
