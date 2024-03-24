@@ -321,19 +321,6 @@
 
 <br>
 
-### [프로필 설정]
-- 회원가입 페이지의 유효성 검사를 통과해야 진입할 수 있습니다.
-- 프로필 설정에 필요한 프로필 사진, 사용자 이름, 계정 ID, 소개를 입력받습니다.
-- 사용자 이름과 계정 ID는 필수 입력사항입니다.
-- 계정 ID에는 형식 및 중복 검사가 진행됩니다.
-- 프로필 사진은 등록하지 않을 경우 기본 이미지가 등록됩니다.
-
-| 프로필 설정 |
-|----------|
-|![setProfile](https://user-images.githubusercontent.com/112460466/210173749-2da6c9af-eb93-4eea-9663-1a03e19299ec.gif)|
-
-<br>
-
 ### [로그인 및 마이페이지 수정]
 - 회원 가입한 사용자만 로그인 가능합니다.
 
@@ -341,6 +328,14 @@
 |----------|
 ![login](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/b50771ac-5324-42e2-98bc-742f9840f9b7)|
 
+
+### [비밀번호 변경]
+- 비밀번호 재확인 유효성 검사를 통과해야 변경이 가능합니다.
+- 변경된 비밀번호는 암호화 되어 저장됩니다.
+
+| 프로필 설정 |
+|----------|
+|![upgradePassword](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/fa4be004-9bb3-4dc3-b16b-fbe139d48998)|
 
 
 <br>
