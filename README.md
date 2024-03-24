@@ -311,13 +311,13 @@
 <br>
 
 ### [회원가입]
-- 이메일 주소와 비밀번호를 입력하면 입력창에서 바로 유효성 검사가 진행되고 통과하지 못한 경우 각 경고 문구가 입력창 하단에 표시됩니다.
-- 이메일 주소의 형식이 유효하지 않거나 이미 가입된 이메일일 경우 또는 비밀번호가 6자 미만일 경우에는 각 입력창 하단에 경구 문구가 나타납니다.
-- 작성이 완료된 후, 유효성 검사가 통과된 경우 다음 버튼이 활성화되며, 버튼을 클릭하면 프로필 설정 화면이 나타납니다.
+- 모든 인풋을 작성해야 회원가입이 가능합니다.
+- 비밀번호 재확인 유효성 검사를 통과해야만 가입이 가능합니다.
+- 각각에 맞는 문자열이나 숫자를 입력해야만 가입이 가능합니다.
 
 | 회원가입 |
 |----------|
-|![join](https://user-images.githubusercontent.com/112460466/210173571-490f5beb-5791-4a4a-8c5e-510cdcb5f1fe.gif)|
+|![join](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/33b2a79d-05ca-4a99-a0c6-fcf0b5502f07)|
 
 <br>
 
@@ -326,7 +326,7 @@
 
 | 로그인 |
 |----------|
-![login](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/b50771ac-5324-42e2-98bc-742f9840f9b7)|
+![login](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/f2898def-2e0b-4d68-95dc-96da7777edc9)|
 
 
 ### [비밀번호 변경]
