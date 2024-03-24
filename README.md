@@ -336,11 +336,10 @@
 
 ### [로그인 및 마이페이지 수정]
 - 회원 가입한 사용자만 로그인 가능합니다.
-- 비밀번호를 입력하면 입력창에서 바로 유효성 검사가 진행되고 통과하지 못한 경우 경고 문구가 입력창 하단에 표시됩니다.
 
-| 로그인 및 내 정보, 비밀번호 수정|
+| 로그인 |
 |----------|
-![login & mypage](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/2cb4ad10-b124-4b95-bfd2-d1e1ba6373d2)
+![login](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/b50eee7d-2b65-4323-b97a-92aebdabfd89)
 
 
 <br>
