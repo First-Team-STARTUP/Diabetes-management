@@ -329,12 +329,13 @@
 <br>
 
 ### [로그아웃]
-- 상단 의 kebab menu를 클릭 후 나타나는 모달창의 로그아웃 버튼을 클릭하면 확인창이 뜹니다.
+- 상단 고정바의 로그아웃 버튼을 클릭하면 로그아웃이 완료됩니다.
 - 로그아웃시 로컬 저장소의 토큰 값과 사용자 정보를 삭제하고 초기화면으로 이동합니다.
 
 | 로그아웃 |
 |----------|
-|![logout](https://user-images.githubusercontent.com/112460466/210178009-11225733-7af5-4b8b-aa1c-fe264af01797.gif)|
+|![logout](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/a8108458-739e-4288-857d-5a7a2cf7c791)|
+
 
 <br>
 
