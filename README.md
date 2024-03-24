@@ -345,7 +345,7 @@
 
 | 내 정보 확인 및 수정 |
 |----------|
-|[ezgif com-video-to-gif-converter (2)](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/633410df-d774-428f-8d03-946e1bfbefe1)|
+|![upgradeProfile](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/633410df-d774-428f-8d03-946e1bfbefe1)|
 
 <br>
 
