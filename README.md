@@ -328,17 +328,6 @@
 
 <br>
 
-### [로그아웃]
-- 상단 고정바의 로그아웃 버튼을 클릭하면 로그아웃이 완료됩니다.
-- 로그아웃시 로컬 저장소의 토큰 값과 사용자 정보를 삭제하고 초기화면으로 이동합니다.
-
-| 로그아웃 |
-|----------|
-|![logout](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/61c0a8d8-6668-4582-95d7-2b045f680f62)|
-
-
-<br>
-
 ### [내 정보 확인 및 수정]
 - 내 정보를 확인하고 즉시 수정이 가능합니다.
 - 문자열은 문자만 숫자열은 숫자만 수정이 가능합니다.
@@ -347,6 +336,17 @@
 | 내 정보 확인 및 수정 |
 |----------|
 |![upgradeProfile](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/633410df-d774-428f-8d03-946e1bfbefe1)|
+
+<br>
+
+### [로그아웃]
+- 상단 고정바의 로그아웃 버튼을 클릭하면 로그아웃이 완료됩니다.
+- 로그아웃시 로컬 저장소의 토큰 값과 사용자 정보를 삭제하고 초기화면으로 이동합니다.
+
+| 로그아웃 |
+|----------|
+|![logout](https://github.com/First-Team-STARTUP/Diabetes-management/assets/159866078/61c0a8d8-6668-4582-95d7-2b045f680f62)|
+
 
 <br>
 
