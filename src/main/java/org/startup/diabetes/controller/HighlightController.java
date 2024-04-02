@@ -100,15 +100,21 @@ public class HighlightController {
 
         log.info("minEmptyData 제일 낮은 공복 혈당: " + minEmptyData);
 
+
+
+//            List<FastingDTO> fastingDataList = fastingService.findByUserid(userDetails.getUsername())
+//                    .stream()
+//                    .filter(data -> data.getRegistDate().isAfter(sevenDaysAgo))
+//                    .sorted(Comparator.comparing(FastingDTO::getRegistDate)) // registDate로 정렬
+//                    .collect(Collectors.toList());
         //BoardService
         // 아침 데이터 가져오기
-        List<BoardDTO> morningData = boardRepository.findByTime("morning")
-                .stream()
-                .map(BoardDTO::toBoardDTO)
-                .sorted(Comparator.comparing(BoardDTO::getRegistDate)) // registDate로 정렬
-                .collect(Collectors.toList());
-        dataMap.put("morning", morningData);
-
+            List<BoardDTO> morningData = boardRepository.findByTime("아침")
+                    .stream()
+                    .map(BoardDTO::toBoardDTO)
+                    .sorted(Comparator.comparing(BoardDTO::getRegistDate)) // registDate로 정렬
+                    .collect(Collectors.toList());
+            dataMap.put("아침", morningData);
         log.info("morningData" + morningData);
 
         // morningData에서 afterBlood만 배열로 정리
@@ -140,13 +146,13 @@ public class HighlightController {
         log.info("최저 아침 식후 혈당: " + minMorningData);
 
         // 점심 데이터 가져오기
-        List<BoardDTO> afternoonData = boardRepository.findByTime("afternoon")
-                .stream()
-                .map(BoardDTO::toBoardDTO)
-                .sorted(Comparator.comparing(BoardDTO::getRegistDate)) // registDate로 정렬
-                .collect(Collectors.toList());
-        dataMap.put("afternoon", afternoonData);
-        log.info("afternoonData" + afternoonData);
+            List<BoardDTO> afternoonData = boardRepository.findByTime("점심")
+                    .stream()
+                    .map(BoardDTO::toBoardDTO)
+                    .sorted(Comparator.comparing(BoardDTO::getRegistDate)) // registDate로 정렬
+                    .collect(Collectors.toList());
+            dataMap.put("점심",afternoonData);
+            log.info("afternoonData" + afternoonData);
 
         // afternoonData에서 afterBlood만 배열로 정리
         List<Integer> afternoonDataList = afternoonData.stream()
@@ -178,12 +184,12 @@ public class HighlightController {
         log.info("최저 아침 식후 혈당: " + minAfternoonData);
 
         // 저녁 데이터 가져오기
-        List<BoardDTO> eveningData = boardRepository.findByTime("evening")
+        List<BoardDTO> eveningData = boardRepository.findByTime("저녁")
                 .stream()
                 .map(BoardDTO::toBoardDTO)
                 .sorted(Comparator.comparing(BoardDTO::getRegistDate)) // registDate로 정렬
                 .collect(Collectors.toList());
-        dataMap.put("evening", eveningData);
+        dataMap.put("저녁", eveningData);
 
         log.info("eveningData" + eveningData);
 
@@ -217,6 +223,7 @@ public class HighlightController {
         log.info("최저 저녁 식후 혈당: " + minEveningData);
 
         // Thymeleaf에서 사용할 수 있도록 데이터를 모델에 추가
+            model.addAttribute("dataMap", dataMap);
         model.addAttribute("fastingDataList", fastingDataList);
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
