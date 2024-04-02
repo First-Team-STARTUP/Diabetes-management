@@ -30,7 +30,6 @@ public class BoardController {
 
     private final BoardService boardService;
     private final FoodService foodService;
-    private final FastingService fastingService;
 
 
     @GetMapping("/save")

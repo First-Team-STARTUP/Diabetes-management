@@ -26,7 +26,6 @@ import java.util.List;
 public class BoardService {
 
     private final BoardRepository boardRepository;
-    private final FastingRepository fastingRepository;
 
     private final MemberRepository memberRepository;
     private final FoodRepository foodRepository;
@@ -37,7 +36,7 @@ public class BoardService {
         Member member = memberRepository.findByUserid(userDetails.getUsername())
                 .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
         Food food = foodRepository.findById(boardDTO.getFood().getBno())
-                .orElseThrow(()-> new RuntimeException("foodId를 찾을 수 없습니다."));
+                .orElseThrow(() -> new RuntimeException("foodId를 찾을 수 없습니다."));
         Board board = Board.builder()
                 .registDate(boardDTO.getRegistDate())
                 .time(boardDTO.getTime())
@@ -49,47 +48,23 @@ public class BoardService {
 
         return bno;
     }
+
     // 사용자가 속한 게시판 그룹을 가져오는 메서드
     public List<BoardDTO> getBoardGroupsByDate(String userid, LocalDate date) {
         // 사용자 아이디와 날짜를 기준으로 보드를 조회하여 리스트로 가져옵니다.
         List<Board> boardList = boardRepository.findByMemberUseridAndRegistDate(userid, date);
 
-        log.info("😖",boardList.size());
+        log.info("😖", boardList.size());
         // Board를 BoardDTO로 변환하여 리스트에 추가합니다.
         List<BoardDTO> boardDTOList = new ArrayList<>();
-        for (Board board : boardList){
+        for (Board board : boardList) {
             BoardDTO boardDTO = BoardDTO.toBoardDTO(board);
             boardDTOList.add(boardDTO);
         }
         return boardDTOList;
     }
 
-    public List<BoardDTO> findBoardByRegistDate(LocalDate date, UserDetails userDetails) {
 
-        List<BoardDTO> boards = boardRepository
-                .findBoardByRegistDateAndMemberUserid(date, userDetails.getUsername());
-
-        // 보드가 비어있지 않고, 보드에 음식 정보가 연결된 경우에만 음식 정보를 설정
-        if (!boards.isEmpty() && boards.get(0).getFood() != null) {
-            Food food = foodRepository.findById(boards.get(0).getFood().getBno())
-                    .orElseThrow(() -> new RuntimeException("음식 정보를 찾을 수 없습니다."));
-            boards.get(0).setFood(food);
-        }
-
-        return boards;
-    }
-
-    public List<BoardDTO> getBoardByDate(LocalDate date, String userid) {
-        // 사용자의 해당 날짜에 해당하는 데이터 가져오기
-        return boardRepository.findBoardByRegistDateAndMemberUserid(date, userid);
-    }
-
-    //생성자주입받고,
-    public void save(BoardDTO boardDTO) {
-        Board board = Board.toSaveEntity(boardDTO);
-        //우리가 호출했던방식으로
-        boardRepository.save(board);
-    }
     //여기선 DTO객체를 엔티티로 옮겨담았다면,  아래에선, 반대
 
     public List<BoardDTO> findAll() {
@@ -111,5 +86,6 @@ public class BoardService {
         }
         return boardDTOList;  //컨트롤러로 리턴.
     }
+
 
 }

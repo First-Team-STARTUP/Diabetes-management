@@ -30,7 +30,6 @@ public class FastingServiceImpl implements FastingService {
     private final ModelMapper modelMapper;
     private FastingRepository fastingRepository;
     private final MemberRepository memberRepository;
-    private final FoodRepository foodRepository;
 
     // register 메서드는
     // FastingDTO 객체를 받아서 modelMapper를 사용하여 Fasting 엔터티로 변환하고
