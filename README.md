@@ -27,7 +27,7 @@
 
 | **김루아** | **김이랑** | **이재형** |
 | :------: |  :------: | :------: |
-| [<img src="https://avatars.githubusercontent.com/u/106502312?v=4" height=150 width=150> <br/> @ruah0807](https://github.com/yeon1615) | [<img src="https://avatars.githubusercontent.com/u/112460466?v=4" height=150 width=150> <br/> @Cheorizzang](https://github.com/Cheorizzang) | [<img src="https://avatars.githubusercontent.com/u/112460506?v=4" height=150 width=150> <br/> @heejiyang](https://github.com/heejiyang) |
+| [<img src="https://avatars.githubusercontent.com/u/106502312?v=4" height=150 width=150> <br/> @ruah0807](https://github.com/yeon1615) | [<img src="https://github.com/First-Team-STARTUP/Diabetes-management/assets/113574030/517a3a6c-7926-4ca3-9d23-8ff172e32727" height=150 width=150> <br/> @yirang26](https://github.com/YirangKim) | [<img src="https://avatars.githubusercontent.com/u/112460506?v=4" height=150 width=150> <br/> @heejiyang](https://github.com/heejiyang) |
 
 </div>
 
