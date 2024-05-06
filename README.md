@@ -357,9 +357,11 @@
 - 공복혈당 기록은 DB에 저장되며 동시에 7일간의 기록을 차트로 제공하여 내 공복혈당은 분석하기 용이하게 기획했습니다.
 - 또, 어제 날짜보다 오늘 날짜에 공복혈당이 높을 시 "경고"메세지, 낮을시 "격려"메세지 알람이 뜹니다.
   
-| 서비스 메인 기능 소개 |
+| 혈당 기록 차트 시각화|
 |----------|
 ![02_혈당기록_차트](https://github.com/First-Team-STARTUP/Diabetes-management/assets/113574030/ec1d678e-ce75-4801-8d1c-26386ef7a256)
+| 데이터 검증 |
+|----------|
 ![02_혈당기록_검증](https://github.com/First-Team-STARTUP/Diabetes-management/assets/113574030/beee86c2-4147-4f91-a5c1-4d1dd1d27bfe)
 
 
