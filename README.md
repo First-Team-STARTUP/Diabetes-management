@@ -277,11 +277,18 @@
 
 <br>
 
-## 6. 신경 쓴 부분
+## 6. 테이블 구조(ERD)
 
-- [접근제한 설정](https://github.com/likelion-project-README/README/wiki/README-6.%EC%8B%A0%EA%B2%BD-%EC%93%B4-%EB%B6%80%EB%B6%84_%EC%A0%91%EA%B7%BC%EC%A0%9C%ED%95%9C-%EC%84%A4%EC%A0%95)
+- Member Entity (사용자) 사용자의 혈당 기본 정보를 저장하기 위해 userid 를 만드는 개인 상세 정보를 작성
+- Fasting Entity(공복혈당) @ManyToOne 으로 Member 엔티티 외래키 설정하여 유저가 공복혈당 입력시 Memeber 엔티티에서 member_id 가져옴
+- Board Entity(식후혈당) @ManyToOne 으로 Member 와 Food 엔티티 외래키 설정하여 유저가 식후혈당 입력시 member_id, food_id 가져옴
+- Food Entity( 음식 정보) @ManyToOne 으로 member와 food의 PrimaryKey 외래키 맵핑
 
-- [Recoil을 통한 상태관리 및 유지](https://github.com/likelion-project-README/README/wiki/README-6.%EC%8B%A0%EA%B2%BD-%EC%93%B4-%EB%B6%80%EB%B6%84_Recoil%EC%9D%84-%ED%86%B5%ED%95%9C-%EC%83%81%ED%83%9C%EA%B4%80%EB%A6%AC-%EB%B0%8F-%EC%9C%A0%EC%A7%80)
+| ERD |
+|----------|
+|<img width="814" alt="스크린샷 2024-05-06 오후 5 34 15" src="https://github.com/First-Team-STARTUP/Diabetes-management/assets/113574030/71bde400-7366-40d9-9ce1-2de9e6654d7d">|
+
+
 
 <br>
 
@@ -456,6 +463,13 @@
 
 <br>
 
+## 신경 쓴 부분
+
+- [접근제한 설정](https://github.com/likelion-project-README/README/wiki/README-6.%EC%8B%A0%EA%B2%BD-%EC%93%B4-%EB%B6%80%EB%B6%84_%EC%A0%91%EA%B7%BC%EC%A0%9C%ED%95%9C-%EC%84%A4%EC%A0%95)
+
+- [Recoil을 통한 상태관리 및 유지](https://github.com/likelion-project-README/README/wiki/README-6.%EC%8B%A0%EA%B2%BD-%EC%93%B4-%EB%B6%80%EB%B6%84_Recoil%EC%9D%84-%ED%86%B5%ED%95%9C-%EC%83%81%ED%83%9C%EA%B4%80%EB%A6%AC-%EB%B0%8F-%EC%9C%A0%EC%A7%80)
+
+<br>
 
 
 
